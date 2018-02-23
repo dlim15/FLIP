@@ -23,6 +23,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1ED3421B9AE3F42EE1364A57 /* Bulk_UnityEngine.SharedInternalsModule_0.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83494F4AADEA11B929827EFA /* Bulk_UnityEngine.SharedInternalsModule_0.cpp */; };
 		22334335A1C6CB866BF77F14 /* Il2CppMetadataRegistration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F53C48C9A079705B46A4F5A2 /* Il2CppMetadataRegistration.cpp */; };
+		23AB421AA836638E54AC83C4 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D246AFB599B8F3F482415A /* ARKit.framework */; };
 		280E4AE5953B1C456A8752E3 /* Bulk_mscorlib_3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23BD4CE88F89B7D224C88DC0 /* Bulk_mscorlib_3.cpp */; };
 		2DD64FA2B80D76F1F68669F5 /* Il2CppCompilerCalculateTypeValues_11Table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F8B4E21A8BDE6617AE9E651 /* Il2CppCompilerCalculateTypeValues_11Table.cpp */; };
 		2F124853B25D6B0F476650C9 /* ARSessionNative.mm in Sources */ = {isa = PBXBuildFile; fileRef = 70F34CBEBE34DE3A784E922D /* ARSessionNative.mm */; };
@@ -381,6 +382,7 @@
 		CFC643EABA7F0E2C59C55A04 /* Il2CppCompilerCalculateTypeValues_10Table.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Il2CppCompilerCalculateTypeValues_10Table.cpp; path = Classes/Native/Il2CppCompilerCalculateTypeValues_10Table.cpp; sourceTree = SOURCE_ROOT; };
 		D5A848B5A3F3828AA6C0636C /* Bulk_Mono.Security_0.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Bulk_Mono.Security_0.cpp; path = Classes/Native/Bulk_Mono.Security_0.cpp; sourceTree = SOURCE_ROOT; };
 		D680493FA4A45180C8FA8B11 /* Il2CppCompilerCalculateTypeValues_2Table.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Il2CppCompilerCalculateTypeValues_2Table.cpp; path = Classes/Native/Il2CppCompilerCalculateTypeValues_2Table.cpp; sourceTree = SOURCE_ROOT; };
+		D6D246AFB599B8F3F482415A /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		D82DCFBB0E8000A5005D6AD8 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = Classes/main.mm; sourceTree = SOURCE_ROOT; };
 		D8A1C7240E80637F000160D3 /* RegisterMonoModules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegisterMonoModules.cpp; path = Libraries/RegisterMonoModules.cpp; sourceTree = SOURCE_ROOT; };
 		D8A1C7250E80637F000160D3 /* RegisterMonoModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterMonoModules.h; path = Libraries/RegisterMonoModules.h; sourceTree = SOURCE_ROOT; };
@@ -429,6 +431,7 @@
 				83B2574F0E63025400468741 /* libiconv.2.dylib in Frameworks */,
 				E1A440E3AC473C41DA704DC8 /* libil2cpp.a in Frameworks */,
 				6F4748EFA285BC1AA55622D7 /* Metal.framework in Frameworks */,
+				23AB421AA836638E54AC83C4 /* ARKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +512,7 @@
 				56BCBA380FCF049A0030C3B2 /* SystemConfiguration.framework */,
 				830B5C100E5ED4C100C7819F /* UIKit.framework */,
 				ECD14A12A891432671BFB2CF /* Metal.framework */,
+				D6D246AFB599B8F3F482415A /* ARKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
