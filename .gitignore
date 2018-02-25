@@ -66,8 +66,8 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 
-ARKittyTest/
-output/
+ARKittyTest
+output
 *.DS_Store
-ARKittyExample/Temp/
-ARKittyExample/Library/
+ARKittyExample/Temp
+ARKittyExample/Library
