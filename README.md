@@ -19,5 +19,5 @@ This repo contains the code for our senior project.
 6. In ``output/Libraries/UnityARKitPlugin/Plugins/iOS/UnityARKit/NativeInterface``, add the following line after line 1116 (fix coming soon): <br />
 ``return ARFaceTrackingConfiguration.isSupported;``
 
-7. Build the unitySwiftTest project on Xcode.
+7. Build the ``unitySwiftTest`` project on Xcode.
 
