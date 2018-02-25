@@ -56,7 +56,7 @@ public static class XcodePostBuild
     /// Current directory is the root directory of this Unity project, i.e. the directory of 'Assets' folder.
     /// Sample value: "../xcode"
     /// </summary>
-	private const string XcodeProjectRoot = "../../../unitySwiftTest";
+	private const string XcodeProjectRoot = "../unitySwiftTest";
 
     /// <summary>
     /// Name of the Xcode project.

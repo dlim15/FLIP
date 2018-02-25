@@ -69,3 +69,5 @@ fastlane/test_output
 ARKittyTest/
 output/
 *.DS_Store
+ARKittyExample/Temp/
+ARKittyExample/Library/
