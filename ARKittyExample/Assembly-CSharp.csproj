@@ -133,7 +133,7 @@
      <None Include="Assets\UnityARKitPlugin\Examples\Common\Shaders\InstancedSurfaceShader.shader" />
      <None Include="Assets\UnityARKitPlugin\Plugins\iOS\UnityARKit\Shaders\YUVShader.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>/Users/jeremy/Dropbox/Documents/SP-Temp/Flip-UOP-SP-2018/ARKittyExample/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>/Users/jeremy/Dropbox/git/Flip-UOP-SP-2018/ARKittyExample/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UIAutomation">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>

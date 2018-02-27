@@ -2,15 +2,11 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var rotateSwitch: UISwitch!
+    @IBOutlet weak var butt: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.startUnity()
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(handleUnityReady), name: NSNotification.Name("UnityReady"), object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(handleUnityToggleRotation(_:)), name: NSNotification.Name("UnityToggleRotation"), object: nil)
-        }
+        
     }
     
     @objc func handleUnityReady() {
@@ -40,6 +36,13 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func butt(_ sender: Any) {
-        print("OYAUWIGHOAYUEHILGYUFKEBHIFLABHSUAFBUDSAFBASLHFDSAFLIASFBLSIA")
+        butt.isHidden = true
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.startUnity()
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(handleUnityReady), name: NSNotification.Name("UnityReady"), object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(handleUnityToggleRotation(_:)), name: NSNotification.Name("UnityToggleRotation"), object: nil)
+        }
+        handleUnityReady()
     }
 }

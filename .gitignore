@@ -71,3 +71,4 @@ output
 *.DS_Store
 ARKittyExample/Temp
 ARKittyExample/Library
+unitySwiftTest/Unity/Exports.xcconfig
