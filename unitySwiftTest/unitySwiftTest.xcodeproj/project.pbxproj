@@ -53,9 +53,9 @@
 		3ECD46ACAA1CBD0BF4C38434 /* Bulk_Mono.Security_0.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CFE84223A768952EA90A3570 /* Bulk_Mono.Security_0.cpp */; };
 		3FFD547A2040757C008E77ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD54792040757C008E77ED /* AppDelegate.swift */; };
 		3FFD547C2040757C008E77ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD547B2040757C008E77ED /* ViewController.swift */; };
-		3FFD547F2040757C008E77ED = {isa = PBXBuildFile; fileRef = 3FFD547D2040757C008E77ED /* Main.storyboard */; };
+		3FFD547F2040757C008E77ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FFD547D2040757C008E77ED /* Main.storyboard */; };
 		3FFD54812040757C008E77ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FFD54802040757C008E77ED /* Assets.xcassets */; };
-		3FFD54842040757C008E77ED = {isa = PBXBuildFile; fileRef = 3FFD54822040757C008E77ED /* LaunchScreen.storyboard */; };
+		3FFD54842040757C008E77ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FFD54822040757C008E77ED /* LaunchScreen.storyboard */; };
 		3FFD548F2040757C008E77ED /* unitySwiftTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD548E2040757C008E77ED /* unitySwiftTestTests.swift */; };
 		3FFD549A2040757C008E77ED /* unitySwiftTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD54992040757C008E77ED /* unitySwiftTestUITests.swift */; };
 		3FFD54AD204078DB008E77ED /* UnityUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD54A8204078DB008E77ED /* UnityUtils.mm */; };
@@ -109,6 +109,7 @@
 		9C0C46AB868609A4C24FD9D8 /* libil2cpp.icalls in Resources */ = {isa = PBXBuildFile; fileRef = BD8949CBB3BB98D157A96D6C /* libil2cpp.icalls */; };
 		9CAE4FFA947E438F0EE6119E /* UnityViewControllerBase+iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97B84B049E79887FE2DE9647 /* UnityViewControllerBase+iOS.mm */; };
 		9D00461A8B83E6DD860B3C8C /* UnityICallRegistration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 360A4CE18EDF080743F1B382 /* UnityICallRegistration.cpp */; };
+		A106C1C720468CAE00134ED3 /* ARController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A106C1C620468CAE00134ED3 /* ARController.swift */; };
 		A15E453CBC648E52DA9C921D /* UnityAppController+Rendering.mm in Sources */ = {isa = PBXBuildFile; fileRef = 275F40BF8CF1489C4C857A41 /* UnityAppController+Rendering.mm */; };
 		A3EC4977B00E846752308EFE /* UnityAppController+ViewHandling.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3F348CE8E0AE9B6229776A1 /* UnityAppController+ViewHandling.mm */; };
 		A543471CA6A64CB33BFCF998 /* Il2CppInvokerTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA3D4E2683CC162F15840472 /* Il2CppInvokerTable.cpp */; };
@@ -450,7 +451,7 @@
 		759E44EB8494B4C35B9C54F0 /* UnityAdsConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UnityAdsConfig.h; path = unitySwiftTest/Unity/Classes/UnityAds/UnityAdsConfig.h; sourceTree = SOURCE_ROOT; };
 		76A840649C326104FE5612B1 /* SemaphoreImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SemaphoreImpl.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/os/Win32/SemaphoreImpl.h; sourceTree = SOURCE_ROOT; };
 		76F343788D7D4431F96E8074 /* Il2CppAttributes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Il2CppAttributes.cpp; path = unitySwiftTest/Unity/Classes/Native/Il2CppAttributes.cpp; sourceTree = SOURCE_ROOT; };
-		77E0413788FFB21ED85EBCCB /* libil2cpp.def */ = {isa = PBXFileReference; lastKnownFileType = file; name = libil2cpp.def; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/libil2cpp.def; sourceTree = SOURCE_ROOT; };
+		77E0413788FFB21ED85EBCCB /* libil2cpp.def */ = {isa = PBXFileReference; lastKnownFileType = text; name = libil2cpp.def; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/libil2cpp.def; sourceTree = SOURCE_ROOT; };
 		77F144B480EA4C5079DB58E3 /* PosixHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PosixHelpers.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/os/Posix/PosixHelpers.h; sourceTree = SOURCE_ROOT; };
 		782A426184AF837BA9D7EE56 /* Exception.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Exception.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/icalls/mscorlib/System/Exception.h; sourceTree = SOURCE_ROOT; };
 		78BE4C8DA9DB402C9C47E7CC /* DefaultTraceListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DefaultTraceListener.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/icalls/System/System.Diagnostics/DefaultTraceListener.h; sourceTree = SOURCE_ROOT; };
@@ -548,6 +549,7 @@
 		A0824F22BBB196DC32829382 /* LibraryLoader-c-api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "LibraryLoader-c-api.h"; path = "unitySwiftTest/Unity/Libraries/libil2cpp/include/os/c-api/LibraryLoader-c-api.h"; sourceTree = SOURCE_ROOT; };
 		A0874C66B50B45E23C281391 /* MemoryRead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MemoryRead.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/utils/MemoryRead.h; sourceTree = SOURCE_ROOT; };
 		A10649F0A5C513B0EA77E94A /* UnityTrampolineConfigure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UnityTrampolineConfigure.h; path = unitySwiftTest/Unity/Classes/UnityTrampolineConfigure.h; sourceTree = SOURCE_ROOT; };
+		A106C1C620468CAE00134ED3 /* ARController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARController.swift; sourceTree = "<group>"; };
 		A18A448FB6D3A071DCE2A74F /* dynamic_array.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dynamic_array.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/utils/dynamic_array.h; sourceTree = SOURCE_ROOT; };
 		A19A4D1B93017ABA7BE63EC7 /* Il2CppCompilerCalculateTypeValues_10Table.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Il2CppCompilerCalculateTypeValues_10Table.cpp; path = unitySwiftTest/Unity/Classes/Native/Il2CppCompilerCalculateTypeValues_10Table.cpp; sourceTree = SOURCE_ROOT; };
 		A1C34C7E8D9B49A12DD1E6C5 /* trees.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = trees.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/external/zlib/trees.h; sourceTree = SOURCE_ROOT; };
@@ -635,7 +637,7 @@
 		BCBF4EF7BA8F4461D24D0AB4 /* Event-c-api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Event-c-api.h"; path = "unitySwiftTest/Unity/Libraries/libil2cpp/include/os/c-api/Event-c-api.h"; sourceTree = SOURCE_ROOT; };
 		BD4348C59043A6B2A9A03987 /* SecurityManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SecurityManager.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/icalls/mscorlib/System.Security/SecurityManager.h; sourceTree = SOURCE_ROOT; };
 		BD68483A948792B1AFAB2DCC /* zutil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = zutil.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/external/zlib/zutil.h; sourceTree = SOURCE_ROOT; };
-		BD8949CBB3BB98D157A96D6C /* libil2cpp.icalls */ = {isa = PBXFileReference; lastKnownFileType = file; name = libil2cpp.icalls; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/libil2cpp.icalls; sourceTree = SOURCE_ROOT; };
+		BD8949CBB3BB98D157A96D6C /* libil2cpp.icalls */ = {isa = PBXFileReference; lastKnownFileType = text; name = libil2cpp.icalls; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/libil2cpp.icalls; sourceTree = SOURCE_ROOT; };
 		BDA24CD1949ADDCA8F2A68C0 /* Vector3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Vector3.h; path = unitySwiftTest/Unity/Classes/Vector3.h; sourceTree = SOURCE_ROOT; };
 		BDBB419382D061B838F074D2 /* UnityViewControllerBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UnityViewControllerBase.h; path = unitySwiftTest/Unity/Classes/UI/UnityViewControllerBase.h; sourceTree = SOURCE_ROOT; };
 		BDD746BBB89D9F89988B5BA7 /* FileVersionInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FileVersionInfo.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/icalls/System/System.Diagnostics/FileVersionInfo.h; sourceTree = SOURCE_ROOT; };
@@ -1094,6 +1096,7 @@
 				3FFD54822040757C008E77ED /* LaunchScreen.storyboard */,
 				3FFD54852040757C008E77ED /* Info.plist */,
 				3BBC40879BE5DC2689E74797 /* Unity */,
+				A106C1C620468CAE00134ED3 /* ARController.swift */,
 			);
 			path = unitySwiftTest;
 			sourceTree = "<group>";
@@ -2281,7 +2284,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3FFD54712040757C008E77ED /* Build configuration list for PBXProject "Unity-iPhone" */;
+			buildConfigurationList = 3FFD54712040757C008E77ED /* Build configuration list for PBXProject "unitySwiftTest" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -2290,7 +2293,7 @@
 				Base,
 			);
 			mainGroup = 3FFD546D2040757C008E77ED;
-			productRefGroup = 3FFD54772040757C008E77ED;
+			productRefGroup = 3FFD54772040757C008E77ED /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -2307,12 +2310,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FFD54AF204078DB008E77ED /* Unity.xcconfig in Resources */,
-				3FFD54842040757C008E77ED,
+				3FFD54842040757C008E77ED /* LaunchScreen.storyboard in Resources */,
 				3FFD54AE204078DB008E77ED /* rsync_exclude in Resources */,
 				3FFD54812040757C008E77ED /* Assets.xcassets in Resources */,
 				3FFD54B120407913008E77ED /* .gitignore in Resources */,
 				3FFD54BD20407E12008E77ED /* Unity.xcconfig in Resources */,
-				3FFD547F2040757C008E77ED,
+				3FFD547F2040757C008E77ED /* Main.storyboard in Resources */,
 				1E9E49A5856A2B2447F05851 /* libil2cpp.def in Resources */,
 				3FFD54BC20407E12008E77ED /* rsync_exclude in Resources */,
 				3FFD54B520407C2C008E77ED /* Exports.xcconfig in Resources */,
@@ -2433,6 +2436,7 @@
 				DEA64B25868C6859A3DA6506 /* Il2CppCompilerCalculateTypeValues_11Table.cpp in Sources */,
 				B4374504A7BE04D609AF9942 /* Il2CppCompilerCalculateTypeValues_12Table.cpp in Sources */,
 				E47B418692B21C213590E88F /* Il2CppCompilerCalculateTypeValues_13Table.cpp in Sources */,
+				A106C1C720468CAE00134ED3 /* ARController.swift in Sources */,
 				1D5E4265A6C93A849FEFA7EF /* Il2CppCompilerCalculateTypeValues_14Table.cpp in Sources */,
 				3D844F9F969F896C3366813A /* Il2CppCompilerCalculateTypeValues_15Table.cpp in Sources */,
 				562E4A80BC41697E454989CC /* Il2CppCompilerCalculateTypeValues_16Table.cpp in Sources */,
@@ -2558,7 +2562,7 @@
 /* Begin XCBuildConfiguration section */
 		3FFD549C2040757C008E77ED /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3FFD54AB204078DB008E77ED;
+			baseConfigurationReference = 3FFD54AB204078DB008E77ED /* Unity.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2616,7 +2620,7 @@
 		};
 		3FFD549D2040757C008E77ED /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3FFD54AB204078DB008E77ED;
+			baseConfigurationReference = 3FFD54AB204078DB008E77ED /* Unity.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2667,15 +2671,15 @@
 		};
 		3FFD549F2040757C008E77ED /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3FFD54AB204078DB008E77ED;
+			baseConfigurationReference = 3FFD54AB204078DB008E77ED /* Unity.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5M6V5PDND2;
+				DEVELOPMENT_TEAM = D353SPAKW9;
 				INFOPLIST_FILE = unitySwiftTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sindack.DemoApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dv.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -2685,15 +2689,15 @@
 		};
 		3FFD54A02040757C008E77ED /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3FFD54AB204078DB008E77ED;
+			baseConfigurationReference = 3FFD54AB204078DB008E77ED /* Unity.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5M6V5PDND2;
+				DEVELOPMENT_TEAM = D353SPAKW9;
 				INFOPLIST_FILE = unitySwiftTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sindack.DemoApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dv.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -2770,7 +2774,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3FFD54712040757C008E77ED /* Build configuration list for PBXProject "Unity-iPhone" */ = {
+		3FFD54712040757C008E77ED /* Build configuration list for PBXProject "unitySwiftTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3FFD549C2040757C008E77ED /* Debug */,
