@@ -48,7 +48,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
-                                    <action selector="backAction:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="vJl-0D-zqv"/>
+                                    <action selector="ARViewBackAction:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="4Jx-je-03W"/>
                                 </connections>
                             </button>
                         </subviews>
