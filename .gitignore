@@ -67,8 +67,9 @@ fastlane/screenshots
 fastlane/test_output
 
 ARKittyTest
-output
+output/*
 *.DS_Store
 ARKittyExample/Temp
 ARKittyExample/Library
 unitySwiftTest/Unity/Exports.xcconfig
+!/output/Libraries/UnityARKitPlugin/Plugins/iOS/UnityARKit/NativeInterface.mm
