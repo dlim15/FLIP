@@ -12,8 +12,11 @@ class ARController: UIViewController {
     @IBOutlet var rotateSwitch: UISwitch!
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
+    @IBOutlet weak var btnBack: UIButton!
     @objc func handleUnityReady() {
+        btnBack.isHidden = true
         showUnitySubView()
+        
     }
     @IBAction func backAction(_ sender: UIButton) {
         // TODO: find the way to close the unity.

@@ -111,6 +111,8 @@
 		9D00461A8B83E6DD860B3C8C /* UnityICallRegistration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 360A4CE18EDF080743F1B382 /* UnityICallRegistration.cpp */; };
 		A106C1C720468CAE00134ED3 /* ARController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A106C1C620468CAE00134ED3 /* ARController.swift */; };
 		A15E453CBC648E52DA9C921D /* UnityAppController+Rendering.mm in Sources */ = {isa = PBXBuildFile; fileRef = 275F40BF8CF1489C4C857A41 /* UnityAppController+Rendering.mm */; };
+		A1EAA47320492C1300EA1058 /* ImgAlbumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EAA47220492C1300EA1058 /* ImgAlbumController.swift */; };
+		A1EAA47520492C8D00EA1058 /* ImgAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EAA47420492C8D00EA1058 /* ImgAlbumCell.swift */; };
 		A3EC4977B00E846752308EFE /* UnityAppController+ViewHandling.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3F348CE8E0AE9B6229776A1 /* UnityAppController+ViewHandling.mm */; };
 		A543471CA6A64CB33BFCF998 /* Il2CppInvokerTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA3D4E2683CC162F15840472 /* Il2CppInvokerTable.cpp */; };
 		A69740E497CA6F17FC12C592 /* Bulk_UnityEngine.AnimationModule_0.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94AA43D7A0B2A8D019B74094 /* Bulk_UnityEngine.AnimationModule_0.cpp */; };
@@ -553,6 +555,8 @@
 		A18A448FB6D3A071DCE2A74F /* dynamic_array.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dynamic_array.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/utils/dynamic_array.h; sourceTree = SOURCE_ROOT; };
 		A19A4D1B93017ABA7BE63EC7 /* Il2CppCompilerCalculateTypeValues_10Table.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Il2CppCompilerCalculateTypeValues_10Table.cpp; path = unitySwiftTest/Unity/Classes/Native/Il2CppCompilerCalculateTypeValues_10Table.cpp; sourceTree = SOURCE_ROOT; };
 		A1C34C7E8D9B49A12DD1E6C5 /* trees.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = trees.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/external/zlib/trees.h; sourceTree = SOURCE_ROOT; };
+		A1EAA47220492C1300EA1058 /* ImgAlbumController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgAlbumController.swift; sourceTree = "<group>"; };
+		A1EAA47420492C8D00EA1058 /* ImgAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgAlbumCell.swift; sourceTree = "<group>"; };
 		A2274989960F59E075380094 /* UnityAppController+UnityInterface.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "UnityAppController+UnityInterface.mm"; path = "unitySwiftTest/Unity/Classes/UnityAppController+UnityInterface.mm"; sourceTree = SOURCE_ROOT; };
 		A22D49AEB0D3C921DFE725C5 /* Il2CppHashSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Il2CppHashSet.h; path = unitySwiftTest/Unity/Libraries/libil2cpp/include/utils/Il2CppHashSet.h; sourceTree = SOURCE_ROOT; };
 		A2DD4BBAAF5D549951133363 /* ThreadLocalValue-c-api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ThreadLocalValue-c-api.h"; path = "unitySwiftTest/Unity/Libraries/libil2cpp/include/os/c-api/ThreadLocalValue-c-api.h"; sourceTree = SOURCE_ROOT; };
@@ -1097,6 +1101,8 @@
 				3FFD54852040757C008E77ED /* Info.plist */,
 				3BBC40879BE5DC2689E74797 /* Unity */,
 				A106C1C620468CAE00134ED3 /* ARController.swift */,
+				A1EAA47220492C1300EA1058 /* ImgAlbumController.swift */,
+				A1EAA47420492C8D00EA1058 /* ImgAlbumCell.swift */,
 			);
 			path = unitySwiftTest;
 			sourceTree = "<group>";
@@ -2388,6 +2394,7 @@
 				54B04BFA9618608975EDA1B8 /* Bulk_Generics_0.cpp in Sources */,
 				56CB4627A4A36407B634B71C /* Bulk_Generics_1.cpp in Sources */,
 				8A3F44C49DF62AA223A5CDCA /* Bulk_Generics_2.cpp in Sources */,
+				A1EAA47320492C1300EA1058 /* ImgAlbumController.swift in Sources */,
 				CFB943C0AC541E300CAAFD98 /* Bulk_Generics_3.cpp in Sources */,
 				43FF4F4CB0718108ED3BE4A0 /* Bulk_Generics_4.cpp in Sources */,
 				3ECD46ACAA1CBD0BF4C38434 /* Bulk_Mono.Security_0.cpp in Sources */,
@@ -2459,6 +2466,7 @@
 				20F948AFA78115A166C6FF6C /* Il2CppGenericMethodPointerTable.cpp in Sources */,
 				EC284B79BCF1FB922B8AF988 /* Il2CppGenericMethodTable.cpp in Sources */,
 				95E54888B3F38B8F18B9FF71 /* Il2CppInteropDataTable.cpp in Sources */,
+				A1EAA47520492C8D00EA1058 /* ImgAlbumCell.swift in Sources */,
 				A543471CA6A64CB33BFCF998 /* Il2CppInvokerTable.cpp in Sources */,
 				4A474BF58B2C18F50F58C7EE /* Il2CppMetadataRegistration.cpp in Sources */,
 				AD2941949197E7E7F75DE948 /* Il2CppMetadataUsage.cpp in Sources */,
