@@ -9,7 +9,7 @@
 import UIKit
 
 class ARController: UIViewController {
-    @IBOutlet var rotateSwitch: UISwitch!
+//    @IBOutlet var rotateSwitch: UISwitch!
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     @IBOutlet weak var btnBack: UIButton!
@@ -18,20 +18,29 @@ class ARController: UIViewController {
         showUnitySubView()
         
     }
-    @IBAction func backAction(_ sender: UIButton) {
+    @IBAction func ARViewBackAction(_ sender: UIButton) {
         // TODO: find the way to close the unity.
+        // see: https://github.com/jiulongw/swift-unity/issues/25
         appDelegate?.stopUnity()
+        
+        print("AR view exited.")
         self.dismiss(animated: true, completion: nil)
     }
-    @objc func handleUnityToggleRotation(_ n: NSNotification) {
-        if let isOn = n.userInfo?["isOn"] as? NSNumber {
-            rotateSwitch.isOn = isOn.boolValue
-        }
+    
+    @IBAction func SFViewBackAction(_ sender: Any) {
+        print("SF view exited.")
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func handleSwitchValueChanged(sender: UISwitch) {
-        UnityPostMessage("NATIVE_BRIDGE", "RotateCube", sender.isOn ? "start" : "stop")
-    }
+    //    @objc func handleUnityToggleRotation(_ n: NSNotification) {
+//        if let isOn = n.userInfo?["isOn"] as? NSNumber {
+//            rotateSwitch.isOn = isOn.boolValue
+//        }
+//    }
+    
+//    @IBAction func handleSwitchValueChanged(sender: UISwitch) {
+//        UnityPostMessage("NATIVE_BRIDGE", "RotateCube", sender.isOn ? "start" : "stop")
+//    }
     
     func showUnitySubView() {
         if let unityView = UnityGetGLView() {
@@ -48,7 +57,7 @@ class ARController: UIViewController {
     func showUnity() {
         appDelegate?.startUnity()
         NotificationCenter.default.addObserver(self, selector: #selector(handleUnityReady), name: NSNotification.Name("UnityReady"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUnityToggleRotation(_:)), name: NSNotification.Name("UnityToggleRotation"), object: nil)
+        // NotificationCenter.default.addObserver(self, selector: #selector(handleUnityToggleRotation(_:)), name: NSNotification.Name("UnityToggleRotation"), object: nil)
         handleUnityReady()
     }
     override func viewDidLoad() {
