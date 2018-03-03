@@ -14,7 +14,7 @@ class ARController: UIViewController {
     
     @IBOutlet weak var btnBack: UIButton!
     @objc func handleUnityReady() {
-        btnBack.isHidden = true
+        btnBack.isHidden = false
         showUnitySubView()
         
     }
@@ -23,8 +23,7 @@ class ARController: UIViewController {
         // see: https://github.com/jiulongw/swift-unity/issues/25
         appDelegate?.stopUnity()
         
-        print("AR view exited.")
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func SFViewBackAction(_ sender: Any) {
