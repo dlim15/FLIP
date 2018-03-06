@@ -21,10 +21,10 @@ namespace UnityEngine.XR.iOS
                     Debug.Log (string.Format ("x:{0:0.######} y:{1:0.######} z:{2:0.######}", m_HitTransform.position.x, m_HitTransform.position.y, m_HitTransform.position.z));
 
                     using (System.IO.StreamWriter file =
-                        new System.IO.StreamWriter( Application.persistentDataPath + "/obj_coordinates.txt", true))
+                        new System.IO.StreamWriter( Application.persistentDataPath + "/obj_coordinates.txt", false))
                     {
 //                        File.SetAttributes(file, FileAttributes.Normal);
-                        file.WriteLine("this is a test");
+                        file.WriteLine( string.Format ("x:{0:0.######} y:{1:0.######} z:{2:0.######}", m_HitTransform.position.x, m_HitTransform.position.y, m_HitTransform.position.z) );
                         Debug.Log ( "*** We saved the file to " + Application.persistentDataPath + "/obj_coordinates.txt" );
                     }
 
