@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace UnityEngine.XR.iOS
@@ -18,6 +19,16 @@ namespace UnityEngine.XR.iOS
                     m_HitTransform.position = UnityARMatrixOps.GetPosition (hitResult.worldTransform);
                     m_HitTransform.rotation = UnityARMatrixOps.GetRotation (hitResult.worldTransform);
                     Debug.Log (string.Format ("x:{0:0.######} y:{1:0.######} z:{2:0.######}", m_HitTransform.position.x, m_HitTransform.position.y, m_HitTransform.position.z));
+                    string path = Directory.GetCurrentDirectory();
+                    Debug.Log ( "ASHFLIUAOS;DHFUILSADFO;AIUSLFHO:" + path );
+
+                    using (System.IO.StreamWriter file =
+                        new System.IO.StreamWriter( Application.persistentDataPath + "/obj_coordinates.txt", true))
+                    {
+//                        File.SetAttributes(file, FileAttributes.Normal);
+                        file.WriteLine("this is a test");
+                    }
+
                     return true;
                 }
             }

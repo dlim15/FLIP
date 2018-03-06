@@ -72,5 +72,4 @@ output/*
 ARKittyExample/Temp
 ARKittyExample/Library
 unitySwiftTest/Unity/Exports.xcconfig
-!/output/Libraries/UnityARKitPlugin/Plugins/iOS/UnityARKit/NativeInterface.mm
 unitySwiftTest/unitySwiftTest.xcodeproj/project.pbxproj
