@@ -14,6 +14,15 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        let fileManager = FileManager.default
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        do {
+            let fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+            print(fileURLs[0])
+        } catch {
+            print( "error findinfg directory" )
+        }
     }
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         return sampImgs.count
