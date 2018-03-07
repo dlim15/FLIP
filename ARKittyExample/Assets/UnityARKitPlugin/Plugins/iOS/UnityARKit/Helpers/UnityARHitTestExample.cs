@@ -24,7 +24,7 @@ namespace UnityEngine.XR.iOS
                         new System.IO.StreamWriter( Application.persistentDataPath + "/obj_coordinates.txt", false))
                     {
 //                        File.SetAttributes(file, FileAttributes.Normal);
-                        file.WriteLine( string.Format ("x:{0:0.######} y:{1:0.######} z:{2:0.######}", m_HitTransform.position.x, m_HitTransform.position.y, m_HitTransform.position.z) );
+                        file.WriteLine( string.Format ("{0:0.######},{1:0.######},{2:0.######}", m_HitTransform.position.x, m_HitTransform.position.y, m_HitTransform.position.z) );
                         Debug.Log ( "*** We saved the file to " + Application.persistentDataPath + "/obj_coordinates.txt" );
                     }
 
