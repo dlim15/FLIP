@@ -76,10 +76,10 @@ class StillFrameScene : SKScene{
     
     func placeNode(){
         let cat = SKSpriteNode(imageNamed: "cat.png")
-        cat.xScale = SCALE_INIT * ( 1.25 / zDistance! )
-        cat.yScale = SCALE_INIT * ( 1.25 / zDistance! )
+        cat.xScale = SCALE_INIT * abs( 1.25 / zDistance! )
+        cat.yScale = SCALE_INIT * abs( 1.25 / zDistance! )
         cat.position.x = (coord?.x)! * COORDINATE_OFFSET_FACTOR_X
-        cat.position.y = ( (coord?.y)! + abs( zDistance! ) / 2.0 ) * COORDINATE_OFFSET_FACTOR_Y
+        cat.position.y = ( (coord?.y)! + abs( zDistance! ) / 5.0 ) * COORDINATE_OFFSET_FACTOR_Y
         
         print( "actual cat position: \(cat.position)" )
         
