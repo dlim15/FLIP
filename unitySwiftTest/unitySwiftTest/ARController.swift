@@ -8,9 +8,10 @@
 
 import UIKit
 
-class ARController: UIViewController {
+class ARController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 //    @IBOutlet var rotateSwitch: UISwitch!
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    var imagePicker: UIImagePickerController!
     
     @IBOutlet weak var btnBack: UIButton!
     @objc func handleUnityReady() {
@@ -70,6 +71,44 @@ class ARController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    @IBAction func takePhoto(_ sender: Any) {
+        imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .camera
+        
+        present(imagePicker, animated: false, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        imagePicker.dismiss(animated: false, completion: nil)
+//        photoImageView.image =
+        
+        let fileManager = FileManager.default
+        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("test.jpg")
+        let image = UIImage(named: "test.jpg")
+        print(paths)
+        let imageData = UIImageJPEGRepresentation(info[UIImagePickerControllerOriginalImage] as! UIImage, 0.5)
+        fileManager.createFile(atPath: paths as String, contents: imageData, attributes: nil)
+        
+        
+//        if let image : UIImage = (info["UIImagePickerControllerOriginalImage"] as! UIImage) {
+//            if let data = UIImagePNGRepresentation(image) {
+//                let filename = getDocumentsDirectory().appendingPathComponent("test.png")
+//                print("*****************************************************************************************************************")
+//                print(filename)
+//                try? data.write(to: filename)
+//            }
+//        }
+//        else{
+//            print("you suck")
+//        }
+  }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
 
     /*
     // MARK: - Navigation
