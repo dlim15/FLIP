@@ -18,7 +18,7 @@ class StillFrameScene : SKScene{
     private var spinnyNode : SKShapeNode?
     private var coord : CGPoint?
     private var zDistance : CGFloat?
-    
+    var fileName:String!
     
     override func didMove(to view: SKView) {
         
@@ -41,7 +41,7 @@ class StillFrameScene : SKScene{
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
         }
-        addBackground()
+        //addBackground()
         readFile()
         placeNode()
     }
@@ -92,7 +92,14 @@ class StillFrameScene : SKScene{
             }
         }
     }
-    
+    func setBackground(fileName:String){
+        var background = SKSpriteNode( imageNamed:fileName )
+        background.zPosition = -1
+        background.size = self.frame.size
+        //background.position = CGPoint( x: frame.size.width / 2, y:frame.size.height / 2 )
+        background.position = CGPoint( x: 0, y:0 )
+        self.addChild(background)
+    }
     func placeNode(){
         let cat = SKSpriteNode(imageNamed: "cat.png")
         cat.zPosition = 0

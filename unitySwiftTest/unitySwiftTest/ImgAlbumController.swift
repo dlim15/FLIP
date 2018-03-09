@@ -29,4 +29,9 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
+        sfViewController.imageName = self.sampImgs[indexPath.row]
+        self.navigationController?.pushViewController(sfViewController, animated: true)
+    }
 }

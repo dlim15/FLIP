@@ -11,7 +11,7 @@ import SpriteKit
 import GameplayKit
 
 class StillFrameViewController : UIViewController {
-    
+    var imageName:String!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,7 +19,7 @@ class StillFrameViewController : UIViewController {
             if let scene = StillFrameScene(fileNamed: "StillFrameScene" ){
                 print("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                 scene.scaleMode = .aspectFill
-                
+                scene.setBackground( fileName: self.imageName )
                 view.presentScene(scene)
             }
             else{

@@ -29,17 +29,18 @@
         <!--Still Frame View Controller-->
         <scene sceneID="19S-R9-v51">
             <objects>
-                <viewController id="cje-Ak-qa5" customClass="StillFrameViewController" customModule="unitySwiftTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StillFrameViewController" id="cje-Ak-qa5" customClass="StillFrameViewController" customModule="unitySwiftTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="5h5-CW-2Vi" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="zya-xL-dnL"/>
                     </view>
+                    <navigationItem key="navigationItem" id="zIz-Oj-v9N"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5cc-Cd-KXl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="825" y="-662"/>
+            <point key="canvasLocation" x="2091.304347826087" y="794.83695652173924"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -56,15 +57,8 @@
                                     <segue destination="nyT-mA-cfJ" kind="show" id="Os3-4u-tkJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vye-85-r51">
-                                <rect key="frame" x="176.66666666666666" y="297" width="61" height="30"/>
-                                <state key="normal" title="SF Mode"/>
-                                <connections>
-                                    <segue destination="cje-Ak-qa5" kind="show" id="UkY-Fm-1fr"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyK-WT-l9J">
-                                <rect key="frame" x="173" y="449" width="68" height="30"/>
+                                <rect key="frame" x="173" y="323" width="68" height="30"/>
                                 <state key="normal" title="AR Album"/>
                                 <connections>
                                     <segue destination="nTI-P0-nm6" kind="show" id="3q1-ny-ll8"/>
@@ -73,12 +67,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="vye-85-r51" firstAttribute="top" secondItem="zcB-e2-8Oq" secondAttribute="bottom" constant="64" id="DMA-iv-fva"/>
+                            <constraint firstItem="yyK-WT-l9J" firstAttribute="top" secondItem="zcB-e2-8Oq" secondAttribute="bottom" constant="90" id="Axf-bL-9W0"/>
                             <constraint firstItem="zcB-e2-8Oq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ae9-uq-t58"/>
-                            <constraint firstItem="vye-85-r51" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fB9-mc-IR3"/>
                             <constraint firstItem="zcB-e2-8Oq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="139" id="fIA-vZ-6eg"/>
                             <constraint firstItem="yyK-WT-l9J" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fmZ-IV-hY6"/>
-                            <constraint firstItem="yyK-WT-l9J" firstAttribute="top" secondItem="vye-85-r51" secondAttribute="bottom" constant="122" id="x1y-A5-P4e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -188,6 +180,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jAU-U1-KhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="824.63768115942037" y="26.90217391304348"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jPw-R8-MOF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0Ki-tE-1K1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jRP-49-ICp">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="cje-Ak-qa5" kind="relationship" relationship="rootViewController" id="fFa-a3-k8b"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tpo-8C-FVE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1248" y="795"/>
         </scene>
     </scenes>
 </document>
