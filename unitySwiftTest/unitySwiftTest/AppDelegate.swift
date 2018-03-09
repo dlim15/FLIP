@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         currentUnityController = UnityAppController()
         currentUnityController.application(application, didFinishLaunchingWithOptions: launchOptions)
-        
         // first call to startUnity will do some init stuff, so just call it here and directly stop it again
         startUnity()
         stopUnity()

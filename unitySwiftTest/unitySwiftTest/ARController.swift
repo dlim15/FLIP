@@ -7,7 +7,15 @@
 //
 
 import UIKit
-
+public extension UIWindow{
+    func captureScreen() -> UIImage?{
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, self.isOpaque, UIScreen.main.scale)
+        self.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
 class ARController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 //    @IBOutlet var rotateSwitch: UISwitch!
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -41,6 +49,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
 //    @IBAction func handleSwitchValueChanged(sender: UISwitch) {
 //        UnityPostMessage("NATIVE_BRIDGE", "RotateCube", sender.isOn ? "start" : "stop")
 //    }
+
     
     func showUnitySubView() {
         if let unityView = UnityGetGLView() {
@@ -73,11 +82,34 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     
     
     @IBAction func takePhoto(_ sender: Any) {
-        imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
+        let window:UIWindow! = UIApplication.shared.keyWindow
+        let image = window.captureScreen()
+        saveImageToDirectory(image!)
         
-        present(imagePicker, animated: false, completion: nil)
+        let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
+        sfViewController.imageName = ""
+        self.navigationController?.pushViewController(sfViewController, animated: true)
+//        imagePicker = UIImagePickerController()
+//        imagePicker.delegate = self
+//        imagePicker.sourceType = .camera
+//
+//        present(imagePicker, animated: false, completion: nil)
+    }
+    func saveImageToDirectory(_ chosenImage:UIImage)->String{
+        let fileManager = FileManager.default
+        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("test.jpg")
+        let directoryPath = NSHomeDirectory().appending(paths)
+        let filename = "test.jpg"
+        let url = NSURL.fileURL(withPath: paths)
+        print("HERE:"+paths)
+        do {
+            try UIImageJPEGRepresentation(chosenImage, 1.0)?.write(to: url, options: .atomic)
+            return String.init(paths)
+        } catch {
+            print(error)
+            print("file cant not be save at path \(paths), with error : \(error)");
+            return paths
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
