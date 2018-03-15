@@ -40,18 +40,8 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         self.dismiss(animated: true, completion: nil)
     }
     
-    //    @objc func handleUnityToggleRotation(_ n: NSNotification) {
-//        if let isOn = n.userInfo?["isOn"] as? NSNumber {
-//            rotateSwitch.isOn = isOn.boolValue
-//        }
-//    }
-    
-//    @IBAction func handleSwitchValueChanged(sender: UISwitch) {
-//        UnityPostMessage("NATIVE_BRIDGE", "RotateCube", sender.isOn ? "start" : "stop")
-//    }
-
     @IBAction func sendMessagePrototype(_ sender: Any) {
-        UnityPostMessage("NATIVE_BRIDGE", "AnimateKitten", "")
+        UnityPostMessage("NATIVE_BRIDGE", "AnimateKitty", "")
     }
     
     func showUnitySubView() {
@@ -69,7 +59,6 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     func showUnity() {
         appDelegate?.startUnity()
         NotificationCenter.default.addObserver(self, selector: #selector(handleUnityReady), name: NSNotification.Name("UnityReady"), object: nil)
-        // NotificationCenter.default.addObserver(self, selector: #selector(handleUnityToggleRotation(_:)), name: NSNotification.Name("UnityToggleRotation"), object: nil)
         handleUnityReady()
     }
     override func viewDidLoad() {
@@ -85,26 +74,31 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     
     
     @IBAction func takePhoto(_ sender: Any) {
+        
+        // Take screenshot of Unity here
+        UnityPostMessage("NATIVE_BRIDGE", "Screenshot", "false") // false means don't include items
+        
+        // Probably wait for finish to avoid potential race condition, receive message to continue?
+        
+        // This is temporary
         let window:UIWindow! = UIApplication.shared.keyWindow
         let image = window.captureScreen()
         saveImageToDirectory(image!)
         
+        
+        appDelegate?.stopUnity()
+        
         let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
         sfViewController.imageName = ""
         self.navigationController?.pushViewController(sfViewController, animated: true)
-//        imagePicker = UIImagePickerController()
-//        imagePicker.delegate = self
-//        imagePicker.sourceType = .camera
-//
-//        present(imagePicker, animated: false, completion: nil)
+        
     }
+    
+    
     func saveImageToDirectory(_ chosenImage:UIImage)->String{
-        let fileManager = FileManager.default
         let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("test.jpg")
-        let directoryPath = NSHomeDirectory().appending(paths)
-        let filename = "test.jpg"
         let url = NSURL.fileURL(withPath: paths)
-        print("HERE:"+paths)
+        
         do {
             try UIImageJPEGRepresentation(chosenImage, 1.0)?.write(to: url, options: .atomic)
             return String.init(paths)
@@ -117,7 +111,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         imagePicker.dismiss(animated: false, completion: nil)
-//        photoImageView.image =
+
         
         let fileManager = FileManager.default
         let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("test.jpg")
@@ -126,19 +120,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         let imageData = UIImageJPEGRepresentation(info[UIImagePickerControllerOriginalImage] as! UIImage, 0.5)
         fileManager.createFile(atPath: paths as String, contents: imageData, attributes: nil)
         
-        
-//        if let image : UIImage = (info["UIImagePickerControllerOriginalImage"] as! UIImage) {
-//            if let data = UIImagePNGRepresentation(image) {
-//                let filename = getDocumentsDirectory().appendingPathComponent("test.png")
-//                print("*****************************************************************************************************************")
-//                print(filename)
-//                try? data.write(to: filename)
-//            }
-//        }
-//        else{
-//            print("you suck")
-//        }
-  }
+    }
     
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)

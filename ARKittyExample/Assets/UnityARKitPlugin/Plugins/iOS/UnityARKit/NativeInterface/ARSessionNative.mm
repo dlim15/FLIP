@@ -1114,6 +1114,7 @@ extern "C" bool IsARKitFaceTrackingConfigurationSupported()
 #else
     [NSException raise:@"UnityARKitPluginFaceTrackingNotEnabled" format:@"UnityARKitPlugin: Checking FaceTracking device support without enabling it in settings."];
 #endif
+    return ARFaceTrackingConfiguration.isSupported;
 }
 
 extern "C" void GetBlendShapesInfo(void* ptrDictionary, void (*visitorFn)(const char* key, const float value))

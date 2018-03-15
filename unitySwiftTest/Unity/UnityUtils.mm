@@ -36,6 +36,14 @@ extern "C" void UnityPostMessage(NSString* gameObject, NSString* methodName, NSS
 // THIS IS TO SEND MESSAGE TO SWIFT FROM UNITY
 extern "C" void UnityAnimateKitten(bool isOn)
 {
-    NSDictionary* dict = @{ @"isOn": @(isOn) };
+    NSDictionary* dict = @{ };
     [[NSNotificationCenter defaultCenter] postNotificationName: @"UnityAnimateKitten" object:nil userInfo:dict];
 }
+
+// THIS IS TO SEND MESSAGE TO SWIFT FROM UNITY
+extern "C" void UnityTakeScreenshot(bool showObjs)
+{
+    NSDictionary* dict = @{ @"showObjs" : @(showObjs) };
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"UnityTakeScreenshot" object:nil userInfo:dict];
+}
+

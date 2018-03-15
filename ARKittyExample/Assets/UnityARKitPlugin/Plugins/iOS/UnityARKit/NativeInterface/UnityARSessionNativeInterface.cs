@@ -242,7 +242,7 @@ namespace UnityEngine.XR.iOS {
 	{
 		public UnityARAlignment alignment; 
 		public bool enableLightEstimation;
-		public bool IsSupported { get { return IsARKitFaceTrackingConfigurationSupported(); } private set {} }
+		public bool IsSupported { get { return IsARKitFaceTrackingConfigurationSupported(); } private set { } }
 
 		public ARKitFaceTrackingConfiguration(UnityARAlignment alignment = UnityARAlignment.UnityARAlignmentGravity,
 			bool enableLightEstimation = false)

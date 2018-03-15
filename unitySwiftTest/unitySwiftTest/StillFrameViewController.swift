@@ -17,7 +17,6 @@ class StillFrameViewController : UIViewController {
         
         if let view = self.view as! SKView? {
             if let scene = StillFrameScene(fileNamed: "StillFrameScene" ){
-                print("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                 scene.scaleMode = .aspectFill
                 scene.setBackground( fileName: self.imageName )
                 view.presentScene(scene)
@@ -25,7 +24,6 @@ class StillFrameViewController : UIViewController {
             else{
                 print("failed to init scene")
             }
-            
             view.ignoresSiblingOrder = true
             view.showsFPS = true
             view.showsNodeCount = true

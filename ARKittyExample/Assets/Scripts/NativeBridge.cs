@@ -12,12 +12,26 @@ public class NativeBridge : MonoBehaviour
 #if UNITY_IOS && !UNITY_EDITOR
     [DllImport("__Internal")]
     private extern static void UnityAnimateKitten();
+    private extern static void UnityTakeScreenshot(bool showObjs);
 #else
     private void UnityAnimateKitten()
     {
 		AnimateKitten();
     }
+	private void UnityTakeScreenshot(bool showObjs){
+		Screenshot( showObjs ? "showObjs" : "noObjs" );
+	}
 #endif
+
+    private void AnimateKitten()
+    {
+        Debug.Log( "-> AnimateKitten()" );
+
+    }
+
+	private void Screenshot(string cmd){
+		Debug.Log( "-> Screenshot(): " + cmd );
+	}
 
 //    public void OnToggleValueChanged(bool isOn)
 //    {
@@ -31,13 +45,8 @@ public class NativeBridge : MonoBehaviour
 ////        CubeController.I.ShouldRotate = isOn;
 //    }
 
-    private void AnimateKitten()
-    {
-        Debug.Log( "888888888888888888888888888888888888888888888888" );
-        Debug.Log( "WOW THIS WORKED" );
-
-
-
+//    private void AnimateKitten()
+//    {
 //        switch (command)
 //        {
 //            case "start":
@@ -51,5 +60,6 @@ public class NativeBridge : MonoBehaviour
 //        skipToggleChangeEvent = true;
 //        toggle.isOn = CubeController.I.ShouldRotate;
 //        skipToggleChangeEvent = false;
-    }
+//    }
+
 }
