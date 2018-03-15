@@ -33,10 +33,9 @@ extern "C" void UnityPostMessage(NSString* gameObject, NSString* methodName, NSS
     UnitySendMessage([gameObject UTF8String], [methodName UTF8String], [message UTF8String]);
 }
 
-// The following functions are for demo purpose only.
-// You don't need them if your Unity code does not invoke them.
-extern "C" void UnityToggleRotation(bool isOn)
+// THIS IS TO SEND MESSAGE TO SWIFT FROM UNITY
+extern "C" void UnityAnimateKitten(bool isOn)
 {
     NSDictionary* dict = @{ @"isOn": @(isOn) };
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"UnityToggleRotation" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"UnityAnimateKitten" object:nil userInfo:dict];
 }

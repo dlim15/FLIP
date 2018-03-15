@@ -11,30 +11,33 @@ public class NativeBridge : MonoBehaviour
 
 #if UNITY_IOS && !UNITY_EDITOR
     [DllImport("__Internal")]
-    private extern static void UnityToggleRotation(bool isOn);
+    private extern static void UnityAnimateKitten();
 #else
-    private void UnityToggleRotation(bool isOn)
+    private void UnityAnimateKitten()
     {
-        RotateCube(isOn ? "start" : "stop");
+		AnimateKitten();
     }
 #endif
 
-    public void OnToggleValueChanged(bool isOn)
-    {
-        if (!skipToggleChangeEvent)
-        {
+//    public void OnToggleValueChanged(bool isOn)
+//    {
+//        if (!skipToggleChangeEvent)
+//        {
+//
+//            UnityToggleRotation(isOn);
+//
+//        }
+//
+////        CubeController.I.ShouldRotate = isOn;
+//    }
 
-            UnityToggleRotation(isOn);
-
-        }
-
-//        CubeController.I.ShouldRotate = isOn;
-    }
-
-    private void RotateCube(string command)
+    private void AnimateKitten()
     {
         Debug.Log( "888888888888888888888888888888888888888888888888" );
         Debug.Log( "WOW THIS WORKED" );
+
+
+
 //        switch (command)
 //        {
 //            case "start":
