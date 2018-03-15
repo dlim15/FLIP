@@ -50,6 +50,9 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
 //        UnityPostMessage("NATIVE_BRIDGE", "RotateCube", sender.isOn ? "start" : "stop")
 //    }
 
+    @IBAction func sendMessagePrototype(_ sender: Any) {
+        UnityPostMessage("NATIVE_BRIDGE", "RotateCube", "start")
+    }
     
     func showUnitySubView() {
         if let unityView = UnityGetGLView() {

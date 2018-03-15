@@ -169,6 +169,14 @@
                                     <action selector="takePhoto:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="28g-xL-jeT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q54-RH-fpp">
+                                <rect key="frame" x="24" y="64" width="101" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Send Message"/>
+                                <connections>
+                                    <action selector="sendMessagePrototype:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="nCX-h3-xbi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="NZJ-FY-9Jd"/>
