@@ -16,6 +16,7 @@ public extension UIWindow{
         return image
     }
 }
+
 class ARController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 //    @IBOutlet var rotateSwitch: UISwitch!
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -64,6 +65,9 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     override func viewDidLoad() {
         super.viewDidLoad()
         showUnity()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(UnityFinishedTakingScreenshot(_:)), name: NSNotification.Name("UnityFinishedTakingScreenshot"), object: nil)
+        
         // Do any additional setup after loading the view.
     }
 
@@ -72,26 +76,25 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         // Dispose of any resources that can be recreated.
     }
     
-    
-    @IBAction func takePhoto(_ sender: Any) {
+    @objc func UnityFinishedTakingScreenshot(_ n: NSNotification) {
+        usleep(100000) //will sleep for .1 seconds
         
-        // Take screenshot of Unity here
-        UnityPostMessage("NATIVE_BRIDGE", "Screenshot", "false") // false means don't include items
-        
-        // Probably wait for finish to avoid potential race condition, receive message to continue?
-        
-        // This is temporary
         let window:UIWindow! = UIApplication.shared.keyWindow
         let image = window.captureScreen()
         saveImageToDirectory(image!)
-        
         
         appDelegate?.stopUnity()
         
         let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
         sfViewController.imageName = ""
         self.navigationController?.pushViewController(sfViewController, animated: true)
+    }
+    
+    
+    @IBAction func takePhoto(_ sender: Any) {
         
+        // Take screenshot of Unity here
+        UnityPostMessage("NATIVE_BRIDGE", "Screenshot", "false") // false means don't include items
     }
     
     

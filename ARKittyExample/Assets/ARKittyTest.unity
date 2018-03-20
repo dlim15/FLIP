@@ -688,6 +688,10 @@ Prefab:
       propertyPath: m_TagString
       value: ARObject
       objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: f39b1400e9461b94aa1ef06930d090b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f39b1400e9461b94aa1ef06930d090b5, type: 3}
   m_IsPrefabParent: 0
@@ -715,6 +719,7 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 1024
+  ARObjects: []
 --- !u!1 &1121666029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,6 +1031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggle: {fileID: 0}
+  ARObjects: []
 --- !u!4 &2105937691
 Transform:
   m_ObjectHideFlags: 0

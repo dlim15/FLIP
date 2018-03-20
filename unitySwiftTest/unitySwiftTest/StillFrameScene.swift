@@ -93,9 +93,6 @@ class StillFrameScene : SKScene{
         }
     }
     func setBackground(fileName:String){
-        
-        sleep(1) // TEMPORARY
-        
         let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("Screenshot.png")
         //var background = SKSpriteNode( imageNamed:fileName )
         var background = SKSpriteNode( imageNamed:paths )

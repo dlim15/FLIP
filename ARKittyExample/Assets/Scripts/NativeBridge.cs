@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -10,20 +11,17 @@ public class NativeBridge : MonoBehaviour
     private Toggle toggle;
 
     private bool skipToggleChangeEvent;
+	private bool isSavingScreenshot;
+	private string filename;
 
 	public GameObject[] ARObjects;
 
 #if UNITY_IOS && !UNITY_EDITOR
     [DllImport("__Internal")]
-    private extern static void UnityAnimateKitten();
-    private extern static void UnityTakeScreenshot(bool showObjs);
+	private extern static void UnityFinishedTakingScreenshot();
 #else
-    private void UnityAnimateKitten()
-    {
-		AnimateKitten();
-    }
-	private void UnityTakeScreenshot(bool showObjs){
-		Screenshot( showObjs ? "showObjs" : "noObjs" );
+	private void UnityFinishedTakingScreenshot(){
+		Debug.Log( "We don't have anything to handle this :(" );
 	}
 #endif
 
@@ -41,20 +39,27 @@ public class NativeBridge : MonoBehaviour
 		Debug.Log( "-> Screenshot(): " + cmd );
 
 		ARObjects = GameObject.FindGameObjectsWithTag("ARObject");
+
         foreach (GameObject ARObject in ARObjects)
         {
             ARObject.SetActive(false);
-			Debug.Log ("WE DEACTIVATED SOMETHING WE DEACTIVATED SOMETHING WE DEACTIVATED SOMETHING WE DEACTIVATED SOMETHING");
         }
 
-        string filename = "/Screenshot";
+		filename = "/" + "Screenshot" + ".png";
+		System.IO.File.Delete (Application.persistentDataPath + filename );
+
 		ScreenCapture.CaptureScreenshot(filename);
 
-		//resetToActive(ARObjects);
-
-
-
+		isSavingScreenshot = true;
 	}
+
+	void Update(){
+		if (isSavingScreenshot && System.IO.File.Exists(Application.persistentDataPath + filename )) {
+			isSavingScreenshot = false;
+			UnityFinishedTakingScreenshot();
+		}
+	}
+
 
 //	IEnumerator resetToActive(GameObject[] ARObjects) 
 //	{
