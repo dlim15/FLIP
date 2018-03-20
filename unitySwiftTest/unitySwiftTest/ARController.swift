@@ -41,7 +41,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     }
     
     @IBAction func sendMessagePrototype(_ sender: Any) {
-        UnityPostMessage("NATIVE_BRIDGE", "AnimateKitty", "")
+        UnityPostMessage("NATIVE_BRIDGE", "AnimateKitten", "")
     }
     
     func showUnitySubView() {

@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Collections;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +10,8 @@ public class NativeBridge : MonoBehaviour
     private Toggle toggle;
 
     private bool skipToggleChangeEvent;
+
+	public GameObject[] ARObjects;
 
 #if UNITY_IOS && !UNITY_EDITOR
     [DllImport("__Internal")]
@@ -26,12 +30,39 @@ public class NativeBridge : MonoBehaviour
     private void AnimateKitten()
     {
         Debug.Log( "-> AnimateKitten()" );
-
+		//resetToActive (GameObject.FindGameObjectsWithTag ("ARObject"));
+		foreach (GameObject ARObject in ARObjects)
+		{
+			ARObject.SetActive(true);
+		}
     }
 
 	private void Screenshot(string cmd){
 		Debug.Log( "-> Screenshot(): " + cmd );
+
+		ARObjects = GameObject.FindGameObjectsWithTag("ARObject");
+        foreach (GameObject ARObject in ARObjects)
+        {
+            ARObject.SetActive(false);
+			Debug.Log ("WE DEACTIVATED SOMETHING WE DEACTIVATED SOMETHING WE DEACTIVATED SOMETHING WE DEACTIVATED SOMETHING");
+        }
+
+        string filename = "/Screenshot";
+		ScreenCapture.CaptureScreenshot(filename);
+
+		//resetToActive(ARObjects);
+
+
+
 	}
+
+//	IEnumerator resetToActive(GameObject[] ARObjects) 
+//	{
+//		foreach (GameObject ARObject in ARObjects)
+//		{
+//			ARObject.SetActive(true);
+//		}
+//	}
 
 //    public void OnToggleValueChanged(bool isOn)
 //    {

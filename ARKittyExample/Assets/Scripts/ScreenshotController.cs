@@ -27,7 +27,7 @@ public class ScreenshotController : MonoBehaviour {
             ARObject.SetActive(false);
         }
 
-        string filename = "Screenshot" + DateTime.Now.ToString("yyyyMMddHHmmss");
+        string filename = "Screenshot" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
         ScreenCapture.CaptureScreenshot(filename);
 
         foreach (GameObject ARObject in ARObjects)
