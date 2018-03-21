@@ -60,7 +60,6 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear( animated )
-        print("loaded2!!!")
         showUnity()
 
     }

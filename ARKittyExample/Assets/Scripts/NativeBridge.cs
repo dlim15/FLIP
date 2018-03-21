@@ -52,7 +52,7 @@ public class NativeBridge : MonoBehaviour
 		ScreenCapture.CaptureScreenshot(filename);
 
 		isSavingScreenshot = true;
-        return filename;
+		return filename;
 	}
 
 	void Update(){

@@ -22,21 +22,14 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     func loadImg(){
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentPath:String = path[0]
-        print("HERE")
-        print(documentPath)
         do{
-            
             let title = try FileManager.default.contentsOfDirectory(atPath: documentPath)
             for image in title{
                 if image.contains("."){
                     let index = image.index(of:".")!
                     let end = image[index...]
                     if end == ".png"{
-                        print(documentPath + "/" + image)
                         sampImgs.append(documentPath + "/" + image)
-                        let data = FileManager.default.contents(atPath: documentPath + "/" + image)
-                        let img = UIImage( data:data! )
-                        images.append( img! )
                     }
                 }
                 
