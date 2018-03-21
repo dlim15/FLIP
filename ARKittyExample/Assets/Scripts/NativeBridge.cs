@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections;
 using System.Runtime.InteropServices;
@@ -35,7 +35,8 @@ public class NativeBridge : MonoBehaviour
 		}
     }
 
-	private void Screenshot(string cmd){
+// Todo : need to find the way to get returned screen name from the Swift.
+	private String Screenshot(string cmd){
 		Debug.Log( "-> Screenshot(): " + cmd );
 
 		ARObjects = GameObject.FindGameObjectsWithTag("ARObject");
@@ -45,12 +46,13 @@ public class NativeBridge : MonoBehaviour
             ARObject.SetActive(false);
         }
 
-		filename = "/" + "Screenshot" + ".png";
-		System.IO.File.Delete (Application.persistentDataPath + filename );
+		filename = "/" + DateTime.Now.ToString("yyyyMMddHHmmss") + "_Screenshot" + ".png";
+		//System.IO.File.Delete (Application.persistentDataPath + filename );
 
 		ScreenCapture.CaptureScreenshot(filename);
 
 		isSavingScreenshot = true;
+        return filename;
 	}
 
 	void Update(){

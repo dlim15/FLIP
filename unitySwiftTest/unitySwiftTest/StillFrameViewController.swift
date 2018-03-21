@@ -29,7 +29,12 @@ class StillFrameViewController : UIViewController {
             view.showsNodeCount = true
         }
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.isMovingFromParentViewController {
+            UnityPostMessage("NATIVE_BRIDGE", "AnimateKitten", "")
+        }
+    }
     override var shouldAutorotate: Bool {
         return true
     }

@@ -41,23 +41,8 @@ class StillFrameScene : SKScene{
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
         }
-        //addBackground()
         readFile()
         placeNode()
-    }
-    
-    func addBackground(){
-        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("test.jpg")
-        let background = SKSpriteNode(imageNamed: paths )
-        background.zPosition = -1
-        background.position.x = 0
-        background.position.y = 0
-        background.size = CGSize(width: self.frame.height, height: self.frame.width )
-        background.zRotation = CGFloat(M_PI*1.5)
-        
-        
-        
-        self.addChild(background)
     }
     
     func getDocumentsDirectory() -> URL {
@@ -93,9 +78,9 @@ class StillFrameScene : SKScene{
         }
     }
     func setBackground(fileName:String){
-        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("Screenshot.png")
-        //var background = SKSpriteNode( imageNamed:fileName )
-        var background = SKSpriteNode( imageNamed:paths )
+        //let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("Screenshot.png")
+        var background = SKSpriteNode( imageNamed:fileName )
+        //var background = SKSpriteNode( imageNamed:paths )
         background.zPosition = -1
         background.size = self.frame.size
         //background.position = CGPoint( x: frame.size.width / 2, y:frame.size.height / 2 )

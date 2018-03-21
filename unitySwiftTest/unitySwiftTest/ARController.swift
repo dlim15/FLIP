@@ -41,10 +41,6 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func sendMessagePrototype(_ sender: Any) {
-        UnityPostMessage("NATIVE_BRIDGE", "AnimateKitten", "")
-    }
-    
     func showUnitySubView() {
         if let unityView = UnityGetGLView() {
             // insert subview at index 0 ensures unity view is behind current UI view
@@ -62,12 +58,15 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         NotificationCenter.default.addObserver(self, selector: #selector(handleUnityReady), name: NSNotification.Name("UnityReady"), object: nil)
         handleUnityReady()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear( animated )
+        print("loaded2!!!")
+        showUnity()
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        showUnity()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(UnityFinishedTakingScreenshot(_:)), name: NSNotification.Name("UnityFinishedTakingScreenshot"), object: nil)
-        
         // Do any additional setup after loading the view.
     }
 
@@ -86,6 +85,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         appDelegate?.stopUnity()
         
         let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
+        // This sfViewController.imageName should use the returned image name from the Screenshot() on unity.
         sfViewController.imageName = ""
         self.navigationController?.pushViewController(sfViewController, animated: true)
     }
@@ -93,6 +93,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     
     @IBAction func takePhoto(_ sender: Any) {
         
+        // Todo: find the way to get returned value from the screenshot() function so that we can pass the image name to the sfViewController.
         // Take screenshot of Unity here
         UnityPostMessage("NATIVE_BRIDGE", "Screenshot", "false") // false means don't include items
     }

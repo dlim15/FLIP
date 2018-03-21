@@ -9,13 +9,41 @@
 class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    var sampImgs = ["1","2","3"]
+    var sampImgs = [] as [String]
+    var images = [] as [UIImage]
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadImg()
         collectionView.delegate = self
         collectionView.dataSource = self
         
         
+    }
+    func loadImg(){
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentPath:String = path[0]
+        print("HERE")
+        print(documentPath)
+        do{
+            
+            let title = try FileManager.default.contentsOfDirectory(atPath: documentPath)
+            for image in title{
+                if image.contains("."){
+                    let index = image.index(of:".")!
+                    let end = image[index...]
+                    if end == ".png"{
+                        print(documentPath + "/" + image)
+                        sampImgs.append(documentPath + "/" + image)
+                        let data = FileManager.default.contents(atPath: documentPath + "/" + image)
+                        let img = UIImage( data:data! )
+                        images.append( img! )
+                    }
+                }
+                
+            }
+        }catch{
+            print("error")
+        }
     }
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         return sampImgs.count
@@ -23,7 +51,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImgCell", for: indexPath) as! ImgAlbumCell
-        cell.ARImage.image = UIImage(named:sampImgs[indexPath.row])
+        cell.ARImage.image = UIImage( data:FileManager.default.contents( atPath:sampImgs[ indexPath.row ] )! )
         cell.layer.borderColor = UIColor.brown.cgColor
         cell.layer.borderWidth = 1
         

@@ -49,32 +49,30 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zcB-e2-8Oq">
-                                <rect key="frame" x="177.66666666666666" y="203" width="59" height="30"/>
-                                <state key="normal" title="ARMode"/>
-                                <connections>
-                                    <segue destination="nyT-mA-cfJ" kind="show" id="Os3-4u-tkJ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyK-WT-l9J">
-                                <rect key="frame" x="173" y="323" width="68" height="30"/>
-                                <state key="normal" title="AR Album"/>
-                                <connections>
-                                    <segue destination="nTI-P0-nm6" kind="show" id="3q1-ny-ll8"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="yyK-WT-l9J" firstAttribute="top" secondItem="zcB-e2-8Oq" secondAttribute="bottom" constant="90" id="Axf-bL-9W0"/>
-                            <constraint firstItem="zcB-e2-8Oq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ae9-uq-t58"/>
-                            <constraint firstItem="zcB-e2-8Oq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="139" id="fIA-vZ-6eg"/>
-                            <constraint firstItem="yyK-WT-l9J" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fmZ-IV-hY6"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Lc2-Hb-Egq"/>
+                    <navigationItem key="navigationItem" id="Lc2-Hb-Egq">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="j8g-kP-Eea">
+                            <rect key="frame" x="185" y="7" width="44" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Album"/>
+                            <connections>
+                                <segue destination="nTI-P0-nm6" kind="show" id="xfx-yi-9g6"/>
+                            </connections>
+                        </button>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="exC-1Z-pdP">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Rec-Bd-rk3">
+                                <rect key="frame" x="302" y="7" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="AR"/>
+                                <connections>
+                                    <segue destination="nyT-mA-cfJ" kind="show" id="XNu-ri-iRY"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -89,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Hgt-g9-t6n">
-                                <rect key="frame" x="0.0" y="64" width="375" height="672"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="2WM-5V-Glr"/>
@@ -167,14 +165,6 @@
                                 <state key="normal" title="Take Photo"/>
                                 <connections>
                                     <action selector="takePhoto:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="28g-xL-jeT"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q54-RH-fpp">
-                                <rect key="frame" x="24" y="64" width="101" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Send Message"/>
-                                <connections>
-                                    <action selector="sendMessagePrototype:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="nCX-h3-xbi"/>
                                 </connections>
                             </button>
                         </subviews>
