@@ -1,11 +1,12 @@
 using System;
+using System.Text;
 using System.IO;
 using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NativeBridge : MonoBehaviour
+public unsafe class NativeBridge : MonoBehaviour
 {
     [SerializeField]
     private Toggle toggle;
@@ -18,9 +19,9 @@ public class NativeBridge : MonoBehaviour
 
 #if UNITY_IOS && !UNITY_EDITOR
     [DllImport("__Internal")]
-	private extern static void UnityFinishedTakingScreenshot();
+	private extern static void UnityFinishedTakingScreenshot( string filename );
 #else
-	private void UnityFinishedTakingScreenshot(){
+	private void UnityFinishedTakingScreenshot( string filename ){
 		Debug.Log( "We don't have anything to handle this :(" );
 	}
 #endif
@@ -34,8 +35,7 @@ public class NativeBridge : MonoBehaviour
 			ARObject.SetActive(true);
 		}
     }
-
-// Todo : need to find the way to get returned screen name from the Swift.
+		
 	private String Screenshot(string cmd){
 		Debug.Log( "-> Screenshot(): " + cmd );
 
@@ -58,7 +58,9 @@ public class NativeBridge : MonoBehaviour
 	void Update(){
 		if (isSavingScreenshot && System.IO.File.Exists(Application.persistentDataPath + filename )) {
 			isSavingScreenshot = false;
-			UnityFinishedTakingScreenshot();
+
+			UnityFinishedTakingScreenshot( filename );
+
 		}
 	}
 

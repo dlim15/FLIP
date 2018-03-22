@@ -8,6 +8,7 @@
 static const int constsection = 0;
 
 void UnityInitTrampoline();
+NSString* CreateNSString (const char* string);
 
 extern "C" void unity_init(int argc, char* argv[])
 {
@@ -33,8 +34,18 @@ extern "C" void UnityPostMessage(NSString* gameObject, NSString* methodName, NSS
     UnitySendMessage([gameObject UTF8String], [methodName UTF8String], [message UTF8String]);
 }
 
-extern "C" void UnityFinishedTakingScreenshot()
+extern "C" void UnityFinishedTakingScreenshot( const char* filename )
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"UnityFinishedTakingScreenshot" object:nil userInfo:nil];
+    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: CreateNSString(filename), @"filename", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"UnityFinishedTakingScreenshot" object:nil userInfo:dict];
 }
 
+NSString* CreateNSString (const char* string)
+{
+    if (string)
+    return [NSString stringWithUTF8String: string];
+    else
+    return [NSString stringWithUTF8String: ""];
+}
+
+// [mDict setObject:count.text forKey:@(itemIndex).stringValue];

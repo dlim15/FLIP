@@ -75,18 +75,24 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     }
     
     @objc func UnityFinishedTakingScreenshot(_ n: NSNotification) {
-        usleep(100000) //will sleep for .1 seconds
+//        usleep(100000) //will sleep for .1 seconds
+        if let imgName = n.userInfo?["filename"] as? NSString {
+            let window:UIWindow! = UIApplication.shared.keyWindow
+            let image = window.captureScreen()
+            saveImageToDirectory(image!)
+            
+            appDelegate?.stopUnity()
+            
+            let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
+            // This sfViewController.imageName should use the returned image name from the Screenshot() on unity.
+            sfViewController.imageName = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent( (imgName as String!) )
+            self.navigationController?.pushViewController(sfViewController, animated: true)
+        }
+        else{
+            print("THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE")
+        }
         
-        let window:UIWindow! = UIApplication.shared.keyWindow
-        let image = window.captureScreen()
-        saveImageToDirectory(image!)
         
-        appDelegate?.stopUnity()
-        
-        let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
-        // This sfViewController.imageName should use the returned image name from the Screenshot() on unity.
-        sfViewController.imageName = ""
-        self.navigationController?.pushViewController(sfViewController, animated: true)
     }
     
     
