@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="Z2k-YX-B5S">
@@ -19,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="CjE-md-sjA"/>
+                        <segue destination="nTI-P0-nm6" kind="relationship" relationship="rootViewController" id="aIr-7X-5kP"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zea-Bi-pve" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -67,9 +72,6 @@
                                 <rect key="frame" x="302" y="7" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="AR"/>
-                                <connections>
-                                    <segue destination="nyT-mA-cfJ" kind="show" id="XNu-ri-iRY"/>
-                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -135,13 +137,35 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kqF-PJ-u4d"/>
                     </view>
+                    <navigationItem key="navigationItem" id="rsm-ZO-RFP">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Veh-zf-z1H">
+                            <rect key="frame" x="170" y="4" width="74" height="36"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                            <state key="normal" title="Projects">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </state>
+                        </button>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="jhu-eI-A8c">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7gs-hl-Le6">
+                                <rect key="frame" x="364" y="0.0" width="30" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="37"/>
+                                <state key="normal" title="+"/>
+                                <connections>
+                                    <segue destination="nyT-mA-cfJ" kind="show" id="GOV-gr-5h8"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="Hgt-g9-t6n" id="ZJ3-Qf-UXh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZXU-9V-aRq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-23" y="795"/>
+            <point key="canvasLocation" x="-23.188405797101453" y="794.83695652173924"/>
         </scene>
         <!--Controller-->
         <scene sceneID="iBM-Qy-Svm">
@@ -151,24 +175,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0OM-da-aEq">
-                                <rect key="frame" x="152" y="64" width="70" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Stop View"/>
-                                <connections>
-                                    <action selector="ARViewBackAction:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="4Jx-je-03W"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4z-cf-Mma">
-                                <rect key="frame" x="286" y="64" width="95" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4z-cf-Mma">
+                                <rect key="frame" x="318" y="64" width="76" height="30"/>
                                 <state key="normal" title="Take Photo"/>
                                 <connections>
                                     <action selector="takePhoto:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="28g-xL-jeT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0OM-da-aEq">
+                                <rect key="frame" x="20" y="64" width="34" height="30"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="ARViewBackAction:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="4Jx-je-03W"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0OM-da-aEq" firstAttribute="top" secondItem="NZJ-FY-9Jd" secondAttribute="top" id="HxB-IC-vgM"/>
+                            <constraint firstItem="NZJ-FY-9Jd" firstAttribute="trailing" secondItem="f4z-cf-Mma" secondAttribute="trailing" constant="20" id="Ovy-OJ-s1k"/>
+                            <constraint firstItem="0OM-da-aEq" firstAttribute="leading" secondItem="NZJ-FY-9Jd" secondAttribute="leading" constant="20" id="qeA-g3-lQ8"/>
+                            <constraint firstItem="f4z-cf-Mma" firstAttribute="top" secondItem="NZJ-FY-9Jd" secondAttribute="top" id="xwT-Gn-9ct"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="NZJ-FY-9Jd"/>
                     </view>
                     <connections>
@@ -198,4 +226,7 @@
             <point key="canvasLocation" x="1248" y="795"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="aIr-7X-5kP"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -19,6 +19,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         
         
     }
+    
     func loadImg(){
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentPath:String = path[0]

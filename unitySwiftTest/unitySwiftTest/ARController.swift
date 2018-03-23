@@ -29,11 +29,8 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         
     }
     @IBAction func ARViewBackAction(_ sender: UIButton) {
-        // TODO: find the way to close the unity.
-        // see: https://github.com/jiulongw/swift-unity/issues/25
         appDelegate?.stopUnity()
-        
-        //self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func SFViewBackAction(_ sender: Any) {
@@ -76,6 +73,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     
     @objc func UnityFinishedTakingScreenshot(_ n: NSNotification) {
 //        usleep(100000) //will sleep for .1 seconds
+        print( "-> UnityFinishedTakingScreenshot()" )
         if let imgName = n.userInfo?["filename"] as? NSString {
             let window:UIWindow! = UIApplication.shared.keyWindow
             let image = window.captureScreen()
@@ -87,6 +85,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
             // This sfViewController.imageName should use the returned image name from the Screenshot() on unity.
             sfViewController.imageName = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent( (imgName as String!) )
             self.navigationController?.pushViewController(sfViewController, animated: true)
+//            self.dismiss(animated: true, completion: nil)
         }
         else{
             print("THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE")
@@ -97,9 +96,6 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     
     
     @IBAction func takePhoto(_ sender: Any) {
-        
-        // Todo: find the way to get returned value from the screenshot() function so that we can pass the image name to the sfViewController.
-        // Take screenshot of Unity here
         UnityPostMessage("NATIVE_BRIDGE", "Screenshot", "false") // false means don't include items
     }
     
