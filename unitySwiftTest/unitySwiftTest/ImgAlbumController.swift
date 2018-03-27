@@ -39,6 +39,12 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
             print("error")
         }
     }
+    
+    @IBAction func plusButtonAction(_ sender: Any) {
+        let arViewController:ARController = self.storyboard?.instantiateViewController(withIdentifier: "ARController") as! ARController
+        self.navigationController?.pushViewController(arViewController, animated: true)
+    }
+    
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         return sampImgs.count
     }
@@ -46,7 +52,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImgCell", for: indexPath) as! ImgAlbumCell
         cell.ARImage.image = UIImage( data:FileManager.default.contents( atPath:sampImgs[ indexPath.row ] )! )
-        cell.layer.borderColor = UIColor.brown.cgColor
+        cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1
         
         return cell
