@@ -46,7 +46,7 @@ public unsafe class NativeBridge : MonoBehaviour
             ARObject.SetActive(false);
         }
 
-		filename = "/" + DateTime.Now.ToString("yyyyMMddHHmmss") + "_Screenshot" + ".png";
+		filename = "/" + DateTime.Now.ToString("yyyyMMddHHmmss") + "_Screenshot" + ".jpg";
 		//System.IO.File.Delete (Application.persistentDataPath + filename );
 
 		ScreenCapture.CaptureScreenshot(filename);

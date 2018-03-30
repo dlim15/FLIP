@@ -26,7 +26,6 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     @objc func handleUnityReady() {
         btnBack.isHidden = false
         showUnitySubView()
-        
     }
     @IBAction func ARViewBackAction(_ sender: UIButton) {
         appDelegate?.stopUnity()
@@ -56,6 +55,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear( animated )
         showUnity()
+        self.navigationController?.isNavigationBarHidden = true
 
     }
     override func viewDidLoad() {
@@ -83,6 +83,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
             let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
             // This sfViewController.imageName should use the returned image name from the Screenshot() on unity.
             sfViewController.imageName = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent( (imgName as String!) )
+            self.navigationController?.isNavigationBarHidden = false
             self.navigationController?.pushViewController(sfViewController, animated: true)
 //            self.dismiss(animated: true, completion: nil)
         }

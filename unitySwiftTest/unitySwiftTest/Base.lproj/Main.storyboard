@@ -42,7 +42,18 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="zya-xL-dnL"/>
                     </view>
-                    <navigationItem key="navigationItem" id="zIz-Oj-v9N"/>
+                    <navigationItem key="navigationItem" id="zIz-Oj-v9N">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="uXJ-Wl-LyI">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="A3L-aQ-Xwg">
+                                <rect key="frame" x="302" y="7" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Remove"/>
+                                <connections>
+                                    <action selector="btnRemoveCall:" destination="cje-Ak-qa5" eventType="touchUpInside" id="X9r-LI-BJg"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5cc-Cd-KXl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -108,6 +119,16 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="rsm-ZO-RFP">
                         <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="oyt-zn-bRa">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="W4V-MD-biZ">
+                                <rect key="frame" x="20" y="7" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="btnKillPress:" destination="nTI-P0-nm6" eventType="touchUpInside" id="NLW-By-Q4B"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Veh-zf-z1H">
                             <rect key="frame" x="170" y="4" width="74" height="36"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -133,6 +154,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="btnKillPngs" destination="W4V-MD-biZ" id="Vaw-TU-xcw"/>
                         <outlet property="collectionView" destination="Hgt-g9-t6n" id="ZJ3-Qf-UXh"/>
                     </connections>
                 </viewController>

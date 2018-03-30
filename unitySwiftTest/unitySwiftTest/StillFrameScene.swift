@@ -78,12 +78,9 @@ class StillFrameScene : SKScene{
         }
     }
     func setBackground(fileName:String){
-        //let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("Screenshot.png")
         var background = SKSpriteNode( imageNamed:fileName )
-        //var background = SKSpriteNode( imageNamed:paths )
         background.zPosition = -1
         background.size = self.frame.size
-        //background.position = CGPoint( x: frame.size.width / 2, y:frame.size.height / 2 )
         background.position = CGPoint( x: 0, y:0 )
         self.addChild(background)
     }

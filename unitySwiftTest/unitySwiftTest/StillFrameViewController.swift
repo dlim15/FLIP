@@ -12,6 +12,7 @@ import GameplayKit
 
 class StillFrameViewController : UIViewController {
     var imageName:String!
+    let fileManager = FileManager.default
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,6 +29,20 @@ class StillFrameViewController : UIViewController {
             view.showsFPS = true
             view.showsNodeCount = true
         }
+    }
+    @IBAction func btnRemoveCall(_ sender: UIButton) {
+        do{
+            if fileManager.fileExists(atPath: imageName){
+                try fileManager.removeItem(atPath: imageName)
+            }
+            else{
+                print(imageName + " File not existing ")
+            }
+        }catch{
+            print(" there was an error removing file at " + imageName)
+        }
+        
+        self.navigationController?.popViewController(animated: true)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

@@ -9,6 +9,8 @@
 class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var btnKillPngs: UIButton!
+    
     var sampImgs = [] as [String]
     var images = [] as [UIImage]
     override func viewDidLoad() {
@@ -16,11 +18,40 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         loadImg()
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        
+        btnKillPngs.setTitle("KillPNGs", for: .normal)
     }
-    
+    // temporary added for clean up pngs.
+    @IBAction func btnKillPress(_ sender: UIButton) {
+        sampImgs.removeAll()
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentPath:String = path[0]
+        let fileManager = FileManager.default
+        do{
+            let title = try FileManager.default.contentsOfDirectory(atPath: documentPath)
+            for image in title{
+                if image.contains("."){
+                    let index = image.index(of:".")!
+                    let end = image[index...]
+                    if end == ".png"{
+                        try fileManager.removeItem(atPath: documentPath + "/" + image)
+                    }
+                }
+            }
+        }catch{
+            print("error")
+        }
+        reloadImgs()
+    }
+    func reloadImgs(){
+        loadImg()
+        self.collectionView!.reloadData()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear( animated )
+        reloadImgs()
+    }
     func loadImg(){
+        sampImgs.removeAll()
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentPath:String = path[0]
         do{
@@ -29,11 +60,10 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
                 if image.contains("."){
                     let index = image.index(of:".")!
                     let end = image[index...]
-                    if end == ".png"{
+                    if end == ".jpg" || end == ".png"{
                         sampImgs.append(documentPath + "/" + image)
                     }
                 }
-                
             }
         }catch{
             print("error")
