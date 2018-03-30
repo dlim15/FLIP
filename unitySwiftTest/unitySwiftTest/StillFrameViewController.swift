@@ -13,13 +13,17 @@ import GameplayKit
 class StillFrameViewController : UIViewController {
     var imageName:String!
     let fileManager = FileManager.default
+    var scene : StillFrameScene?
+    @IBOutlet weak var editButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            if let scene = StillFrameScene(fileNamed: "StillFrameScene" ){
-                scene.scaleMode = .aspectFill
-                scene.setBackground( fileName: self.imageName )
+            if let s = StillFrameScene(fileNamed: "StillFrameScene" ){
+                s.scaleMode = .aspectFill
+                s.setBackground( fileName: self.imageName )
+                scene = s
                 view.presentScene(scene)
             }
             else{
@@ -60,6 +64,16 @@ class StillFrameViewController : UIViewController {
         } else {
             return .all
         }
+    }
+    @IBAction func editButtonAction(_ sender: Any) {
+        scene?.isEditing = !(scene?.isEditing)!
+        if (scene?.isEditing)!{
+            editButton.setTitle("Stop Editing", for: UIControlState.normal)
+        }
+        else {
+            editButton.setTitle("Edit", for: UIControlState.normal)
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {

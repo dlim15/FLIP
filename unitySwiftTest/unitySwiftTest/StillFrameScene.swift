@@ -19,6 +19,8 @@ class StillFrameScene : SKScene{
     private var coord : CGPoint?
     private var zDistance : CGFloat?
     var fileName:String!
+    var cat : SKSpriteNode?
+    public var isEditing : Bool?
     
     override func didMove(to view: SKView) {
         
@@ -41,6 +43,7 @@ class StillFrameScene : SKScene{
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
         }
+        isEditing = false
         readFile()
         placeNode()
     }
@@ -85,16 +88,16 @@ class StillFrameScene : SKScene{
         self.addChild(background)
     }
     func placeNode(){
-        let cat = SKSpriteNode(imageNamed: "cat.png")
-        cat.zPosition = 0
-        cat.xScale = SCALE_INIT * abs( 1.25 / zDistance! )
-        cat.yScale = SCALE_INIT * abs( 1.25 / zDistance! )
-        cat.position.x = (coord?.x)! * COORDINATE_OFFSET_FACTOR_X
-        cat.position.y = ( (coord?.y)! + abs( zDistance! ) / 5.0 ) * COORDINATE_OFFSET_FACTOR_Y
+        cat = SKSpriteNode(imageNamed: "cat.png")
+        cat?.zPosition = 0
+        cat?.xScale = SCALE_INIT * abs( 1.25 / zDistance! )
+        cat?.yScale = SCALE_INIT * abs( 1.25 / zDistance! )
+        cat?.position.x = (coord?.x)! * COORDINATE_OFFSET_FACTOR_X
+        cat?.position.y = ( (coord?.y)! + abs( zDistance! ) / 5.0 ) * COORDINATE_OFFSET_FACTOR_Y
         
-        print( "actual cat position: \(cat.position)" )
+        print( "actual cat position: \(cat?.position)" )
         
-        self.addChild(cat)
+        self.addChild((cat)!)
     }
     
     
@@ -104,6 +107,9 @@ class StillFrameScene : SKScene{
             n.strokeColor = SKColor.green
             self.addChild(n)
         }
+        if (checkIfInRange(touch: pos, obj: cat!) && isEditing!){
+            print( "We touched the cat!!!!" )
+        }
     }
     
     func touchMoved(toPoint pos : CGPoint) {
@@ -111,6 +117,9 @@ class StillFrameScene : SKScene{
             n.position = pos
             n.strokeColor = SKColor.blue
             self.addChild(n)
+        }
+        if (checkIfInRange(touch: pos, obj: cat!) && isEditing!){
+            cat?.position = pos
         }
     }
     
@@ -120,6 +129,17 @@ class StillFrameScene : SKScene{
             n.strokeColor = SKColor.red
             self.addChild(n)
         }
+    }
+    
+    func checkIfInRange( touch : CGPoint, obj : SKSpriteNode ) -> Bool {
+        let objWidthHalf = obj.frame.width / 2.0
+        let objHeightHalf = obj.frame.height / 2.0
+        let objXPos = obj.position.x
+        let objYPos = obj.position.y
+        return touch.x < objXPos + objWidthHalf &&
+               touch.x > objXPos - objWidthHalf &&
+               touch.y < objYPos + objHeightHalf &&
+               touch.y > objYPos - objHeightHalf
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
