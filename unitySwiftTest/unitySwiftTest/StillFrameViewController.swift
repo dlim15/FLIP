@@ -15,9 +15,12 @@ class StillFrameViewController : UIViewController {
     let fileManager = FileManager.default
     var scene : StillFrameScene?
     @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.setHidesBackButton(true, animated:false)
         
         if let view = self.view as! SKView? {
             if let s = StillFrameScene(fileNamed: "StillFrameScene" ){
@@ -32,6 +35,7 @@ class StillFrameViewController : UIViewController {
             view.ignoresSiblingOrder = true
             view.showsFPS = true
             view.showsNodeCount = true
+            view.isMultipleTouchEnabled = false
         }
     }
     @IBAction func btnRemoveCall(_ sender: UIButton) {
@@ -48,6 +52,12 @@ class StillFrameViewController : UIViewController {
         
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func backButtonAction(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if self.isMovingFromParentViewController {
@@ -67,6 +77,7 @@ class StillFrameViewController : UIViewController {
     }
     @IBAction func editButtonAction(_ sender: Any) {
         scene?.isEditing = !(scene?.isEditing)!
+        backButton.isEnabled = !backButton.isEnabled
         if (scene?.isEditing)!{
             editButton.setTitle("Stop Editing", for: UIControlState.normal)
         }

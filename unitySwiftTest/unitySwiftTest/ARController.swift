@@ -18,15 +18,25 @@ public extension UIWindow{
 }
 
 class ARController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-//    @IBOutlet var rotateSwitch: UISwitch!
+
+    
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     var imagePicker: UIImagePickerController!
-    
     @IBOutlet weak var btnBack: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(UnityFinishedTakingScreenshot(_:)), name: NSNotification.Name("UnityFinishedTakingScreenshot"), object: nil)
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationItem.setHidesBackButton(true, animated:false)
+        // Do any additional setup after loading the view.
+    }
+    
     @objc func handleUnityReady() {
         btnBack.isHidden = false
         showUnitySubView()
     }
+    
     @IBAction func ARViewBackAction(_ sender: UIButton) {
         appDelegate?.stopUnity()
         
@@ -58,12 +68,6 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         self.navigationController?.isNavigationBarHidden = true
 
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(UnityFinishedTakingScreenshot(_:)), name: NSNotification.Name("UnityFinishedTakingScreenshot"), object: nil)
-        self.navigationController?.isNavigationBarHidden = true
-        // Do any additional setup after loading the view.
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -71,21 +75,19 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     }
     
     @objc func UnityFinishedTakingScreenshot(_ n: NSNotification) {
-//        usleep(100000) //will sleep for .1 seconds
+
         print( "-> UnityFinishedTakingScreenshot()" )
         if let imgName = n.userInfo?["filename"] as? NSString {
             let window:UIWindow! = UIApplication.shared.keyWindow
-            let image = window.captureScreen()
-            saveImageToDirectory(image!)
             
             appDelegate?.stopUnity()
             
             let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
-            // This sfViewController.imageName should use the returned image name from the Screenshot() on unity.
+            
             sfViewController.imageName = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent( (imgName as String!) )
             self.navigationController?.isNavigationBarHidden = false
             self.navigationController?.pushViewController(sfViewController, animated: true)
-//            self.dismiss(animated: true, completion: nil)
+
         }
         else{
             print("THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE")

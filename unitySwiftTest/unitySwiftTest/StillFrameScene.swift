@@ -18,32 +18,15 @@ class StillFrameScene : SKScene{
     private var spinnyNode : SKShapeNode?
     private var coord : CGPoint?
     private var zDistance : CGFloat?
+    private var touchOffset : CGPoint?
+    private var objectSelected : Bool?
     var fileName:String!
     var cat : SKSpriteNode?
     public var isEditing : Bool?
     
     override func didMove(to view: SKView) {
-        
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
-        
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
         isEditing = false
+        objectSelected = false
         readFile()
         placeNode()
     }
@@ -71,10 +54,8 @@ class StillFrameScene : SKScene{
                 
                 print(coord)
                 print(zDistance)
-                
-                
             }
-            catch {/* error handling here */
+            catch {
                 print( "THERE WAS A PROBLEM READING FROM FILE" )
                 
             }
@@ -102,33 +83,20 @@ class StillFrameScene : SKScene{
     
     
     func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
         if (checkIfInRange(touch: pos, obj: cat!) && isEditing!){
-            print( "We touched the cat!!!!" )
+            touchOffset = CGPoint(x: pos.x - (cat?.position.x)!, y: pos.y - (cat?.position.y)!)
+            objectSelected = true
         }
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-        if (checkIfInRange(touch: pos, obj: cat!) && isEditing!){
-            cat?.position = pos
+        if (objectSelected! && isEditing!){
+            cat?.position = CGPoint(x: pos.x - (touchOffset?.x)!, y: pos.y - (touchOffset?.y)!)
         }
     }
     
     func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
+        objectSelected = false
     }
     
     func checkIfInRange( touch : CGPoint, obj : SKSpriteNode ) -> Bool {
