@@ -23,12 +23,14 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     var imagePicker: UIImagePickerController!
     @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(UnityFinishedTakingScreenshot(_:)), name: NSNotification.Name("UnityFinishedTakingScreenshot"), object: nil)
         self.navigationController?.isNavigationBarHidden = true
         self.navigationItem.setHidesBackButton(true, animated:false)
+        loadingSpinner.stopAnimating()
         // Do any additional setup after loading the view.
     }
     
@@ -87,17 +89,17 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
             sfViewController.imageName = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent( (imgName as String!) )
             self.navigationController?.isNavigationBarHidden = false
             self.navigationController?.pushViewController(sfViewController, animated: true)
-
         }
         else{
             print("THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE")
         }
-        
+        loadingSpinner.stopAnimating()
         
     }
     
     
     @IBAction func takePhoto(_ sender: Any) {
+        loadingSpinner.startAnimating()
         UnityPostMessage("NATIVE_BRIDGE", "Screenshot", "false") // false means don't include items
     }
     
