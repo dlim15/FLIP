@@ -251,6 +251,7 @@ static inline UnityARTrackingReason GetUnityARTrackingReasonFromARTrackingReason
             [NSException raise:@"UnrecognizedARTrackingStateReason" format:@"Unrecognized ARTrackingStateReason: %ld", (long)trackingReason];
             break;
     }
+    return UnityARTrackingStateReasonNone;
 }
 
 inline ARSessionRunOptions GetARSessionRunOptionsFromUnityARSessionRunOptions(UnityARSessionRunOptions runOptions)
