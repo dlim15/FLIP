@@ -11,6 +11,7 @@ import SpriteKit
 import GameplayKit
 
 class StillFrameViewController : UIViewController {
+    let dialogAction = DialogActions()
     var imageName:String!
     let fileManager = FileManager.default
     var scene : StillFrameScene?
@@ -39,6 +40,12 @@ class StillFrameViewController : UIViewController {
         }
     }
     @IBAction func btnRemoveCall(_ sender: UIButton) {
+        dialogAction.alertMsg(controller: self) {
+            self.removeProcedure()
+        }
+
+    }
+    func removeProcedure(){
         do{
             if fileManager.fileExists(atPath: imageName){
                 try fileManager.removeItem(atPath: imageName)
@@ -52,7 +59,6 @@ class StillFrameViewController : UIViewController {
         
         self.navigationController?.popViewController(animated: true)
     }
-    
     @IBAction func backButtonAction(_ sender: Any) {
         navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)

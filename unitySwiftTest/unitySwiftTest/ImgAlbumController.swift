@@ -8,39 +8,41 @@
 
 class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    @IBOutlet weak var btnselect: UIButton!
+    @IBOutlet weak var btnRemove: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var btnKillPngs: UIButton!
-    
+    var selectOn = false as Bool
     var sampImgs = [] as [String]
     var images = [] as [UIImage]
+    var selectedImgs = [] as [Int]
+    let dialog = DialogActions()
     override func viewDidLoad() {
         super.viewDidLoad()
         loadImg()
         collectionView.delegate = self
         collectionView.dataSource = self
-        btnKillPngs.setTitle("KillPNGs", for: .normal)
     }
-    // temporary added for clean up pngs.
-    @IBAction func btnKillPress(_ sender: UIButton) {
-        sampImgs.removeAll()
-        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentPath:String = path[0]
-        let fileManager = FileManager.default
-        do{
-            let title = try FileManager.default.contentsOfDirectory(atPath: documentPath)
-            for image in title{
-                if image.contains("."){
-                    let index = image.index(of:".")!
-                    let end = image[index...]
-                    if end == ".png"{
-                        try fileManager.removeItem(atPath: documentPath + "/" + image)
-                    }
-                }
+    @IBAction func btnselectPress(_ sender: UIButton) {
+        selectAction()
+    }
+    func selectAction(){
+        selectOn = !selectOn
+        collectionView.allowsMultipleSelection = selectOn
+        if selectOn{
+            btnselect.setTitle("Select()", for: .normal)
+        }else{
+            btnselect.setTitle("Select", for: .normal)
+            for i in selectedImgs{
+                collectionView.cellForItem(at: [0,i])?.layer.borderColor = UIColor.black.cgColor
             }
-        }catch{
-            print("error")
+            selectedImgs.removeAll()
+            btnRemove.isHidden = true
         }
-        reloadImgs()
+    }
+    @IBAction func btnRemovePress(_ sender: UIButton) {
+        dialog.alertMsg(controller:self) {
+            self.removeAction()
+        }
     }
     func reloadImgs(){
         loadImg()
@@ -48,7 +50,16 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear( animated )
+        collectionView.allowsMultipleSelection = false
+        selectOn = false
+        selectedImgs.removeAll()
+        btnselect.setTitle("Select", for: .normal)
+        btnRemove.isHidden = true
         reloadImgs()
+    }
+    func selectedTrack(count:Int){
+        btnselect.setTitle("Select(\(count))", for: .normal)
+        btnRemove.isHidden = count == 0
     }
     func loadImg(){
         sampImgs.removeAll()
@@ -88,8 +99,43 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
-        sfViewController.imageName = self.sampImgs[indexPath.row]
-        self.navigationController?.pushViewController(sfViewController, animated: true)
+        if selectOn{
+            let cell = collectionView.cellForItem(at: indexPath)
+            cell?.layer.borderColor = UIColor.cyan.cgColor
+            selectedImgs.append(indexPath.row)
+            selectedTrack(count: selectedImgs.count)
+        }else{
+            let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
+            sfViewController.imageName = self.sampImgs[indexPath.row]
+            self.navigationController?.pushViewController(sfViewController, animated: true)
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if selectOn{
+            let cell = collectionView.cellForItem(at: indexPath)
+            cell?.layer.borderColor = UIColor.black.cgColor
+            for i in 0...selectedImgs.count-1{
+                if(selectedImgs[i] == indexPath.row){
+                    selectedImgs.remove(at: i)
+                    break
+                }
+            }
+            selectedTrack(count: selectedImgs.count)
+        }
+    }
+    func removeAction(){
+        selectedImgs.sort()
+        let fileManager = FileManager.default
+        do{
+            for i in selectedImgs.reversed(){
+                try fileManager.removeItem(atPath: sampImgs[i])
+                sampImgs.remove(at: i)
+            }
+        }catch{
+            print("error")
+        }
+        selectedImgs.removeAll()
+        selectAction()
+        reloadImgs()
     }
 }
