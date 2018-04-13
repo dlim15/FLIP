@@ -11,7 +11,7 @@ import Foundation
 class DialogActions{
     init(){}
     func alertMsg(controller: UIViewController, perform: @escaping ()-> ()){
-        let removeAlert = UIAlertController(title: "Removing", message: "Are you sure you want to remove the item?", preferredStyle: UIAlertControllerStyle.alert)
+        let removeAlert = UIAlertController(title: "Delete Project(s)", message: "Are you sure you want to delete the project(s)?", preferredStyle: UIAlertControllerStyle.alert)
         removeAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action:UIAlertAction!) in
             perform()
         }))

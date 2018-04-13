@@ -27,16 +27,18 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     func selectAction(){
         selectOn = !selectOn
+        btnRemove.isHidden = !selectOn
+        btnRemove.isEnabled = false
         collectionView.allowsMultipleSelection = selectOn
         if selectOn{
-            btnselect.setTitle("Select()", for: .normal)
+            btnselect.setTitle("Deselect", for: .normal)
         }else{
             btnselect.setTitle("Select", for: .normal)
             for i in selectedImgs{
                 collectionView.cellForItem(at: [0,i])?.layer.borderColor = UIColor.black.cgColor
             }
             selectedImgs.removeAll()
-            btnRemove.isHidden = true
+            
         }
     }
     @IBAction func btnRemovePress(_ sender: UIButton) {
@@ -58,8 +60,15 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         reloadImgs()
     }
     func selectedTrack(count:Int){
-        btnselect.setTitle("Select(\(count))", for: .normal)
-        btnRemove.isHidden = count == 0
+        if count > 0{
+            btnRemove.isEnabled = true
+            btnRemove.setTitle("Delete(\(count))", for: .normal)
+        } else{
+            btnRemove.isEnabled = false
+            btnRemove.setTitle("Delete", for: .normal)
+        }
+        
+        
     }
     func loadImg(){
         sampImgs.removeAll()
