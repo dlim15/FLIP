@@ -51,6 +51,42 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanAddForce.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanCameraMove.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanCameraMoveSmooth.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanCameraZoom.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanCameraZoomSmooth.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanDestroy.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanFingerDown.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanFingerDrag.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanFingerHeld.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanFingerLine.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanFingerSet.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanFingerSwipe.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanFingerTap.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanFingerTrail.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanFingerUp.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanMultiTap.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanMultiTapInfo.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanOpenUrl.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanPitchYaw.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanPitchYawSmooth.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanRotate.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanScale.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanSelect.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanSelectableBehaviour.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanSelectableGraphicColor.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanSelectableRendererColor.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanSelectableSpriteRendererColor.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanSpawn.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanTouchEvents.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanTranslate.cs" />
+     <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanTranslateSmooth.cs" />
+     <Compile Include="Assets\LeanTouch\Scripts\LeanFinger.cs" />
+     <Compile Include="Assets\LeanTouch\Scripts\LeanGesture.cs" />
+     <Compile Include="Assets\LeanTouch\Scripts\LeanSelectable.cs" />
+     <Compile Include="Assets\LeanTouch\Scripts\LeanSnapshot.cs" />
+     <Compile Include="Assets\LeanTouch\Scripts\LeanTouch.cs" />
      <Compile Include="Assets\scr.cs" />
      <Compile Include="Assets\Scripts\NativeBridge.cs" />
      <Compile Include="Assets\Scripts\ScreenshotController.cs" />
@@ -128,8 +164,11 @@
      <Compile Include="Assets\UnityARKitPlugin\Plugins\iOS\UnityARKit\NativeInterface\UnityARSessionNativeInterface.cs" />
      <Compile Include="Assets\UnityARKitPlugin\UnityARKitPluginSettings.cs" />
      <None Include="Assets\Kitten\Shaders\Normal-Diffuse.shader" />
+     <None Include="Assets\LeanTouch\Examples\Fonts\OFL.txt" />
      <None Include="Assets\Kitten\Shaders\Alpha-Diffuse.shader" />
+     <None Include="Assets\LeanTouch\Examples\Shaders\Skybox.shader" />
      <None Include="Assets\UnityARKitPlugin\Examples\Common\Shaders\MobileOcclusion.shader" />
+     <None Include="Assets\LeanTouch\Examples\Shaders\Smooth.shader" />
      <None Include="Assets\VertexColorFarmAnimals\Shaders\VertexColorUnlit.shader" />
      <None Include="Assets\UnityARKitPlugin\ARKitRemote\ARKITREMOTE.txt" />
      <None Include="Assets\UnityARKitPlugin\Plugins\iOS\UnityARKit\Shaders\YUVShaderLinear.shader" />
