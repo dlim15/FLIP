@@ -41,6 +41,11 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
             
         }
     }
+    @IBAction func ARRoomTestClicked(_ sender: Any) {
+        let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
+        self.navigationController?.pushViewController(arRoomViewController, animated: true)
+        
+    }
     @IBAction func btnRemovePress(_ sender: UIButton) {
         dialog.alertMsg(controller:self) {
             self.removeAction()
@@ -114,9 +119,11 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
             selectedImgs.append(indexPath.row)
             selectedTrack(count: selectedImgs.count)
         }else{
-            let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
-            sfViewController.imageName = self.sampImgs[indexPath.row]
-            self.navigationController?.pushViewController(sfViewController, animated: true)
+            let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
+            self.navigationController?.pushViewController(arRoomViewController, animated: true)
+//            let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
+//            sfViewController.imageName = self.sampImgs[indexPath.row]
+//            self.navigationController?.pushViewController(sfViewController, animated: true)
         }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

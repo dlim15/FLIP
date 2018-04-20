@@ -84,11 +84,13 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
             
             appDelegate?.stopUnity()
             
-            let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
-            
-            sfViewController.imageName = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent( (imgName as String!) )
-            self.navigationController?.isNavigationBarHidden = false
-            self.navigationController?.pushViewController(sfViewController, animated: true)
+//            let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
+//
+//            sfViewController.imageName = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent( (imgName as String!) )
+//            self.navigationController?.isNavigationBarHidden = false
+//            self.navigationController?.pushViewController(sfViewController, animated: true)
+            let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
+            self.navigationController?.pushViewController(arRoomViewController, animated: true)
         }
         else{
             print("THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE")
