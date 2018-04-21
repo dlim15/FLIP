@@ -19,11 +19,14 @@ public extension UIWindow{
 
 class ARController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
-    
+    let MAX_PICTURES = 6
+    var picturesTaken : Int = 0
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     var imagePicker: UIImagePickerController!
+    var imgSet : [String] = [String()]
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
+    @IBOutlet weak var cameraButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +34,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         self.navigationController?.isNavigationBarHidden = true
         self.navigationItem.setHidesBackButton(true, animated:false)
         loadingSpinner.stopAnimating()
+        picturesTaken = 0
         // Do any additional setup after loading the view.
     }
     
@@ -80,17 +84,25 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
 
         print( "-> UnityFinishedTakingScreenshot()" )
         if let imgName = n.userInfo?["filename"] as? NSString {
-            let window:UIWindow! = UIApplication.shared.keyWindow
-            
-            appDelegate?.stopUnity()
-            
-//            let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
-//
-//            sfViewController.imageName = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent( (imgName as String!) )
-//            self.navigationController?.isNavigationBarHidden = false
-//            self.navigationController?.pushViewController(sfViewController, animated: true)
-            let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
-            self.navigationController?.pushViewController(arRoomViewController, animated: true)
+            let _:UIWindow! = UIApplication.shared.keyWindow
+            print( "Filename: \(imgName)" )
+            imgSet[picturesTaken] = imgName as String
+            picturesTaken += 1
+            sleep(1)
+            cameraButton.isEnabled = true
+            if picturesTaken >= MAX_PICTURES{
+                picturesTaken = 0
+                appDelegate?.stopUnity()
+                
+                //            let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
+                //
+                //            sfViewController.imageName = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent( (imgName as String!) )
+                //            self.navigationController?.isNavigationBarHidden = false
+                //            self.navigationController?.pushViewController(sfViewController, animated: true)
+                let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
+                
+                self.navigationController?.pushViewController(arRoomViewController, animated: true)
+            }
         }
         else{
             print("THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE THERE WAS A FAILURE")
@@ -101,6 +113,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     
     
     @IBAction func takePhoto(_ sender: Any) {
+        cameraButton.isEnabled = false
         loadingSpinner.startAnimating()
         UnityPostMessage("NATIVE_BRIDGE", "Screenshot", "false") // false means don't include items
     }

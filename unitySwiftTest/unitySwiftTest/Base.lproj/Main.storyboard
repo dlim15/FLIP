@@ -323,6 +323,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="btnBack" destination="0OM-da-aEq" id="H4N-Lx-qHf"/>
+                        <outlet property="cameraButton" destination="f4z-cf-Mma" id="d7b-Q4-CjF"/>
                         <outlet property="loadingSpinner" destination="NFi-Ky-5gT" id="bhE-Dd-czk"/>
                     </connections>
                 </viewController>

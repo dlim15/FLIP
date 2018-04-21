@@ -13,6 +13,7 @@ import ARKit
 class ARRoomViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+    private var imgSet : [String] = [String()]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +54,17 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                     boxNode.position = SCNVector3(x:hitResult.worldTransform.columns.3.x,
                                                   y:hitResult.worldTransform.columns.3.y + 0.05,
                                                   z:hitResult.worldTransform.columns.3.z)
+                    if let roomNode = boxScene.rootNode.childNode(withName: "room", recursively: true){
+                        roomNode.geometry?.materials[0].diffuse.contents = UIImage(named: "face1.jpg")
+                        roomNode.geometry?.materials[1].diffuse.contents = UIImage(named: "face2.jpg")
+                        roomNode.geometry?.materials[2].diffuse.contents = UIImage(named: "face3.jpg")
+                        roomNode.geometry?.materials[3].diffuse.contents = UIImage(named: "face4.jpg")
+                        roomNode.geometry?.materials[4].diffuse.contents = UIImage(named: "face5.jpg")
+                        roomNode.geometry?.materials[5].diffuse.contents = UIImage(named: "face6.jpg")
+                        
+                    }
+                    
+                    
                     sceneView.scene.rootNode.addChildNode(boxNode)
                 }
             }
@@ -73,5 +85,9 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
             planeNode.geometry = plane
             node.addChildNode(planeNode)
         }
+    }
+    
+    public func setImgSet( paramsImgSet : [String] ){
+        imgSet = paramsImgSet
     }
 }
