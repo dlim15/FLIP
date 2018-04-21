@@ -20,6 +20,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         
         // Set the view's delegate
         sceneView.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,16 +56,10 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                                                   y:hitResult.worldTransform.columns.3.y + 0.05,
                                                   z:hitResult.worldTransform.columns.3.z)
                     if let roomNode = boxScene.rootNode.childNode(withName: "room", recursively: true){
-                        roomNode.geometry?.materials[0].diffuse.contents = UIImage(named: "face1.jpg")
-                        roomNode.geometry?.materials[1].diffuse.contents = UIImage(named: "face2.jpg")
-                        roomNode.geometry?.materials[2].diffuse.contents = UIImage(named: "face3.jpg")
-                        roomNode.geometry?.materials[3].diffuse.contents = UIImage(named: "face4.jpg")
-                        roomNode.geometry?.materials[4].diffuse.contents = UIImage(named: "face5.jpg")
-                        roomNode.geometry?.materials[5].diffuse.contents = UIImage(named: "face6.jpg")
-                        
+                        for i in 0...imgSet.count - 1{
+                            roomNode.geometry?.materials[i].diffuse.contents = UIImage(named: imgSet[i])
+                        }
                     }
-                    
-                    
                     sceneView.scene.rootNode.addChildNode(boxNode)
                 }
             }
@@ -88,6 +83,11 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     }
     
     public func setImgSet( paramsImgSet : [String] ){
-        imgSet = paramsImgSet
+        imgSet.removeAll()
+        for i in 0...paramsImgSet.count - 1{
+            imgSet.append(((NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString) as String).appending(paramsImgSet[i]) )
+        }
+        
+        
     }
 }

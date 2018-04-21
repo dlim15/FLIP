@@ -35,6 +35,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         self.navigationItem.setHidesBackButton(true, animated:false)
         loadingSpinner.stopAnimating()
         picturesTaken = 0
+        imgSet.removeAll()
         // Do any additional setup after loading the view.
     }
     
@@ -86,7 +87,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         if let imgName = n.userInfo?["filename"] as? NSString {
             let _:UIWindow! = UIApplication.shared.keyWindow
             print( "Filename: \(imgName)" )
-            imgSet[picturesTaken] = imgName as String
+            imgSet.append( imgName as String )
             picturesTaken += 1
             sleep(1)
             cameraButton.isEnabled = true
@@ -100,7 +101,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                 //            self.navigationController?.isNavigationBarHidden = false
                 //            self.navigationController?.pushViewController(sfViewController, animated: true)
                 let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
-                
+                arRoomViewController.setImgSet(paramsImgSet: imgSet)
                 self.navigationController?.pushViewController(arRoomViewController, animated: true)
             }
         }
