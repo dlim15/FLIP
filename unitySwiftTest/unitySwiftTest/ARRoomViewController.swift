@@ -55,9 +55,12 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                     boxNode.position = SCNVector3(x:hitResult.worldTransform.columns.3.x,
                                                   y:hitResult.worldTransform.columns.3.y + 0.05,
                                                   z:hitResult.worldTransform.columns.3.z)
-                    if let roomNode = boxScene.rootNode.childNode(withName: "room", recursively: true){
-                        for i in 0...imgSet.count - 1{
-                            roomNode.geometry?.materials[i].diffuse.contents = UIImage(named: imgSet[i])
+                    if imgSet.count > 4{
+                        if let roomNode = boxScene.rootNode.childNode(withName: "room", recursively: true){
+                            for i in 0...imgSet.count - 1{
+                                var img : UIImage = UIImage(named: imgSet[i])!
+                                roomNode.geometry?.materials[i].diffuse.contents = img
+                            }
                         }
                     }
                     sceneView.scene.rootNode.addChildNode(boxNode)
