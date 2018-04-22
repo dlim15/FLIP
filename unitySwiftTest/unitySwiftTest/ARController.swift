@@ -24,7 +24,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     var imagePicker: UIImagePickerController!
     var imgSet : [String] = [String()]
-    var imgSurface :[String] = ["front","left","back","right","top","bottom",""]
+    var imgSurface :[String] = ["front","left","back","right","ceiling","floor",""]
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     @IBOutlet weak var cameraButton: UIButton!
