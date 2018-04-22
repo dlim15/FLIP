@@ -91,15 +91,26 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
             picturesTaken += 1
             sleep(1)
             cameraButton.isEnabled = true
-            if picturesTaken >= MAX_PICTURES{
+            if picturesTaken >= MAX_PICTURES{                
+                if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                    let fileURL = dir.appendingPathComponent("\(Int(Date.timeIntervalSinceReferenceDate * 1000)).csv")
+                    var stringToWrite = ""
+                    for filename in imgSet{
+                        stringToWrite.append("\(filename)\n")
+                    }
+                    do {
+                        try stringToWrite.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+                        print( "SUCCESSFULLY WROTE TO \(fileURL)" )
+                    }
+                    catch {
+                        print( "Failed to write to file." )
+
+                    }
+                }
+                
+                
                 picturesTaken = 0
                 appDelegate?.stopUnity()
-                
-                //            let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
-                //
-                //            sfViewController.imageName = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent( (imgName as String!) )
-                //            self.navigationController?.isNavigationBarHidden = false
-                //            self.navigationController?.pushViewController(sfViewController, animated: true)
                 let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
                 arRoomViewController.setImgSet(paramsImgSet: imgSet)
                 self.navigationController?.pushViewController(arRoomViewController, animated: true)
@@ -116,7 +127,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     @IBAction func takePhoto(_ sender: Any) {
         cameraButton.isEnabled = false
         loadingSpinner.startAnimating()
-        UnityPostMessage("NATIVE_BRIDGE", "Screenshot", "false") // false means don't include items
+        UnityPostMessage("NATIVE_BRIDGE", "Screenshot", "-\(picturesTaken)")
     }
     
     

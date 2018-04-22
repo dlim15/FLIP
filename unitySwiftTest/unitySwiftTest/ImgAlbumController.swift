@@ -13,8 +13,10 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var collectionView: UICollectionView!
     var selectOn = false as Bool
     var sampImgs = [] as [String]
+    var projectPointerFiles = [] as [String]
     var images = [] as [UIImage]
     var selectedImgs = [] as [Int]
+    
     let dialog = DialogActions()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,12 +83,25 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         let documentPath:String = path[0]
         do{
             let title = try FileManager.default.contentsOfDirectory(atPath: documentPath)
-            for image in title{
-                if image.contains("."){
-                    let index = image.index(of:".")!
-                    let end = image[index...]
-                    if end == ".jpg" || end == ".png"{
-                        sampImgs.append(documentPath + "/" + image)
+            for file in title{
+//                if file.contains("."){
+//                    let index = file.index(of:".")!
+//                    let end = file[index...]
+//                    if end == ".jpg" || end == ".png"{
+//                        sampImgs.append(documentPath + "/" + file)
+//                    }
+//                }
+                if file.contains("."){
+                    let index = file.index(of:".")!
+                    let end = file[index...]
+                    if end == ".csv"{
+                        let flieContents = try String(contentsOf: NSURL(fileURLWithPath: documentPath + "/" + file, isDirectory: false) as URL, encoding: .utf8)
+                        let img = flieContents.split(separator: "\n")[0]
+                        
+                        
+                        sampImgs.append(documentPath + img)
+                        projectPointerFiles.append(documentPath + "/" + file)
+                        
                     }
                 }
             }
@@ -144,8 +159,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         let fileManager = FileManager.default
         do{
             for i in selectedImgs.reversed(){
-                try fileManager.removeItem(atPath: sampImgs[i])
-                sampImgs.remove(at: i)
+                try removeImagesAndPointer(i: i, fileManager: fileManager)
             }
         }catch{
             print("error")
@@ -153,5 +167,20 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         selectedImgs.removeAll()
         selectAction()
         reloadImgs()
+    }
+    
+    func removeImagesAndPointer(i : Int, fileManager : FileManager) throws {
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentPath:String = path[0]
+        
+        var fileContents = try String(contentsOf: NSURL(fileURLWithPath:  projectPointerFiles[i], isDirectory: false) as URL, encoding: .utf8)
+        for file in fileContents.split(separator: "\n"){
+            try fileManager.removeItem(atPath: documentPath + file)
+        }
+        try fileManager.removeItem(at: NSURL(fileURLWithPath:  projectPointerFiles[i], isDirectory: false) as URL)
+        sampImgs.remove(at: i)
+        projectPointerFiles.remove(at: i)
+        
+        
     }
 }
