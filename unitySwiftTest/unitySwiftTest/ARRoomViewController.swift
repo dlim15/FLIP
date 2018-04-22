@@ -14,7 +14,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     private var imgSet : [String] = [String()]
-    
+    private var touchCount = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,7 +49,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
             // 3d coord will only be considered when it is on the existing plane we detected.
             let results = sceneView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
             // check if we got some result using hitTest.
-            if let hitResult = results.first{
+            if touchCount == 0, let hitResult = results.first{
                 let boxScene = SCNScene(named: "art.scnassets/portal.scn")!
                 if let boxNode = boxScene.rootNode.childNode(withName: "portal", recursively: true){
                     boxNode.position = SCNVector3(x:hitResult.worldTransform.columns.3.x,
@@ -61,6 +61,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                         }
                     }
                     sceneView.scene.rootNode.addChildNode(boxNode)
+                    touchCount += 1
                 }
             }
         }
