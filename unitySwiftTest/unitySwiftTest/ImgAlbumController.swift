@@ -134,11 +134,22 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
             selectedImgs.append(indexPath.row)
             selectedTrack(count: selectedImgs.count)
         }else{
+            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+            let documentPath:String = path[0]
+            
             let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
+            
+            do{
+                var fileContents = try String(contentsOf: NSURL(fileURLWithPath:  projectPointerFiles[indexPath.row], isDirectory: false) as URL, encoding: .utf8)
+                var boxImageSet : [String] = [String]()
+                for filePath in fileContents.split(separator: "\n"){
+                    boxImageSet.append(String(filePath))
+                }
+                arRoomViewController.setImgSet(paramsImgSet: boxImageSet )
+            } catch {
+                print( "error reading from file" )
+            }
             self.navigationController?.pushViewController(arRoomViewController, animated: true)
-//            let sfViewController:StillFrameViewController = self.storyboard?.instantiateViewController(withIdentifier: "StillFrameViewController") as! StillFrameViewController
-//            sfViewController.imageName = self.sampImgs[indexPath.row]
-//            self.navigationController?.pushViewController(sfViewController, animated: true)
         }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
