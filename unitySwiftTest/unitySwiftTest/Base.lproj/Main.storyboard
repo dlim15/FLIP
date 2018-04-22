@@ -298,10 +298,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4z-cf-Mma">
-                                <rect key="frame" x="344" y="20" width="48" height="38"/>
+                                <rect key="frame" x="183" y="612" width="48" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <state key="normal" image="cameraIcon"/>
+                                <state key="normal" image="0_cameraIcon"/>
                                 <connections>
                                     <action selector="takePhoto:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="28g-xL-jeT"/>
                                 </connections>
@@ -310,11 +310,32 @@
                                 <rect key="frame" x="197" y="358" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cLO-KR-111">
+                                <rect key="frame" x="356" y="19" width="38" height="30"/>
+                                <state key="normal" title="Undo">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnUndoAction:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="8LX-Jc-usx"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nh-0O-hbG">
+                                <rect key="frame" x="103" y="670" width="207" height="21"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="9nh-0O-hbG" firstAttribute="leading" secondItem="NZJ-FY-9Jd" secondAttribute="leading" constant="103" id="Ac0-lc-p43"/>
                             <constraint firstItem="0OM-da-aEq" firstAttribute="top" secondItem="NZJ-FY-9Jd" secondAttribute="top" id="HxB-IC-vgM"/>
+                            <constraint firstItem="cLO-KR-111" firstAttribute="top" secondItem="9tU-Kx-bSR" secondAttribute="top" constant="19" id="P9a-dy-2gi"/>
+                            <constraint firstItem="NZJ-FY-9Jd" firstAttribute="trailing" secondItem="cLO-KR-111" secondAttribute="trailing" constant="20" id="S9l-eg-fPG"/>
+                            <constraint firstItem="NZJ-FY-9Jd" firstAttribute="bottom" secondItem="9nh-0O-hbG" secondAttribute="bottom" constant="45" id="e7S-eo-OG6"/>
                             <constraint firstItem="0OM-da-aEq" firstAttribute="leading" secondItem="NZJ-FY-9Jd" secondAttribute="leading" constant="20" id="qeA-g3-lQ8"/>
+                            <constraint firstItem="NZJ-FY-9Jd" firstAttribute="trailing" secondItem="9nh-0O-hbG" secondAttribute="trailing" constant="104" id="r8M-T5-rXY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NZJ-FY-9Jd"/>
                     </view>
@@ -323,7 +344,9 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="btnBack" destination="0OM-da-aEq" id="H4N-Lx-qHf"/>
+                        <outlet property="btnUndo" destination="cLO-KR-111" id="SnF-of-21C"/>
                         <outlet property="cameraButton" destination="f4z-cf-Mma" id="d7b-Q4-CjF"/>
+                        <outlet property="lblInstruction" destination="9nh-0O-hbG" id="Orh-e5-v7d"/>
                         <outlet property="loadingSpinner" destination="NFi-Ky-5gT" id="bhE-Dd-czk"/>
                     </connections>
                 </viewController>
@@ -452,7 +475,7 @@ Senior Research Day</string>
         </scene>
     </scenes>
     <resources>
-        <image name="cameraIcon" width="800" height="600"/>
+        <image name="0_cameraIcon" width="800" height="600"/>
         <image name="informationIcon" width="100" height="100"/>
     </resources>
 </document>

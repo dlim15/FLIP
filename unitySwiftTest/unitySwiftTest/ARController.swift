@@ -24,9 +24,12 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     var imagePicker: UIImagePickerController!
     var imgSet : [String] = [String()]
+    var imgSurface :[String] = ["front","left","back","right","top","bottom",""]
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var lblInstruction: UILabel!
+    @IBOutlet weak var btnUndo: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,14 +76,34 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         super.viewWillAppear( animated )
         showUnity()
         self.navigationController?.isNavigationBarHidden = true
-
+        self.btnUndo.isHidden = true
+        self.cameraButton.setImage(UIImage(named: "0_cameraIcon.png"), for: UIControlState.normal)
+        picturesTaken = 0
+        self.lblInstruction.isHidden = false
+        surfaceSideGuide(i:0)
     }
-
+    func surfaceSideGuide(i: Int) {
+        self.lblInstruction.text = "Take " + imgSurface[ i ] + " side."
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func btnUndoAction(_ sender: UIButton) {
+        loadingSpinner.startAnimating()
+        picturesTaken -= 1
+        imgSet.remove(at: picturesTaken)
+        actionOnPicture(i: picturesTaken)
+        sleep(1)
+        loadingSpinner.stopAnimating()
+    }
+    func actionOnPicture(i:Int){
+        surfaceSideGuide(i: picturesTaken)
+        self.cameraButton.setImage(UIImage(named: String( picturesTaken ) + "_cameraIcon.png"), for: UIControlState.normal)
+        surfaceSideGuide(i:i)
+        btnUndo.isHidden = i == 0
+    }
     @objc func UnityFinishedTakingScreenshot(_ n: NSNotification) {
 
         print( "-> UnityFinishedTakingScreenshot()" )
@@ -90,6 +113,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
             imgSet.append( imgName as String )
             picturesTaken += 1
             sleep(1)
+            actionOnPicture(i: picturesTaken)
             cameraButton.isEnabled = true
             if picturesTaken >= MAX_PICTURES{                
                 if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
