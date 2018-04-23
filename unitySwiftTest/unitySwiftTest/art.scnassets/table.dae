@@ -1,0 +1,1007 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+ <asset>
+  <contributor>
+   <authoring_tool>SceneKit Collada Exporter v1.0</authoring_tool>
+  </contributor>
+  <created>2018-04-23T19:09:43Z</created>
+  <modified>2018-04-23T19:09:43Z</modified>
+  <unit meter="1.000000"/>
+  <up_axis>Z_UP</up_axis>
+ </asset>
+ <library_lights>
+  <light id="Lamp-light" name="Lamp">
+   <technique_common>
+    <point>
+     <color>1 1 1</color>
+     <constant_attenuation>0</constant_attenuation>
+     <linear_attenuation>0</linear_attenuation>
+     <quadratic_attenuation>1</quadratic_attenuation>
+    </point>
+   </technique_common>
+   <extra>
+    <technique profile="SceneKit">
+     <attenuationStart>0</attenuationStart>
+     <attenuationEnd>0</attenuationEnd>
+     <attenuationFalloffExponent>2</attenuationFalloffExponent>
+     <intensity>1000</intensity>
+    </technique>
+   </extra>
+  </light>
+ </library_lights>
+ <library_images>
+  <image id="image1">
+   <init_from>WoodSeemles1.jpg</init_from>
+  </image>
+  <image id="image2">
+   <init_from>WoodSeemles.jpg</init_from>
+  </image>
+  <image id="image3">
+   <init_from>WoodSeemles1.jpg.001.jpg</init_from>
+  </image>
+  <image id="image4">
+   <init_from>WoodSeemles.jpg.001.jpg</init_from>
+  </image>
+ </library_images>
+ <library_materials>
+  <material id="Mat_1-material" name="Mat_1">
+   <instance_effect url="#effect_Mat_1-material"/>
+  </material>
+  <material id="Mat-material" name="Mat">
+   <instance_effect url="#effect_Mat-material"/>
+  </material>
+  <material id="Mat_002-material" name="Mat_002">
+   <instance_effect url="#effect_Mat_002-material"/>
+  </material>
+  <material id="Mat_003-material" name="Mat_003">
+   <instance_effect url="#effect_Mat_003-material"/>
+  </material>
+ </library_materials>
+ <library_effects>
+  <effect id="effect_Mat_1-material">
+   <profile_COMMON>
+    <newparam sid="ID5_image1_surface">
+     <surface type="2D">
+      <init_from>image1</init_from>
+     </surface>
+    </newparam>
+    <newparam sid="ID5_image1">
+     <sampler2D>
+      <source>ID5_image1_surface</source>
+      <wrap_s>WRAP</wrap_s>
+      <wrap_t>WRAP</wrap_t>
+      <minfilter>LINEAR</minfilter>
+      <magfilter>LINEAR</magfilter>
+      <mipfilter>LINEAR</mipfilter>
+     </sampler2D>
+    </newparam>
+    <technique sid="common">
+     <phong>
+      <ambient>
+       <color>0 0 0 1</color>
+      </ambient>
+      <diffuse>
+       <texture texture="ID5_image1" texcoord="CHANNEL2"/>
+      </diffuse>
+      <specular>
+       <color>1 1 1 1</color>
+      </specular>
+      <shininess>
+       <float>26</float>
+      </shininess>
+      <transparent opaque="A_ONE">
+       <color>1 1 1 0</color>
+      </transparent>
+      <transparency>
+       <float>1</float>
+      </transparency>
+      <index_of_refraction>
+       <float>1</float>
+      </index_of_refraction>
+     </phong>
+    </technique>
+   </profile_COMMON>
+   <extra>
+    <technique profile="SceneKit">
+     <litPerPixel>1</litPerPixel>
+     <ambient_diffuse_lock>1</ambient_diffuse_lock>
+    </technique>
+   </extra>
+  </effect>
+  <effect id="effect_Mat-material">
+   <profile_COMMON>
+    <newparam sid="ID6_image2_surface">
+     <surface type="2D">
+      <init_from>image2</init_from>
+     </surface>
+    </newparam>
+    <newparam sid="ID6_image2">
+     <sampler2D>
+      <source>ID6_image2_surface</source>
+      <wrap_s>WRAP</wrap_s>
+      <wrap_t>WRAP</wrap_t>
+      <minfilter>LINEAR</minfilter>
+      <magfilter>LINEAR</magfilter>
+      <mipfilter>LINEAR</mipfilter>
+     </sampler2D>
+    </newparam>
+    <technique sid="common">
+     <phong>
+      <ambient>
+       <color>0 0 0 1</color>
+      </ambient>
+      <diffuse>
+       <texture texture="ID6_image2" texcoord="CHANNEL2"/>
+      </diffuse>
+      <specular>
+       <color>1 1 1 1</color>
+      </specular>
+      <shininess>
+       <float>26</float>
+      </shininess>
+      <transparency>
+       <float>1</float>
+      </transparency>
+      <index_of_refraction>
+       <float>1</float>
+      </index_of_refraction>
+     </phong>
+    </technique>
+   </profile_COMMON>
+   <extra>
+    <technique profile="SceneKit">
+     <litPerPixel>1</litPerPixel>
+     <ambient_diffuse_lock>1</ambient_diffuse_lock>
+    </technique>
+   </extra>
+  </effect>
+  <effect id="effect_Mat_002-material">
+   <profile_COMMON>
+    <newparam sid="ID7_image3_surface">
+     <surface type="2D">
+      <init_from>image3</init_from>
+     </surface>
+    </newparam>
+    <newparam sid="ID7_image3">
+     <sampler2D>
+      <source>ID7_image3_surface</source>
+      <wrap_s>WRAP</wrap_s>
+      <wrap_t>WRAP</wrap_t>
+      <minfilter>LINEAR</minfilter>
+      <magfilter>LINEAR</magfilter>
+      <mipfilter>LINEAR</mipfilter>
+     </sampler2D>
+    </newparam>
+    <technique sid="common">
+     <phong>
+      <ambient>
+       <color>0 0 0 1</color>
+      </ambient>
+      <diffuse>
+       <texture texture="ID7_image3" texcoord="CHANNEL2"/>
+      </diffuse>
+      <specular>
+       <color>1 1 1 1</color>
+      </specular>
+      <shininess>
+       <float>26</float>
+      </shininess>
+      <transparent opaque="A_ONE">
+       <color>1 1 1 0</color>
+      </transparent>
+      <transparency>
+       <float>1</float>
+      </transparency>
+      <index_of_refraction>
+       <float>1</float>
+      </index_of_refraction>
+     </phong>
+    </technique>
+   </profile_COMMON>
+   <extra>
+    <technique profile="SceneKit">
+     <litPerPixel>1</litPerPixel>
+     <ambient_diffuse_lock>1</ambient_diffuse_lock>
+    </technique>
+   </extra>
+  </effect>
+  <effect id="effect_Mat_003-material">
+   <profile_COMMON>
+    <newparam sid="ID8_image4_surface">
+     <surface type="2D">
+      <init_from>image4</init_from>
+     </surface>
+    </newparam>
+    <newparam sid="ID8_image4">
+     <sampler2D>
+      <source>ID8_image4_surface</source>
+      <wrap_s>WRAP</wrap_s>
+      <wrap_t>WRAP</wrap_t>
+      <minfilter>LINEAR</minfilter>
+      <magfilter>LINEAR</magfilter>
+      <mipfilter>LINEAR</mipfilter>
+     </sampler2D>
+    </newparam>
+    <technique sid="common">
+     <phong>
+      <ambient>
+       <color>0 0 0 1</color>
+      </ambient>
+      <diffuse>
+       <texture texture="ID8_image4" texcoord="CHANNEL2"/>
+      </diffuse>
+      <specular>
+       <color>1 1 1 1</color>
+      </specular>
+      <shininess>
+       <float>26</float>
+      </shininess>
+      <transparency>
+       <float>1</float>
+      </transparency>
+      <index_of_refraction>
+       <float>1</float>
+      </index_of_refraction>
+     </phong>
+    </technique>
+   </profile_COMMON>
+   <extra>
+    <technique profile="SceneKit">
+     <litPerPixel>1</litPerPixel>
+     <ambient_diffuse_lock>1</ambient_diffuse_lock>
+    </technique>
+   </extra>
+  </effect>
+ </library_effects>
+ <library_geometries>
+  <geometry id="geometry9">
+   <mesh>
+    <source id="Stütze-mesh-positions">
+     <float_array id="ID10-array" count="72">50 35 -84.9089 -50 25 -84.9089 50 25 -84.9089 50 35 -94.9089 50 25 -84.9089 50 25 -94.9089 -50 35 -94.9089 50 25 -94.9089 -50 25 -94.9089 -50 35 -84.9089 -50 25 -94.9089 -50 25 -84.9089 50 35 -94.9089 -50 35 -84.9089 50 35 -84.9089 50 25 -84.9089 -50 25 -94.9089 50 25 -94.9089 -50 35 -84.9089 50 35 -84.9089 50 35 -94.9089 -50 35 -94.9089 -50 35 -94.9089 -50 25 -84.9089 </float_array>
+     <technique_common>
+      <accessor source="#ID10-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Stütze-mesh-normals">
+     <float_array id="ID11-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID11-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Stütze-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Stütze-mesh-positions"/>
+    </vertices>
+    <triangles count="12" material="geometryElement12">
+     <input semantic="VERTEX" offset="0" source="#Stütze-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Stütze-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 0 18 1 3 19 4 6 20 7 9 21 10 12 22 13 15 23 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry13">
+   <mesh>
+    <source id="Bein_2-mesh-positions">
+     <float_array id="ID14-array" count="72">-50 50 -85 -60 -50 -85 -50 -50 -85 -50 50 -95 -50 -50 -85 -50 -50 -95 -60 50 -95 -50 -50 -95 -60 -50 -95 -60 50 -85 -60 -50 -95 -60 -50 -85 -50 50 -95 -60 50 -85 -50 50 -85 -50 -50 -85 -60 -50 -95 -50 -50 -95 -60 50 -85 -50 50 -85 -50 50 -95 -60 50 -95 -60 50 -95 -60 -50 -85 </float_array>
+     <technique_common>
+      <accessor source="#ID14-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Bein_2-mesh-normals">
+     <float_array id="ID15-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID15-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Bein_2-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Bein_2-mesh-positions"/>
+    </vertices>
+    <triangles count="12" material="geometryElement16">
+     <input semantic="VERTEX" offset="0" source="#Bein_2-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Bein_2-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 0 18 1 3 19 4 6 20 7 9 21 10 12 22 13 15 23 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry17">
+   <mesh>
+    <source id="Stütze_2-mesh-positions">
+     <float_array id="ID18-array" count="72">5 35 90 -5 25 90 5 25 90 5 35 -90 5 25 90 5 25 -90 -5 35 -90 5 25 -90 -5 25 -90 -5 35 90 -5 25 -90 -5 25 90 -5 35 90 5 35 90 5 35 -90 -5 35 -90 5 35 -90 -5 35 90 5 35 90 5 25 90 -5 25 -90 5 25 -90 -5 35 -90 -5 25 90 </float_array>
+     <technique_common>
+      <accessor source="#ID18-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Stütze_2-mesh-normals">
+     <float_array id="ID19-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID19-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Stütze_2-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Stütze_2-mesh-positions"/>
+    </vertices>
+    <triangles count="8" material="geometryElement20">
+     <input semantic="VERTEX" offset="0" source="#Stütze_2-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Stütze_2-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 0 12 1 3 13 4 6 14 7 9 15 10 </p>
+    </triangles>
+    <triangles count="4" material="geometryElement21">
+     <input semantic="VERTEX" offset="0" source="#Stütze_2-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Stütze_2-mesh-normals"/>
+     <p>16 17 18 19 20 21 16 22 17 19 23 20 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry22">
+   <mesh>
+    <source id="Bein_1-mesh-positions">
+     <float_array id="ID23-array" count="72">60 50 95 50 -50 95 60 -50 95 60 50 85 60 -50 95 60 -50 85 50 50 85 60 -50 85 50 -50 85 50 50 95 50 -50 85 50 -50 95 60 50 85 50 50 95 60 50 95 60 -50 95 50 -50 85 60 -50 85 50 50 95 60 50 95 60 50 85 50 50 85 50 50 85 50 -50 95 </float_array>
+     <technique_common>
+      <accessor source="#ID23-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Bein_1-mesh-normals">
+     <float_array id="ID24-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID24-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Bein_1-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Bein_1-mesh-positions"/>
+    </vertices>
+    <triangles count="12" material="geometryElement25">
+     <input semantic="VERTEX" offset="0" source="#Bein_1-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Bein_1-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 0 18 1 3 19 4 6 20 7 9 21 10 12 22 13 15 23 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry26">
+   <mesh>
+    <source id="Platte-mesh-positions">
+     <float_array id="ID27-array" count="72">70 52.5176 -110 70 47.5176 110 70 47.5176 -110 -70 52.5176 110 -70 47.5176 -110 -70 47.5176 110 70 52.5176 110 -70 52.5176 -110 70 52.5176 110 -70 47.5176 110 70 47.5176 110 -70 52.5176 -110 70 47.5176 -110 -70 47.5176 -110 70 52.5176 -110 -70 52.5176 110 70 52.5176 110 70 47.5176 110 -70 47.5176 -110 70 47.5176 -110 -70 52.5176 110 70 52.5176 -110 -70 52.5176 -110 -70 47.5176 110 </float_array>
+     <technique_common>
+      <accessor source="#ID27-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Platte-mesh-normals">
+     <float_array id="ID28-array" count="72">1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 -1 0 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 -1 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID28-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Platte-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Platte-mesh-positions"/>
+    </vertices>
+    <triangles count="4" material="geometryElement29">
+     <input semantic="VERTEX" offset="0" source="#Platte-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Platte-mesh-normals"/>
+     <p>0 1 2 3 4 5 0 6 1 3 7 4 </p>
+    </triangles>
+    <triangles count="8" material="geometryElement30">
+     <input semantic="VERTEX" offset="0" source="#Platte-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Platte-mesh-normals"/>
+     <p>8 9 10 11 12 13 14 15 16 17 18 19 8 20 9 11 21 12 14 22 15 17 23 18 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry31">
+   <mesh>
+    <source id="Bein_3-mesh-positions">
+     <float_array id="ID32-array" count="72">60 50 -85 50 -50 -85 60 -50 -85 60 50 -95 60 -50 -85 60 -50 -95 50 50 -95 60 -50 -95 50 -50 -95 50 50 -85 50 -50 -95 50 -50 -85 60 50 -95 50 50 -85 60 50 -85 60 -50 -85 50 -50 -95 60 -50 -95 50 50 -85 60 50 -85 60 50 -95 50 50 -95 50 50 -95 50 -50 -85 </float_array>
+     <technique_common>
+      <accessor source="#ID32-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Bein_3-mesh-normals">
+     <float_array id="ID33-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID33-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Bein_3-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Bein_3-mesh-positions"/>
+    </vertices>
+    <triangles count="12" material="geometryElement34">
+     <input semantic="VERTEX" offset="0" source="#Bein_3-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Bein_3-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 0 18 1 3 19 4 6 20 7 9 21 10 12 22 13 15 23 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry35">
+   <mesh>
+    <source id="Stütze_1-mesh-positions">
+     <float_array id="ID36-array" count="72">50 35 94.414 -50 25 94.414 50 25 94.414 50 35 84.414 50 25 94.414 50 25 84.414 -50 35 84.414 50 25 84.414 -50 25 84.414 -50 35 94.414 -50 25 84.414 -50 25 94.414 50 35 84.414 -50 35 94.414 50 35 94.414 50 25 94.414 -50 25 84.414 50 25 84.414 -50 35 94.414 50 35 94.414 50 35 84.414 -50 35 84.414 -50 35 84.414 -50 25 94.414 </float_array>
+     <technique_common>
+      <accessor source="#ID36-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Stütze_1-mesh-normals">
+     <float_array id="ID37-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID37-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Stütze_1-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Stütze_1-mesh-positions"/>
+    </vertices>
+    <triangles count="12" material="geometryElement38">
+     <input semantic="VERTEX" offset="0" source="#Stütze_1-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Stütze_1-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 0 18 1 3 19 4 6 20 7 9 21 10 12 22 13 15 23 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry39">
+   <mesh>
+    <source id="Bein-mesh-positions">
+     <float_array id="ID40-array" count="72">-50 50 95 -60 -50 95 -50 -50 95 -50 50 85 -50 -50 95 -50 -50 85 -60 50 85 -50 -50 85 -60 -50 85 -60 50 95 -60 -50 85 -60 -50 95 -50 50 85 -60 50 95 -50 50 95 -50 -50 95 -60 -50 85 -50 -50 85 -60 50 95 -50 50 95 -50 50 85 -60 50 85 -60 50 85 -60 -50 95 </float_array>
+     <technique_common>
+      <accessor source="#ID40-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Bein-mesh-normals">
+     <float_array id="ID41-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID41-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Bein-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Bein-mesh-positions"/>
+    </vertices>
+    <triangles count="12" material="geometryElement42">
+     <input semantic="VERTEX" offset="0" source="#Bein-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Bein-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 0 18 1 3 19 4 6 20 7 9 21 10 12 22 13 15 23 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry43">
+   <mesh>
+    <source id="Stütze_001-mesh-positions">
+     <float_array id="ID44-array" count="72">50 35 -84.9089 -50 25 -84.9089 50 25 -84.9089 50 35 -94.9089 50 25 -84.9089 50 25 -94.9089 -50 35 -94.9089 50 25 -94.9089 -50 25 -94.9089 -50 35 -84.9089 -50 25 -94.9089 -50 25 -84.9089 50 35 -94.9089 -50 35 -84.9089 50 35 -84.9089 50 25 -84.9089 -50 25 -94.9089 50 25 -94.9089 -50 35 -84.9089 50 35 -84.9089 50 35 -94.9089 -50 35 -94.9089 -50 35 -94.9089 -50 25 -84.9089 </float_array>
+     <technique_common>
+      <accessor source="#ID44-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Stütze_001-mesh-normals">
+     <float_array id="ID45-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID45-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Stütze_001-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Stütze_001-mesh-positions"/>
+    </vertices>
+    <triangles count="12" material="geometryElement46">
+     <input semantic="VERTEX" offset="0" source="#Stütze_001-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Stütze_001-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 0 18 1 3 19 4 6 20 7 9 21 10 12 22 13 15 23 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry47">
+   <mesh>
+    <source id="Bein_2_001-mesh-positions">
+     <float_array id="ID48-array" count="72">-50 50 -85 -60 -50 -85 -50 -50 -85 -50 50 -95 -50 -50 -85 -50 -50 -95 -60 50 -95 -50 -50 -95 -60 -50 -95 -60 50 -85 -60 -50 -95 -60 -50 -85 -50 50 -95 -60 50 -85 -50 50 -85 -50 -50 -85 -60 -50 -95 -50 -50 -95 -60 50 -85 -50 50 -85 -50 50 -95 -60 50 -95 -60 50 -95 -60 -50 -85 </float_array>
+     <technique_common>
+      <accessor source="#ID48-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Bein_2_001-mesh-normals">
+     <float_array id="ID49-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID49-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Bein_2_001-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Bein_2_001-mesh-positions"/>
+    </vertices>
+    <triangles count="12" material="geometryElement50">
+     <input semantic="VERTEX" offset="0" source="#Bein_2_001-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Bein_2_001-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 0 18 1 3 19 4 6 20 7 9 21 10 12 22 13 15 23 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry51">
+   <mesh>
+    <source id="Stütze_2_001-mesh-positions">
+     <float_array id="ID52-array" count="72">5 35 90 -5 25 90 5 25 90 5 35 -90 5 25 90 5 25 -90 -5 35 -90 5 25 -90 -5 25 -90 -5 35 90 -5 25 -90 -5 25 90 -5 35 90 5 35 90 5 35 -90 -5 35 -90 5 35 -90 -5 35 90 5 35 90 5 25 90 -5 25 -90 5 25 -90 -5 35 -90 -5 25 90 </float_array>
+     <technique_common>
+      <accessor source="#ID52-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Stütze_2_001-mesh-normals">
+     <float_array id="ID53-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID53-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Stütze_2_001-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Stütze_2_001-mesh-positions"/>
+    </vertices>
+    <triangles count="8" material="geometryElement54">
+     <input semantic="VERTEX" offset="0" source="#Stütze_2_001-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Stütze_2_001-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 0 12 1 3 13 4 6 14 7 9 15 10 </p>
+    </triangles>
+    <triangles count="4" material="geometryElement55">
+     <input semantic="VERTEX" offset="0" source="#Stütze_2_001-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Stütze_2_001-mesh-normals"/>
+     <p>16 17 18 19 20 21 16 22 17 19 23 20 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry56">
+   <mesh>
+    <source id="Bein_1_001-mesh-positions">
+     <float_array id="ID57-array" count="72">60 50 95 50 -50 95 60 -50 95 60 50 85 60 -50 95 60 -50 85 50 50 85 60 -50 85 50 -50 85 50 50 95 50 -50 85 50 -50 95 60 50 85 50 50 95 60 50 95 60 -50 95 50 -50 85 60 -50 85 50 50 95 60 50 95 60 50 85 50 50 85 50 50 85 50 -50 95 </float_array>
+     <technique_common>
+      <accessor source="#ID57-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Bein_1_001-mesh-normals">
+     <float_array id="ID58-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID58-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Bein_1_001-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Bein_1_001-mesh-positions"/>
+    </vertices>
+    <triangles count="12" material="geometryElement59">
+     <input semantic="VERTEX" offset="0" source="#Bein_1_001-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Bein_1_001-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 0 18 1 3 19 4 6 20 7 9 21 10 12 22 13 15 23 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry60">
+   <mesh>
+    <source id="Platte_001-mesh-positions">
+     <float_array id="ID61-array" count="72">70 52.5176 -110 70 47.5176 110 70 47.5176 -110 -70 52.5176 110 -70 47.5176 -110 -70 47.5176 110 70 52.5176 110 -70 52.5176 -110 70 52.5176 110 -70 47.5176 110 70 47.5176 110 -70 52.5176 -110 70 47.5176 -110 -70 47.5176 -110 70 52.5176 -110 -70 52.5176 110 70 52.5176 110 70 47.5176 110 -70 47.5176 -110 70 47.5176 -110 -70 52.5176 110 70 52.5176 -110 -70 52.5176 -110 -70 47.5176 110 </float_array>
+     <technique_common>
+      <accessor source="#ID61-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Platte_001-mesh-normals">
+     <float_array id="ID62-array" count="72">1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 -1 0 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 -1 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID62-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Platte_001-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Platte_001-mesh-positions"/>
+    </vertices>
+    <triangles count="4" material="geometryElement63">
+     <input semantic="VERTEX" offset="0" source="#Platte_001-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Platte_001-mesh-normals"/>
+     <p>0 1 2 3 4 5 0 6 1 3 7 4 </p>
+    </triangles>
+    <triangles count="8" material="geometryElement64">
+     <input semantic="VERTEX" offset="0" source="#Platte_001-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Platte_001-mesh-normals"/>
+     <p>8 9 10 11 12 13 14 15 16 17 18 19 8 20 9 11 21 12 14 22 15 17 23 18 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry65">
+   <mesh>
+    <source id="Bein_3_001-mesh-positions">
+     <float_array id="ID66-array" count="72">60 50 -85 50 -50 -85 60 -50 -85 60 50 -95 60 -50 -85 60 -50 -95 50 50 -95 60 -50 -95 50 -50 -95 50 50 -85 50 -50 -95 50 -50 -85 60 50 -95 50 50 -85 60 50 -85 60 -50 -85 50 -50 -95 60 -50 -95 50 50 -85 60 50 -85 60 50 -95 50 50 -95 50 50 -95 50 -50 -85 </float_array>
+     <technique_common>
+      <accessor source="#ID66-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Bein_3_001-mesh-normals">
+     <float_array id="ID67-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID67-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Bein_3_001-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Bein_3_001-mesh-positions"/>
+    </vertices>
+    <triangles count="12" material="geometryElement68">
+     <input semantic="VERTEX" offset="0" source="#Bein_3_001-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Bein_3_001-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 0 18 1 3 19 4 6 20 7 9 21 10 12 22 13 15 23 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry69">
+   <mesh>
+    <source id="Stütze_1_001-mesh-positions">
+     <float_array id="ID70-array" count="72">50 35 94.414 -50 25 94.414 50 25 94.414 50 35 84.414 50 25 94.414 50 25 84.414 -50 35 84.414 50 25 84.414 -50 25 84.414 -50 35 94.414 -50 25 84.414 -50 25 94.414 50 35 84.414 -50 35 94.414 50 35 94.414 50 25 94.414 -50 25 84.414 50 25 84.414 -50 35 94.414 50 35 94.414 50 35 84.414 -50 35 84.414 -50 35 84.414 -50 25 94.414 </float_array>
+     <technique_common>
+      <accessor source="#ID70-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Stütze_1_001-mesh-normals">
+     <float_array id="ID71-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID71-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Stütze_1_001-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Stütze_1_001-mesh-positions"/>
+    </vertices>
+    <triangles count="12" material="geometryElement72">
+     <input semantic="VERTEX" offset="0" source="#Stütze_1_001-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Stütze_1_001-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 0 18 1 3 19 4 6 20 7 9 21 10 12 22 13 15 23 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+  <geometry id="geometry73">
+   <mesh>
+    <source id="Bein_001-mesh-positions">
+     <float_array id="ID74-array" count="72">-50 50 95 -60 -50 95 -50 -50 95 -50 50 85 -50 -50 95 -50 -50 85 -60 50 85 -50 -50 85 -60 -50 85 -60 50 95 -60 -50 85 -60 -50 95 -50 50 85 -60 50 95 -50 50 95 -50 -50 95 -60 -50 85 -50 -50 85 -60 50 95 -50 50 95 -50 50 85 -60 50 85 -60 50 85 -60 -50 95 </float_array>
+     <technique_common>
+      <accessor source="#ID74-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <source id="Bein_001-mesh-normals">
+     <float_array id="ID75-array" count="72">0 0 1 0 0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 1 0 0 0 0 -1 -1 0 0 0 1 0 0 -1 0 </float_array>
+     <technique_common>
+      <accessor source="#ID75-array" count="24" stride="3">
+       <param name="X" type="float"/>
+       <param name="Y" type="float"/>
+       <param name="Z" type="float"/>
+      </accessor>
+     </technique_common>
+    </source>
+    <vertices id="Bein_001-mesh-positions-vertices">
+     <input semantic="POSITION" source="#Bein_001-mesh-positions"/>
+    </vertices>
+    <triangles count="12" material="geometryElement76">
+     <input semantic="VERTEX" offset="0" source="#Bein_001-mesh-positions-vertices"/>
+     <input semantic="NORMAL" offset="0" source="#Bein_001-mesh-normals"/>
+     <p>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 0 18 1 3 19 4 6 20 7 9 21 10 12 22 13 15 23 16 </p>
+    </triangles>
+   </mesh>
+  </geometry>
+ </library_geometries>
+ <library_visual_scenes>
+  <visual_scene id="scene77">
+   <node id="table" name="table">
+    <node id="Lamp" name="Lamp">
+     <matrix>-0.2908647 -0.7711008 0.5663931 4.076244 0.9551712 -0.1998834 0.2183912 1.005454 -0.05518907 0.6045246 0.7946723 5.903862 0 0 0 1 </matrix>
+     <instance_light url="#Lamp-light"/>
+    </node>
+    <node id="Stütze" name="_t__tz">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry9">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement12" target="#Mat_1-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Bein_2" name="Bein_2">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry13">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement16" target="#Mat-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Stütze_2" name="_t__tze_">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry17">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement20" target="#Mat_1-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+        <instance_material symbol="geometryElement21" target="#Mat-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Bein_1" name="Bein_1">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry22">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement25" target="#Mat-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Platte" name="Platte">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry26">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement29" target="#Mat_1-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+        <instance_material symbol="geometryElement30" target="#Mat-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Bein_3" name="Bein_3">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry31">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement34" target="#Mat-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Stütze_1" name="_t__tze_">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry35">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement38" target="#Mat_1-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Bein" name="Bein">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry39">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement42" target="#Mat-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Stütze_001" name="_t__tze_00">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry43">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement46" target="#Mat_002-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Bein_2_001" name="Bein_2_001">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry47">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement50" target="#Mat_003-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Stütze_2_001" name="_t__tze_2_00">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry51">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement54" target="#Mat_002-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+        <instance_material symbol="geometryElement55" target="#Mat_003-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Bein_1_001" name="Bein_1_001">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry56">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement59" target="#Mat_003-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Platte_001" name="Platte_001">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry60">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement63" target="#Mat_002-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+        <instance_material symbol="geometryElement64" target="#Mat_003-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Bein_3_001" name="Bein_3_001">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry65">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement68" target="#Mat_003-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Stütze_1_001" name="_t__tze_1_00">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry69">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement72" target="#Mat_002-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+    <node id="Bein_001" name="Bein_001">
+     <matrix>0.9999999 0 0 0 0 5.960464e-08 -0.9999998 0 0 0.9999998 5.960464e-08 0 0 0 0 1 </matrix>
+     <instance_geometry url="#geometry73">
+      <bind_material>
+       <technique_common>
+        <instance_material symbol="geometryElement76" target="#Mat_003-material">
+         <bind_vertex_input semantic="CHANNEL2" input_semantic="TEXCOORD" input_set="1"/>
+        </instance_material>
+       </technique_common>
+      </bind_material>
+     </instance_geometry>
+    </node>
+   </node>
+  </visual_scene>
+ </library_visual_scenes>
+ <scene>
+  <instance_visual_scene url="#scene77"/>
+ </scene>
+</COLLADA>
