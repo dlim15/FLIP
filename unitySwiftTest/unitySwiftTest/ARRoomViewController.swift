@@ -15,12 +15,13 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     private var imgSet : [String] = [String()]
     private var touchCount = 0
+    private var path : UIBezierPath!
+    //var planes = [ARPlaneAnchor: PlaneNode]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set the view's delegate
         sceneView.delegate = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,8 +42,17 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
+    func initShape(){
+        path.move(to: CGPoint(x: 0, y:0))
+        path.addLine(to: CGPoint(x:0, y:0.2))
+        path.addLine(to: CGPoint(x:0.3, y:0.2))
+        path.addLine(to: CGPoint(x:0.3, y:0))
+        let shape = SCNShape(path: path, extrusionDepth:0.2)
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first{
+            
+            
             //location of where we touch on 2d screen
             let touchLocation = touch.location(in: sceneView)
             // to perform to get the 3D coordinate corresponding to the 2D coord.
@@ -55,6 +65,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                     boxNode.position = SCNVector3(x:hitResult.worldTransform.columns.3.x,
                                                   y:hitResult.worldTransform.columns.3.y + 0.05,
                                                   z:hitResult.worldTransform.columns.3.z)
+
                     if imgSet.count > 4{
                         if let roomNode = boxScene.rootNode.childNode(withName: "room", recursively: true){
                             for i in 0...imgSet.count - 1{
@@ -68,6 +79,11 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                 }
             }
         }
+//        let table = boxNode.childNode(withName: "table", recursively: true)
+//
+//        let detectedObject = self.planes[planeAnchor]
+//        let nodeId = detectedObject.name
+//        print(nodeId)
     }
     //when horizontal plane is detected.
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -82,6 +98,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
             gridMaterial.diffuse.contents = UIImage(named: "art.scnassets/grid.png")
             plane.materials = [gridMaterial]
             planeNode.geometry = plane
+            //self.planes[planeAnchor] = planeNode
             node.addChildNode(planeNode)
         }
     }

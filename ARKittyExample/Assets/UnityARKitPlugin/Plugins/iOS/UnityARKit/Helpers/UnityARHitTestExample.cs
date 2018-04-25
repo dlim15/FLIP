@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-
+using UnityEngine.EventSystems;
 namespace UnityEngine.XR.iOS
 {
 	public class UnityARHitTestExample : MonoBehaviour
@@ -40,7 +40,13 @@ namespace UnityEngine.XR.iOS
             }
             return false;
         }
-
+		private bool IsPointerOverUIObject(){
+			PointerEventData eventdataCurrentPosition = new PointerEventData (EventSystem.current);
+			eventdataCurrentPosition.position = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
+			List<RaycastResult> results = new List<RaycastResult> ();
+			EventSystem.current.RaycastAll (eventdataCurrentPosition, results);
+			return results.Count > 0;
+		}
 		void Start(){
 //			ARObjects = GameObject.FindGameObjectsWithTag("ARObject");
 //	        foreach (GameObject ARObject in ARObjects)
@@ -71,7 +77,7 @@ namespace UnityEngine.XR.iOS
 			if (Input.touchCount > 0 && m_HitTransform != null)
 			{
 				var touch = Input.GetTouch(0);
-				if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
+				if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)&& !IsPointerOverUIObject())
 				{
 					var screenPosition = Camera.main.ScreenToViewportPoint(touch.position);
 					ARPoint point = new ARPoint {
