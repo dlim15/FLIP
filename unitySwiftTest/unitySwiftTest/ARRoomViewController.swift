@@ -20,7 +20,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     //var planes = [ARPlaneAnchor: PlaneNode]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.isNavigationBarHidden = false
         // Set the view's delegate
         sceneView.delegate = self
         sqlCommand.createTable()

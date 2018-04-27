@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 288019238}
   m_Layer: 0
   m_Name: chair
-  m_TagString: Untagged
+  m_TagString: ARObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 433594820}
   m_Layer: 0
   m_Name: desk
-  m_TagString: Untagged
+  m_TagString: ARObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 481742513}
   m_Layer: 0
   m_Name: PointCloudParticleExample
-  m_TagString: Untagged
+  m_TagString: ARObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -710,6 +710,10 @@ Prefab:
     - target: {fileID: 400002, guid: d430d2bf6091048f190e743334c501a2, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.060000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: d430d2bf6091048f190e743334c501a2, type: 3}
+      propertyPath: m_TagString
+      value: ARObject
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d430d2bf6091048f190e743334c501a2, type: 3}
@@ -918,7 +922,7 @@ GameObject:
   - component: {fileID: 933489024}
   m_Layer: 0
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: ARObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1135,6 +1139,10 @@ Prefab:
     - target: {fileID: 400000, guid: db7bbb0d361d0444e8227aaa6b3fac79, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.060000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: db7bbb0d361d0444e8227aaa6b3fac79, type: 3}
+      propertyPath: m_TagString
+      value: ARObject
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: db7bbb0d361d0444e8227aaa6b3fac79, type: 3}
@@ -1359,7 +1367,7 @@ GameObject:
   - component: {fileID: 1286139109}
   m_Layer: 0
   m_Name: HitCubeParent
-  m_TagString: Untagged
+  m_TagString: ARObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1403,7 +1411,7 @@ GameObject:
   - component: {fileID: 1308259103}
   m_Layer: 0
   m_Name: GeneratePlanes
-  m_TagString: Untagged
+  m_TagString: ARObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1530,7 +1538,7 @@ GameObject:
   - component: {fileID: 1632174834}
   m_Layer: 0
   m_Name: Image
-  m_TagString: Untagged
+  m_TagString: ARObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
