@@ -16,12 +16,14 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     private var imgSet : [String] = [String()]
     private var touchCount = 0
     private var path : UIBezierPath!
+    let sqlCommand = SqlCommand()
     //var planes = [ARPlaneAnchor: PlaneNode]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set the view's delegate
         sceneView.delegate = self
+        sqlCommand.createTable()
     }
     
     override func viewWillAppear(_ animated: Bool) {
