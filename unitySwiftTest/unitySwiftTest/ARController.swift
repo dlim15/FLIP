@@ -95,7 +95,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         picturesTaken -= 1
         imgSet.remove(at: picturesTaken)
         actionOnPicture(i: picturesTaken)
-        sleep(1)
+//        sleep(1)
         loadingSpinner.stopAnimating()
     }
     func actionOnPicture(i:Int){
@@ -112,7 +112,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
             print( "Filename: \(imgName)" )
             imgSet.append( imgName as String )
             picturesTaken += 1
-            sleep(1)
+//            sleep(1)
             actionOnPicture(i: picturesTaken)
             cameraButton.isEnabled = true
             if picturesTaken >= MAX_PICTURES{                
