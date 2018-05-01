@@ -32,7 +32,6 @@ namespace Lean.Touch
 
 		[Tooltip("The maximum scale value on all axes")]
 		public Vector3 ScaleMax;
-
 #if UNITY_EDITOR
 		protected virtual void Reset()
 		{

@@ -10,7 +10,7 @@ namespace UnityEngine.XR.iOS
 		public float maxRayDistance = 30.0f;
 		public LayerMask collisionLayer = 1 << 10;  //ARKitPlane layer
 		public GameObject[] ARObjects;
-
+		private bool isEnabled=true;
         bool HitTestWithResultType (ARPoint point, ARHitTestResultType resultTypes)
         {
             List<ARHitTestResult> hitResults = UnityARSessionNativeInterface.GetARSessionNativeInterface ().HitTest (point, resultTypes);
@@ -51,10 +51,13 @@ namespace UnityEngine.XR.iOS
 //			ARObjects = GameObject.FindGameObjectsWithTag("ARObject");
 //	        foreach (GameObject ARObject in ARObjects)
 //	        {
+//				//ARObject.SetActive (false);
 //				ARObject.GetComponent<Renderer> ().enabled = false;
 //	        }
 		}
-		
+		public void enableDisable(){
+			isEnabled = !isEnabled;
+		}
 		// Update is called once per frame
 		void Update () {
 			#if UNITY_EDITOR   //we will only use this script on the editor side, though there is nothing that would prevent it from working on device
@@ -77,7 +80,7 @@ namespace UnityEngine.XR.iOS
 			if (Input.touchCount > 0 && m_HitTransform != null)
 			{
 				var touch = Input.GetTouch(0);
-				if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)&& !IsPointerOverUIObject())
+				if ((touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)&& !IsPointerOverUIObject() && isEnabled )
 				{
 					var screenPosition = Camera.main.ScreenToViewportPoint(touch.position);
 					ARPoint point = new ARPoint {

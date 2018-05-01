@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChooseObject : MonoBehaviour {
-	public GameObject table;
-	public GameObject chair;
+	const int NUM_OBJECTS = 4;
+	public GameObject[] objects = new GameObject[NUM_OBJECTS];
 	// Use this for initialization
 	void Start () {
 		
@@ -14,12 +14,12 @@ public class ChooseObject : MonoBehaviour {
 	void Update () {
 		
 	}
-	public void actionOnDesk(){
-		table.GetComponent<UnityEngine.XR.iOS.UnityARHitTestExample> ().enabled = true;
-		chair.GetComponent<UnityEngine.XR.iOS.UnityARHitTestExample> ().enabled = false;
-	}
-	public void actionOnChair(){
-		table.GetComponent<UnityEngine.XR.iOS.UnityARHitTestExample> ().enabled = false;
-		chair.GetComponent<UnityEngine.XR.iOS.UnityARHitTestExample> ().enabled = true;
+	public void actionOnObjects( int pos ){
+		print ("called by" + pos);
+//		if (!objects[pos].active)
+//			objects[pos].SetActive(true);
+		for (int i = 0; i < NUM_OBJECTS; i++) {
+			objects[i].GetComponent<UnityEngine.XR.iOS.UnityARHitTestExample> ().enabled = (i == pos);
+		}
 	}
 }
