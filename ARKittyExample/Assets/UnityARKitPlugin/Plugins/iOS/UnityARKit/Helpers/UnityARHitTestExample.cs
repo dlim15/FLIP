@@ -49,6 +49,7 @@ namespace UnityEngine.XR.iOS
 		}
 		void Start(){
 //			ARObjects = GameObject.FindGameObjectsWithTag("ARObject");
+//			print( "Hi yo " );
 //	        foreach (GameObject ARObject in ARObjects)
 //	        {
 //				//ARObject.SetActive (false);
