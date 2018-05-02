@@ -116,6 +116,8 @@ public unsafe class NativeBridge : MonoBehaviour
 		result.Add ("xsca", string.Format( "{0:0.######}", obj.transform.localScale.x ));
 		result.Add ("ysca", string.Format( "{0:0.######}", obj.transform.localScale.y ));
 		result.Add ("zsca", string.Format( "{0:0.######}", obj.transform.localScale.z ));
+		result.Add ("zsca", string.Format( "{0:0.######}", obj.transform.localScale.z ));
+
 		return result;
 	}
 
