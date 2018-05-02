@@ -92,10 +92,20 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     
     @IBAction func btnUndoAction(_ sender: UIButton) {
         loadingSpinner.startAnimating()
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = dir.appendingPathComponent("\(imgSet[picturesTaken - 1].components(separatedBy: "/")[1] )")
+            do{
+                try FileManager.default.removeItem(at: fileURL)
+            } catch {
+                print( "Failed to remove file: \(fileURL)" )
+            }
+            
+        }
+        
         picturesTaken -= 1
         imgSet.remove(at: picturesTaken)
         actionOnPicture(i: picturesTaken)
-//        sleep(1)
+        
         loadingSpinner.stopAnimating()
     }
     func actionOnPicture(i:Int){
@@ -112,7 +122,6 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
             print( "Filename: \(imgName)" )
             imgSet.append( imgName as String )
             picturesTaken += 1
-//            sleep(1)
             actionOnPicture(i: picturesTaken)
             cameraButton.isEnabled = true
             if picturesTaken >= MAX_PICTURES{                
