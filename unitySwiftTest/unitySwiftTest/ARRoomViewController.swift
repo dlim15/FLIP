@@ -17,7 +17,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     private var touchCount = 0
     private var path : UIBezierPath!
     let sqlCommand = SqlCommand()
-    var ARObjectStats : [String:[String:Any]]
+    var ARObjectStats : [String:[String:Any]]?
     
     
     //var planes = [ARPlaneAnchor: PlaneNode]()
