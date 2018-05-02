@@ -28,4 +28,25 @@ class SqlCommand{
         }
         print("create successful")
     }
+    func insertInitData(){
+        let initInsertQuery = "INSERT INTO Object (name, fileName) VALUES ('table','table.dae'), ('chair','chair.dae'), ('plant1','plant1.dae'), ('toilet','toilet.dae');"
+        if sqlite3_exec(db, initInsertQuery, nil, nil, nil) != SQLITE_OK{
+            print("Error while inserting data")
+            return
+        }
+        print("Insert successful")
+    }
+    func selectObject(){
+        var selectStatement: OpaquePointer?
+        let selectQuery = "SELECT * FROM Object;"
+        if sqlite3_prepare(db, selectQuery, -1, &selectStatement, nil) == SQLITE_OK{
+            while sqlite3_step(selectStatement) == SQLITE_ROW{
+                let id = sqlite3_column_int(selectStatement, 0)
+                let name = String( cString:sqlite3_column_text(selectStatement, 1) )
+                let fileName = String( cString:sqlite3_column_text(selectStatement, 2) )
+                print( "id:\(id) , name : , \(name), Filename : \(fileName)" )
+            }
+        }
+        sqlite3_finalize(selectStatement)
+    }
 }

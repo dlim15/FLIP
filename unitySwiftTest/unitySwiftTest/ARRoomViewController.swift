@@ -24,6 +24,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
         sqlCommand.createTable()
+        sqlCommand.selectObject()
     }
     
     override func viewWillAppear(_ animated: Bool) {
