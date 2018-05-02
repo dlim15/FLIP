@@ -142,6 +142,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                     }
                 }
                 let arObjStatsDict = convertStatsToDict(stats: ARObjStats)
+                print("ARObjectStats:\n\(ARObjStats)")
                 
                 picturesTaken = 0
                 appDelegate?.stopUnity()
@@ -180,10 +181,10 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                 var subDictionary : [String : Any?] = [String: Any?]()
                 for subItem in item.components(separatedBy: ","){
                     var subDictItem = subItem.components(separatedBy: ":" )
-                    var subKey = extractFromQuotes(str: subDictItem[0])
-                    var value = extractFromBrackets(str: subDictItem[1])
-                    if Double(value) != nil{
-                        subDictionary[subKey] = Double(value)
+                    let subKey = extractFromQuotes(str: subDictItem[0])
+                    let value = extractFromBrackets(str: subDictItem[1])
+                    if Float(value) != nil{
+                        subDictionary[subKey] = Float(value)
                     } else {
                         subDictionary[subKey] = value
                     }

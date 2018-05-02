@@ -71,12 +71,22 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                     boxNode.position = SCNVector3(x:hitResult.worldTransform.columns.3.x,
                                                   y:hitResult.worldTransform.columns.3.y + 0.05,
                                                   z:hitResult.worldTransform.columns.3.z)
+                    boxNode.eulerAngles = SCNVector3(x:0.0,
+                                                     y:270.0,
+                                                     z:0.0)
 
                     if imgSet.count > 4{
                         if let roomNode = boxScene.rootNode.childNode(withName: "room", recursively: true){
                             for i in 0...imgSet.count - 1{
-                                var img : UIImage = UIImage(named: imgSet[i])!
+                                let img : UIImage = UIImage(named: imgSet[i])!
                                 roomNode.geometry?.materials[i].diffuse.contents = img
+                            }
+                        }
+                        for key in (ARObjectStats?.keys)!{
+                            if let tableNode = boxScene.rootNode.childNode(withName: key, recursively: true){
+                                tableNode.position = setObjectPositionInSwift(objectKey: key)
+//                            tableNode.eulerAngles = setObjectEulerInSwift(objectKey: key)
+                                tableNode.scale = setObjectScaleInSwift(objectKey: key)
                             }
                         }
                     }
@@ -91,6 +101,31 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
 //        let nodeId = detectedObject.name
 //        print(nodeId)
     }
+    
+    func setObjectPositionInSwift( objectKey : String ) -> SCNVector3 {
+        let result : SCNVector3 = SCNVector3(x: ( (ARObjectStats![objectKey]!["xpos"] as! Float) / 6 ) * -0.9,
+                                             y: (-0.213),
+                                             z: ( (ARObjectStats![objectKey]!["zpos"] as! Float) / 6 ) * 0.9 )
+        print("***** \(objectKey) POSITION: \(result)")
+        return result
+    }
+    
+    func setObjectEulerInSwift( objectKey : String ) -> SCNVector3 { // this is really inconsistent for some reason...
+        let result : SCNVector3 = SCNVector3(x: ( (ARObjectStats![objectKey]!["xrot"] as! Float) - 90 ),
+                                             y: ( (ARObjectStats![objectKey]!["yrot"] as! Float) ),
+                                             z: ( (ARObjectStats![objectKey]!["zrot"] as! Float) ) )
+        print("***** \(objectKey) ROTATION: \(result)")
+        return result
+    }
+    
+    func setObjectScaleInSwift( objectKey : String ) -> SCNVector3 {
+        let result : SCNVector3 = SCNVector3(x: ( (ARObjectStats![objectKey]!["xsca"] as! Float) / 30 ),
+                                             y: ( (ARObjectStats![objectKey]!["ysca"] as! Float) / 30 ),
+                                             z: ( (ARObjectStats![objectKey]!["zsca"] as! Float) / 30 ) )
+        print("***** \(objectKey) SCALE: \(result)")
+        return result
+    }
+    
     //when horizontal plane is detected.
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if anchor is ARPlaneAnchor{
@@ -116,7 +151,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    public func setARObjStats( ARObjectStats_param : [String:[String:Any?]] ){
+    public func setARObjStats( ARObjectStats_param : [String:[String:Any]] ){
         ARObjectStats = ARObjectStats_param
     }
 }
