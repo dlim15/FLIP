@@ -34,9 +34,9 @@ extern "C" void UnityPostMessage(NSString* gameObject, NSString* methodName, NSS
     UnitySendMessage([gameObject UTF8String], [methodName UTF8String], [message UTF8String]);
 }
 
-extern "C" void UnityFinishedTakingScreenshot( const char* filename )
+extern "C" void UnityFinishedTakingScreenshot( const char* filename, const char* ARObjStats )
 {
-    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: CreateNSString(filename), @"filename", nil];
+    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys: CreateNSString(filename), @"filename", CreateNSString(ARObjStats), @"arobjstats", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName: @"UnityFinishedTakingScreenshot" object:nil userInfo:dict];
 }
 

@@ -117,14 +117,16 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     @objc func UnityFinishedTakingScreenshot(_ n: NSNotification) {
 
         print( "-> UnityFinishedTakingScreenshot()" )
-        if let imgName = n.userInfo?["filename"] as? NSString {
+        if let imgName = n.userInfo?["filename"] as? NSString{
             let _:UIWindow! = UIApplication.shared.keyWindow
             print( "Filename: \(imgName)" )
+            
+            
             imgSet.append( imgName as String )
             picturesTaken += 1
             actionOnPicture(i: picturesTaken)
             cameraButton.isEnabled = true
-            if picturesTaken >= MAX_PICTURES{                
+            if picturesTaken >= MAX_PICTURES, let ARObjStats = n.userInfo?["arobjstats"] as? String{
                 if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
                     let fileURL = dir.appendingPathComponent("\(Int(Date.timeIntervalSinceReferenceDate * 1000)).csv")
                     var stringToWrite = ""
@@ -141,6 +143,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                     }
                 }
                 
+                print( ARObjStats )
                 
                 picturesTaken = 0
                 appDelegate?.stopUnity()
@@ -195,6 +198,9 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
+    
+   
+    
 
     /*
     // MARK: - Navigation
@@ -207,3 +213,5 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     */
 
 }
+
+
