@@ -121,7 +121,6 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
             let _:UIWindow! = UIApplication.shared.keyWindow
             print( "Filename: \(imgName)" )
             
-            
             imgSet.append( imgName as String )
             picturesTaken += 1
             actionOnPicture(i: picturesTaken)
@@ -142,13 +141,14 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
 
                     }
                 }
-                
-                print( ARObjStats )
+                let arObjStatsDict = convertStatsToDict(stats: ARObjStats)
                 
                 picturesTaken = 0
                 appDelegate?.stopUnity()
                 let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
                 arRoomViewController.setImgSet(paramsImgSet: imgSet)
+                arRoomViewController.setARObjStats(ARObjectStats_param: arObjStatsDict)
+                
                 self.navigationController?.pushViewController(arRoomViewController, animated: true)
             }
         }
@@ -159,6 +159,49 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         
     }
     
+    func convertStatsToDict(stats : String) -> [String:[String:Any?]]{
+        var result : [String:[String:Any?]] = [String:[String:Any?]]()
+        var jsonItems : [String] = [String]()
+        let strSplit = stats.components(separatedBy: "{")
+        for i in strSplit{
+            let splitAgain = i.components(separatedBy: "}")
+            for j in splitAgain{
+                if j.range(of: "\"") != nil{
+                    jsonItems.append(j)
+                }
+            }
+        }
+        var i = 0
+        var key = ""
+        for item in jsonItems{
+            if i % 2 == 0{
+                key = extractFromQuotes(str: item)
+            } else {
+                var subDictionary : [String : Any?] = [String: Any?]()
+                for subItem in item.components(separatedBy: ","){
+                    var subDictItem = subItem.components(separatedBy: ":" )
+                    var subKey = extractFromQuotes(str: subDictItem[0])
+                    var value = extractFromBrackets(str: subDictItem[1])
+                    if Double(value) != nil{
+                        subDictionary[subKey] = Double(value)
+                    } else {
+                        subDictionary[subKey] = value
+                    }
+                }
+                result[key] = subDictionary
+            }
+            i += 1
+        }
+        return result
+    }
+    
+    private func extractFromQuotes(str : String) -> String{
+        return str.components(separatedBy: "\"")[1].components(separatedBy: "\"")[0]
+    }
+    
+    private func extractFromBrackets(str : String) -> String{
+        return str.components(separatedBy: "[")[1].components(separatedBy: "]")[0]
+    }
     
     @IBAction func takePhoto(_ sender: Any) {
         cameraButton.isEnabled = false

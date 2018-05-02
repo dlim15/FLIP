@@ -17,6 +17,9 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     private var touchCount = 0
     private var path : UIBezierPath!
     let sqlCommand = SqlCommand()
+    var ARObjectStats : [String:[String:Any]]
+    
+    
     //var planes = [ARPlaneAnchor: PlaneNode]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +114,9 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         for i in 0...paramsImgSet.count - 1{
             imgSet.append(((NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString) as String).appending(paramsImgSet[i]) )
         }
-        
-        
+    }
+    
+    public func setARObjStats( ARObjectStats_param : [String:[String:Any?]] ){
+        ARObjectStats = ARObjectStats_param
     }
 }
