@@ -23,8 +23,6 @@ public class ChooseObject : MonoBehaviour {
 			objects[pos].SetActive(true);
 		for (int i = 0; i < NUM_OBJECTS; i++) {
 			able = (i == pos);
-			if (able)
-				objects [i].GetComponent<UnityEngine.XR.iOS.UnityARHitTestExample> ().setSelectedObject (objects [pos]);
 			objects[i].GetComponent<UnityEngine.XR.iOS.UnityARHitTestExample> ().enabled = able;
 			objects[i].GetComponent<Lean.Touch.LeanScale> ().enabled = able;
 			objects[i].GetComponent<Lean.Touch.LeanRotate> ().enabled = able;
