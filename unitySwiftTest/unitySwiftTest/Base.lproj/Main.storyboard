@@ -291,7 +291,7 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="NFi-Ky-5gT">
                                 <rect key="frame" x="357.66666666666669" y="197" width="20" height="20"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cLO-KR-111">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cLO-KR-111">
                                 <rect key="frame" x="678" y="19" width="38" height="30"/>
                                 <state key="normal" title="Undo">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -326,6 +326,15 @@
                                     <action selector="ARViewBackAction:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="4Jx-je-03W"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqQ-aJ-3n0">
+                                <rect key="frame" x="20" y="58" width="34" height="30"/>
+                                <state key="normal" title="Load">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="loadButtonPressed:" destination="nyT-mA-cfJ" eventType="touchUpInside" id="1gI-Pd-8iP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -335,7 +344,10 @@
                             <constraint firstItem="cLO-KR-111" firstAttribute="top" secondItem="9tU-Kx-bSR" secondAttribute="top" constant="19" id="P9a-dy-2gi"/>
                             <constraint firstItem="NZJ-FY-9Jd" firstAttribute="trailing" secondItem="cLO-KR-111" secondAttribute="trailing" constant="20" id="S9l-eg-fPG"/>
                             <constraint firstItem="NFi-Ky-5gT" firstAttribute="centerX" secondItem="9nh-0O-hbG" secondAttribute="centerX" id="Z7l-2H-dCl"/>
+                            <constraint firstItem="MqQ-aJ-3n0" firstAttribute="leading" secondItem="NZJ-FY-9Jd" secondAttribute="leading" constant="20" id="bBh-KY-9rx"/>
                             <constraint firstItem="NZJ-FY-9Jd" firstAttribute="bottom" secondItem="9nh-0O-hbG" secondAttribute="bottom" constant="20" id="e7S-eo-OG6"/>
+                            <constraint firstItem="cLO-KR-111" firstAttribute="leading" secondItem="MqQ-aJ-3n0" secondAttribute="trailing" constant="619" id="jkX-G8-S7y"/>
+                            <constraint firstItem="MqQ-aJ-3n0" firstAttribute="top" secondItem="0OM-da-aEq" secondAttribute="bottom" constant="8" id="nls-Ca-yAz"/>
                             <constraint firstItem="0OM-da-aEq" firstAttribute="leading" secondItem="NZJ-FY-9Jd" secondAttribute="leading" constant="20" id="qeA-g3-lQ8"/>
                             <constraint firstItem="NZJ-FY-9Jd" firstAttribute="trailing" secondItem="9nh-0O-hbG" secondAttribute="trailing" id="r8M-T5-rXY"/>
                         </constraints>
@@ -354,7 +366,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jAU-U1-KhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1377.4647887323945" y="24.375"/>
+            <point key="canvasLocation" x="1376.9021739130435" y="23.188405797101453"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jPw-R8-MOF">
@@ -480,7 +492,7 @@ Senior Research Day</string>
                                 </button>
                             </barButtonItem>
                             <barButtonItem style="plain" id="HB1-n2-Fmj">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="eIM-vc-yg0">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="eIM-vc-yg0">
                                     <rect key="frame" x="212" y="7" width="344" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Look around for a surface, then tap to create view.">

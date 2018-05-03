@@ -193,6 +193,9 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func convertToUnityDataDict() -> String{
+        
+        
+        
         var result = "{"
         for key in (ARObjectStats?.keys)!{
             result += "\"\(key)\":[{"

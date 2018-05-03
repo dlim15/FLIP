@@ -139,6 +139,12 @@ public unsafe class NativeBridge : MonoBehaviour
 		return "{" + string.Join(",", entries.ToArray()) + "}";
 	}
 
+	public void loadFromDict(string cmd){
+		Debug.Log( "-> loadFromDict()" );
+		Debug.Log (cmd);
+	}
+
+
 	void Update(){
 		if (isSavingScreenshot && System.IO.File.Exists(Application.persistentDataPath + filename )) {
 			isSavingScreenshot = false;

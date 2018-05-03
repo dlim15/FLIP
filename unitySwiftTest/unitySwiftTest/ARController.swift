@@ -211,6 +211,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     }
     
     
+    
     func saveImageToDirectory(_ chosenImage:UIImage)->String{
         let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("test.jpg")
         let url = NSURL.fileURL(withPath: paths)
@@ -243,7 +244,11 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         return paths[0]
     }
     
-   
+    @IBAction func loadButtonPressed(_ sender: Any) {
+        let dict = "{\"plant1\": [{\"name\": [plant1 (UnityEngine.GameObject)],\"xpos\": [0.063404],\"ypos\": [-0.15625],\"zpos\": [0.15053],\"xrot\": [0],\"yrot\": [0],\"zrot\": [0],\"xsca\": [0.005],\"ysca\": [0.005],\"zsca\": [0.005]}],\"table\": [{\"name\": [table (UnityEngine.GameObject)],\"xpos\": [-0.127293],\"ypos\": [-3.798],\"zpos\": [0.129175],\"xrot\": [0],\"yrot\": [0],\"zrot\": [0],\"xsca\": [0.06],\"ysca\": [0.06],\"zsca\": [0.06]}]}"
+        UnityPostMessage("NATIVE_BRIDGE", "loadFromDict", dict)
+    }
+    
     
 
     /*
