@@ -106,7 +106,8 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     func setObjectPositionInSwift( objectKey : String ) -> SCNVector3 {
         let floorYValues : [String:Float] = ["table" : -0.213,
                                              "toliet" : -0.063,
-                                             "plant1" : -0.263]
+                                             "plant1" : -0.263,
+                                             "chair" : -0.262]
         
         let result : SCNVector3 = SCNVector3(x: ( (ARObjectStats![objectKey]!["xpos"] as! Float) / 3.5 ) * -0.9,
                                              y: (floorYValues[objectKey])!,
@@ -124,9 +125,14 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func setObjectScaleInSwift( objectKey : String ) -> SCNVector3 {
-        let result : SCNVector3 = SCNVector3(x: ( (ARObjectStats![objectKey]!["xsca"] as! Float) / 30 ),
-                                             y: ( (ARObjectStats![objectKey]!["ysca"] as! Float) / 30 ),
-                                             z: ( (ARObjectStats![objectKey]!["zsca"] as! Float) / 30 ) )
+        let baseScaleValues : [String:Float] = ["table" : 0.016666667,
+                                                "toliet" : 0.06,
+                                                "plant1" : 0.04,
+                                                "chair" : 0.033333333]
+        
+        let result : SCNVector3 = SCNVector3(x: ( (ARObjectStats![objectKey]!["xsca"] as! Float) * baseScaleValues[objectKey]! ),
+                                             y: ( (ARObjectStats![objectKey]!["ysca"] as! Float) * baseScaleValues[objectKey]! ),
+                                             z: ( (ARObjectStats![objectKey]!["zsca"] as! Float) * baseScaleValues[objectKey]! ) )
         print("***** \(objectKey) SCALE: \(result)")
         return result
     }
