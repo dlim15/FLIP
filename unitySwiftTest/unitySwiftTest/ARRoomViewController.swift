@@ -72,7 +72,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                                                   y:hitResult.worldTransform.columns.3.y + 0.05,
                                                   z:hitResult.worldTransform.columns.3.z)
                     boxNode.eulerAngles = SCNVector3(x:0.0,
-                                                     y:270.0,
+                                                     y:-90.0,
                                                      z:0.0)
 
                     if imgSet.count > 4{
@@ -83,10 +83,11 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                             }
                         }
                         for key in (ARObjectStats?.keys)!{
-                            if let tableNode = boxScene.rootNode.childNode(withName: key, recursively: true){
-                                tableNode.position = setObjectPositionInSwift(objectKey: key)
+                            if let roomItem = boxScene.rootNode.childNode(withName: key, recursively: true){
+                                roomItem.position = setObjectPositionInSwift(objectKey: key)
 //                            tableNode.eulerAngles = setObjectEulerInSwift(objectKey: key)
-                                tableNode.scale = setObjectScaleInSwift(objectKey: key)
+                                roomItem.scale = setObjectScaleInSwift(objectKey: key)
+//                                roomItem.isHidden = false
                             }
                         }
                     }
@@ -103,9 +104,13 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func setObjectPositionInSwift( objectKey : String ) -> SCNVector3 {
-        let result : SCNVector3 = SCNVector3(x: ( (ARObjectStats![objectKey]!["xpos"] as! Float) / 6 ) * -0.9,
-                                             y: (-0.213),
-                                             z: ( (ARObjectStats![objectKey]!["zpos"] as! Float) / 6 ) * 0.9 )
+        let floorYValues : [String:Float] = ["table" : -0.213,
+                                             "toliet" : -0.063,
+                                             "plant1" : -0.263]
+        
+        let result : SCNVector3 = SCNVector3(x: ( (ARObjectStats![objectKey]!["xpos"] as! Float) / 3.5 ) * -0.9,
+                                             y: (floorYValues[objectKey])!,
+                                             z: ( (ARObjectStats![objectKey]!["zpos"] as! Float) / 3.5 ) * 0.9 )
         print("***** \(objectKey) POSITION: \(result)")
         return result
     }
