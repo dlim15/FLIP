@@ -464,9 +464,36 @@ Senior Research Day</string>
                         <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </arscnView>
-                    <navigationItem key="navigationItem" id="Cis-MN-TpP"/>
+                    <navigationItem key="navigationItem" id="Cis-MN-TpP">
+                        <nil key="title"/>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="UYX-8i-U1m">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GXN-c3-Tls" userLabel="ToggleSelectedItem">
+                                    <rect key="frame" x="564" y="7" width="152" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Change Selected Item">
+                                        <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="ToggleSelectedItemButtonPressed:" destination="wJu-Mt-kGM" eventType="touchUpInside" id="zPh-BO-QwC"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="HB1-n2-Fmj">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="eIM-vc-yg0">
+                                    <rect key="frame" x="212" y="7" width="344" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Look around for a surface, then tap to create view.">
+                                        <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
                         <outlet property="sceneView" destination="EEj-RD-cZS" id="ejl-Na-8d2"/>
+                        <outlet property="selectedItemTitle" destination="eIM-vc-yg0" id="Rn1-uJ-bw4"/>
+                        <outlet property="toggleSelectedItem" destination="GXN-c3-Tls" id="xlM-ny-nx1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="95n-Jm-3I1" sceneMemberID="firstResponder"/>
