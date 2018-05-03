@@ -87,11 +87,6 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                 }
             }
         }
-//        let table = boxNode.childNode(withName: "table", recursively: true)
-//
-//        let detectedObject = self.planes[planeAnchor]
-//        let nodeId = detectedObject.name
-//        print(nodeId)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -110,9 +105,19 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if touchCount > 0, let touch = touches.first{
+            print( convertToUnityDataDict() )
+        }
+    }
+    
     func moveItem( key : String, hitResult : ARHitTestResult ){
+        let floorYValues : [String:Float] = ["table" : -0.213,
+                                             "toliet" : -0.063,
+                                             "plant1" : -0.263,
+                                             "chair" : -0.262]
         roomItems[key]?.worldPosition = SCNVector3(x:hitResult.worldTransform.columns.3.x,
-                                                   y:-0.263,
+                                                   y:floorYValues[key]!,
                                                    z:hitResult.worldTransform.columns.3.z)
     }
     
@@ -186,6 +191,28 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         print("***** \(objectKey) SCALE: \(result)")
         return result
     }
+    
+    func convertToUnityDataDict() -> String{
+        var result = "{"
+        for key in (ARObjectStats?.keys)!{
+            result += "\"\(key)\":[{"
+            for subKey in (ARObjectStats![key]?.keys)!{
+                result += "\"\(subKey)\": "
+                if let v = (ARObjectStats![key]![subKey] as? String){
+                    result += "[\(v)],"
+                } else {
+                    result += "[\( NSString(format: "%f", ARObjectStats![key]![subKey] as! Float) )],"
+                }
+            }
+            let index = result.index(result.endIndex, offsetBy: -1)
+            result = String(result[..<index])
+            result += "}]"
+            
+        }
+        result += "}"
+        return result
+    }
+    
     
     //when horizontal plane is detected.
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
