@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\ChooseObject.cs" />
-     <Compile Include="Assets\imageBar.cs" />
      <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanAddForce.cs" />
      <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanCameraMove.cs" />
      <Compile Include="Assets\LeanTouch\Examples\Scripts\LeanCameraMoveSmooth.cs" />
