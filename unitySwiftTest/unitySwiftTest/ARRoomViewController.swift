@@ -25,7 +25,6 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var toggleSelectedItem: UIButton!
     
     @IBAction func ToggleSelectedItemButtonPressed(_ sender: Any) {
-        print("TOGGLE ITEM PRESSED")
         keyNum = (keyNum + 1) % (ARObjectStats?.keys.count)!
         selectedItemTitle.setTitle("Selected Item: \(keys[keyNum])", for: UIControlState.normal)
     }
@@ -84,12 +83,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                 if (touchCount == 0){
                     initRoom(hitResult: hitResult)
                 } else {
-                    print("******** HIT RESULT: \(hitResult)")
-                    let key = keys[keyNum]
-                    roomItems[key]?.worldPosition = SCNVector3(x:hitResult.worldTransform.columns.3.x,
-                                                               y:-0.263,
-                                                               z:hitResult.worldTransform.columns.3.z)
-                    
+                    moveItem(key: keys[keyNum], hitResult: hitResult)
                 }
             }
         }
@@ -98,6 +92,28 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
 //        let detectedObject = self.planes[planeAnchor]
 //        let nodeId = detectedObject.name
 //        print(nodeId)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if touchCount > 0, let touch = touches.first{
+            //location of where we touch on 2d screen
+            let touchLocation = touch.location(in: sceneView)
+            
+            // to perform to get the 3D coordinate corresponding to the 2D coord.
+            // 3d coord will only be considered when it is on the existing plane we detected.
+            let results = sceneView.hitTest(touchLocation, types: .estimatedHorizontalPlane)
+            
+            // check if we got some result using hitTest.
+            if let hitResult = results.first{
+                moveItem(key: keys[keyNum], hitResult: hitResult)
+            }
+        }
+    }
+    
+    func moveItem( key : String, hitResult : ARHitTestResult ){
+        roomItems[key]?.worldPosition = SCNVector3(x:hitResult.worldTransform.columns.3.x,
+                                                   y:-0.263,
+                                                   z:hitResult.worldTransform.columns.3.z)
     }
     
     func initRoom(hitResult : ARHitTestResult){
