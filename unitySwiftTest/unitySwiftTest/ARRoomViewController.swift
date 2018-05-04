@@ -112,9 +112,9 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        if touchCount > 0, let touch = touches.first{
-//            browseObjStats()
-//        }
+        if touchCount > 0, let touch = touches.first{
+            saveCoordsToDatabase()
+        }
     }
     
     func moveItem( key : String, hitResult : ARHitTestResult ){
@@ -226,6 +226,30 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         return result
     }
     
+    func saveCoordsToDatabase(){
+        var result : [String:[String:Any?]] = [String:[String:Any?]]()
+        
+        let baseScaleValues : [String:Float] = ["table" : 0.016666667,
+                                                "toliet" : 0.06,
+                                                "plant1" : 0.04,
+                                                "chair" : 0.033333333]
+        for key in roomItems.keys {
+            result[key] = [
+                "name" : key,
+                "xpos" : ((roomItems[key]?.worldPosition.x)! * -0.868478325),
+                "ypos" : ARObjectStats![key]!["ypos"]!,
+                "zpos" : ((roomItems[key]?.worldPosition.z)! * -0.868478325),
+                "xsca" : (roomItems[key]?.scale.x)!,
+                "ysca" : (roomItems[key]?.scale.y)!,
+                "zsca" : (roomItems[key]?.scale.z)!,
+                "xrot" : roomItems[key]?.eulerAngles.x,
+                "yrot" : roomItems[key]?.eulerAngles.y,
+                "zrot" : roomItems[key]?.eulerAngles.z
+            ]
+        }
+        print(result)
+        sqlCommand.updateObjectSpec(dataList: result, specId: spaceId!)
+    }
     
     //when horizontal plane is detected.
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {

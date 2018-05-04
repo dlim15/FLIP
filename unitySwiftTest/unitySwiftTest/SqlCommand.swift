@@ -129,6 +129,52 @@ class SqlCommand{
         proceedData(query: insertQuery, tableName:"ObjectSpec", proceeding:"insert")
         return maxId
     }
+    func updateObjectSpec(dataList:[String:[String:Any?]], specId : Int){
+        
+        let dictConvertKeys : [String:String] = ["xpos" : "x_Coor",
+                                                 "ypos" : "y_Coor",
+                                                 "zpos" : "z_Coor",
+                                                 "xrot" : "x_rotate",
+                                                 "yrot" : "y_rotate",
+                                                 "zrot" : "z_rotate",
+                                                 "xsca" : "x_scale",
+                                                 "ysca" : "y_scale",
+                                                 "zsca" : "z_scale" ]
+        for key in (dataList.keys){
+            let updateQuery = "UPDATE ObjectSpec SET "
+            var updatingVars = ""
+            var updatingWhere = ""
+            if let ok = objects[key]{
+                updatingWhere = "WHERE objId = \(ok) AND specId = \(specId);"
+            }
+            var j = 0;
+            for convertKey in dictConvertKeys.keys{
+                if let value : Float = dataList[key]![convertKey] as? Float, let ck = dictConvertKeys[convertKey]{
+                    updatingVars += "\(ck) = \(value)" + ( j >= 8 ? " " : ", " )
+                    j += 1
+                }
+            }
+            let resultQuery = updateQuery + updatingVars + updatingWhere
+            print(resultQuery)
+            proceedData(query: resultQuery, tableName:"ObjectSpec", proceeding:"update")
+        }
+    }
+    /*
+     "CREATE TABLE IF NOT EXISTS ObjectSpec(specId INTEGER,
+                                            objId INTEGER,
+                                            x_Coor REAL,
+                                            y_Coor REAL,
+                                            z_Coor REAL,
+                                            x_rotate REAL,
+                                            y_rotate REAL,
+                                            z_rotate REAL,
+                                            x_scale REAL,
+                                            y_scale REAL,
+                                            z_scale REAL,
+                                            PRIMARY KEY(specId, objId));
+     */
+    
+    
     func selectObjectSpec(spaceId:Int)->[String:[String:Any]]?{
         print("here0")
         var selectStatement: OpaquePointer?
@@ -153,21 +199,6 @@ class SqlCommand{
         FROM ObjectSpec objSp, Object obj
         WHERE specId=\(specId!) AND objSp.objId=obj.objId;
         """
-//        selectQuery = """
-//        SELECT
-//        objSp.objId,
-//        objSp.x_Coor,
-//        objSp.y_Coor,
-//        objSp.z_Coor,
-//        objSp.x_rotate,
-//        objSp.y_rotate,
-//        objSp.z_rotate,
-//        objSp.x_scale,
-//        objSp.y_scale,
-//        objSp.z_scale
-//        FROM ObjectSpec objSp
-//        WHERE specId=\(specId!);
-//        """
         
         print("here2")
         var specList = [String:[String:Any]]()
