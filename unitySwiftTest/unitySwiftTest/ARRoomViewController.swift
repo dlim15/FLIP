@@ -239,16 +239,16 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                 "xpos" : ((roomItems[key]?.worldPosition.x)! * -0.868478325),
                 "ypos" : ARObjectStats![key]!["ypos"]!,
                 "zpos" : ((roomItems[key]?.worldPosition.z)! * -0.868478325),
-                "xsca" : (roomItems[key]?.scale.x)!,
-                "ysca" : (roomItems[key]?.scale.y)!,
-                "zsca" : (roomItems[key]?.scale.z)!,
+                "xsca" : (roomItems[key]?.scale.x)! / baseScaleValues[key]!,
+                "ysca" : (roomItems[key]?.scale.y)! / baseScaleValues[key]!,
+                "zsca" : (roomItems[key]?.scale.z)! / baseScaleValues[key]!,
                 "xrot" : roomItems[key]?.eulerAngles.x,
                 "yrot" : roomItems[key]?.eulerAngles.y,
                 "zrot" : roomItems[key]?.eulerAngles.z
             ]
         }
         print(result)
-        sqlCommand.updateObjectSpec(dataList: result, specId: spaceId!)
+        sqlCommand.updateObjectSpec(dataList: result, specId: spaceId!-1)
     }
     
     //when horizontal plane is detected.
