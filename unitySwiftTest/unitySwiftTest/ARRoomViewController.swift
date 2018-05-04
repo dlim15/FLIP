@@ -130,7 +130,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     func initRoom(hitResult : ARHitTestResult){
         let boxScene = SCNScene(named: "art.scnassets/portal.scn")!
         
-        ARObjectStats = sqlCommand.selectObjectSpec(spaceId:spaceId!)
+        ARObjectStats = sqlCommand.selectObjectSpec(spaceId:spaceId!, isDictionary: true) as! [String : [String : Any]]
         if let boxNode = boxScene.rootNode.childNode(withName: "portal", recursively: true){
             boxNode.position = SCNVector3(x:hitResult.worldTransform.columns.3.x,
                                           y:hitResult.worldTransform.columns.3.y + 0.05,
@@ -273,7 +273,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         spaceId = sqlCommand.getSpaceId(pId:pid)
     }
     public func browseObjStats(){
-        ARObjectStats = sqlCommand.selectObjectSpec(spaceId:spaceId!)
+        ARObjectStats = sqlCommand.selectObjectSpec(spaceId:spaceId! , isDictionary: true) as! [String : [String : Any]]
         print ("AR OBJECT ")
         print(ARObjectStats)
     }

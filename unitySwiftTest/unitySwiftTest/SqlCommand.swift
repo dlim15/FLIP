@@ -175,7 +175,7 @@ class SqlCommand{
      */
     
     
-    func selectObjectSpec(spaceId:Int)->[String:[String:Any]]?{
+    func selectObjectSpec(spaceId:Int, isDictionary : Bool)->Any?{
         print("here0")
         var selectStatement: OpaquePointer?
         var selectQuery = "SELECT specId FROM ARSpace WHERE spaceId=\(spaceId);"
@@ -190,7 +190,7 @@ class SqlCommand{
                 }
             }
         }
-        print("here1")
+        
         sqlite3_finalize(selectStatement)
         var selectStatements: OpaquePointer?
         selectQuery = """
@@ -199,33 +199,49 @@ class SqlCommand{
         FROM ObjectSpec objSp, Object obj
         WHERE specId=\(specId!) AND objSp.objId=obj.objId;
         """
-        
-        print("here2")
+        var stringResult : String = ""
         var specList = [String:[String:Any]]()
         if sqlite3_prepare(db, selectQuery, -1, &selectStatements, nil) == SQLITE_OK{
-            print("here")
             while sqlite3_step(selectStatements) == SQLITE_ROW{
                 var subDictionary : [String : Any] = [String: Any]()
                 let name = String( cString:sqlite3_column_text(selectStatements, 2) )
-                subDictionary[ "name" ] = name + " (UnityEngine.GameObject)"
-                subDictionary[ "xpos" ] = Float(sqlite3_column_double(selectStatements, 3))
-                subDictionary[ "ypos" ] = Float(sqlite3_column_double(selectStatements, 4))
-                subDictionary[ "zpos" ] = Float(sqlite3_column_double(selectStatements, 5))
-                subDictionary[ "xrot" ] = Float(sqlite3_column_double(selectStatements, 6))
-                subDictionary[ "yrot" ] = Float(sqlite3_column_double(selectStatements, 7))
-                subDictionary[ "zrot" ] = Float(sqlite3_column_double(selectStatements, 8))
-                subDictionary[ "xsca" ] = Float(sqlite3_column_double(selectStatements, 9))
-                subDictionary[ "ysca" ] = Float(sqlite3_column_double(selectStatements, 10))
-                subDictionary[ "zsca" ] = Float(sqlite3_column_double(selectStatements, 11))
-                specList[ name ] = subDictionary
-                print("here2")
-                print( specList )
+                if isDictionary{
+                    subDictionary[ "name" ] = name + " (UnityEngine.GameObject)"
+                    subDictionary[ "xpos" ] = Float(sqlite3_column_double(selectStatements, 3))
+                    subDictionary[ "ypos" ] = Float(sqlite3_column_double(selectStatements, 4))
+                    subDictionary[ "zpos" ] = Float(sqlite3_column_double(selectStatements, 5))
+                    subDictionary[ "xrot" ] = Float(sqlite3_column_double(selectStatements, 6))
+                    subDictionary[ "yrot" ] = Float(sqlite3_column_double(selectStatements, 7))
+                    subDictionary[ "zrot" ] = Float(sqlite3_column_double(selectStatements, 8))
+                    subDictionary[ "xsca" ] = Float(sqlite3_column_double(selectStatements, 9))
+                    subDictionary[ "ysca" ] = Float(sqlite3_column_double(selectStatements, 10))
+                    subDictionary[ "zsca" ] = Float(sqlite3_column_double(selectStatements, 11))
+                    specList[ name ] = subDictionary
+                } else {
+                    stringResult += name + "" + ","
+                    stringResult += String(sqlite3_column_double(selectStatements, 3)) + ","
+                    stringResult += String(sqlite3_column_double(selectStatements, 4)) + ","
+                    stringResult += String(sqlite3_column_double(selectStatements, 5)) + ","
+                    stringResult += String(sqlite3_column_double(selectStatements, 6)) + ","
+                    stringResult += String(sqlite3_column_double(selectStatements, 7)) + ","
+                    stringResult += String(sqlite3_column_double(selectStatements, 8)) + ","
+                    stringResult += String(sqlite3_column_double(selectStatements, 9)) + ","
+                    stringResult += String(sqlite3_column_double(selectStatements, 10)) + ","
+                    stringResult += String(sqlite3_column_double(selectStatements, 11)) + ";"
+                }
+                
             }
         }
-        print( specList )
         sqlite3_finalize(selectStatements)
-        return specList
+        if isDictionary{
+            print( specList )
+            return specList
+        } else {
+            print(stringResult)
+            return stringResult
+        }
     }
+    
     func insertArSpaceElement(pId:Int, specId:Any?){
         print (specId)
         let spId = specId == nil ? "null" : String(specId as! Int)

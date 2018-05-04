@@ -106,6 +106,7 @@ public unsafe class NativeBridge : MonoBehaviour
 
 	private Dictionary<string, string> createObjectStatDictionary( GameObject obj ){
 		Dictionary<string, string> result = new Dictionary<string, string> ();
+		Debug.Log ("***************************************** NAME: " + obj.name);
 //		result.Add ("name", obj.ToString ());
 		result.Add ("xpos", string.Format( "{0:0.######}", obj.transform.position.x ));
 		result.Add ("ypos", string.Format( "{0:0.######}", obj.transform.position.y ));
@@ -141,9 +142,34 @@ public unsafe class NativeBridge : MonoBehaviour
 
 	public void loadFromDict(string cmd){
 		Debug.Log( "-> loadFromDict()" );
-		Debug.Log (cmd);
-	}
 
+		string[] items = cmd.Split (';');
+		foreach (var item in items){
+			if (item.Length > 0) {
+				string[] item_attr = item.Split (',');
+				if (item_attr [0].Contains ('-')) {
+					item_attr[0] = item_attr[0].Substring(1, item_attr[0].Length - 1);
+				}
+
+				Debug.Log ("trying to find " + item_attr[0]);
+				GameObject obj = GameObject.Find( item_attr[0] );
+
+				obj.transform.position = new Vector3 (float.Parse (item_attr [1]),
+					float.Parse (item_attr [2]),
+					float.Parse (item_attr [3]));
+
+				obj.transform.eulerAngles = new Vector3 (float.Parse (item_attr [4]),
+					float.Parse (item_attr [5]),
+					float.Parse (item_attr [6]));
+
+				obj.transform.localScale = new Vector3 (float.Parse (item_attr [7]),
+					float.Parse (item_attr [8]),
+					float.Parse (item_attr [9]));
+			}
+
+		}
+
+	}
 
 	void Update(){
 		if (isSavingScreenshot && System.IO.File.Exists(Application.persistentDataPath + filename )) {

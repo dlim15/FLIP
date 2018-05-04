@@ -261,9 +261,8 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     @IBAction func loadButtonPressed(_ sender: Any) {
         print("PID: \(pid)" )
         let spaceID = sqlCommand.getSpaceId(pId: pid)
-        let dict = sqlCommand.selectObjectSpec(spaceId: spaceID)
-        print(dict)
-
+        let info : String = sqlCommand.selectObjectSpec(spaceId: spaceID, isDictionary: false) as! String
+        UnityPostMessage("NATIVE_BRIDGE", "loadFromDict", "-\(info)")
     }
     
     
