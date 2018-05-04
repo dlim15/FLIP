@@ -12,14 +12,18 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var btnRemove: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     var selectOn = false as Bool
-    var sampImgs = [] as [String]
+    var sampImgs = [] as [Int]
+    let documentPath:String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
     var projectPointerFiles = [] as [String]
     var images = [] as [UIImage]
     var selectedImgs = [] as [Int]
-    
+    var sqlCommand = SqlCommand()
     let dialog = DialogActions()
+    var files:[Int:[Int:String]] = [:]
     override func viewDidLoad() {
         super.viewDidLoad()
+        sqlCommand.createTable()
+        //sqlCommand.insertInitData()
         loadImg()
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -79,35 +83,13 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     func loadImg(){
         sampImgs.removeAll()
-        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentPath:String = path[0]
-        do{
-            let title = try FileManager.default.contentsOfDirectory(atPath: documentPath)
-            for file in title{
-//                if file.contains("."){
-//                    let index = file.index(of:".")!
-//                    let end = file[index...]
-//                    if end == ".jpg" || end == ".png"{
-//                        sampImgs.append(documentPath + "/" + file)
-//                    }
-//                }
-                if file.contains("."){
-                    let index = file.index(of:".")!
-                    let end = file[index...]
-                    if end == ".csv"{
-                        let flieContents = try String(contentsOf: NSURL(fileURLWithPath: documentPath + "/" + file, isDirectory: false) as URL, encoding: .utf8)
-                        let img = flieContents.split(separator: "\n")[0]
-                        
-                        
-                        sampImgs.append(documentPath + img)
-                        projectPointerFiles.append(documentPath + "/" + file)
-                        
-                    }
-                }
-            }
-        }catch{
-            print("error")
+        files = sqlCommand.selectAllPicture()
+        for file in (files.keys){
+            sampImgs.append(file)
+            //documentPath + ( files![file]![0] as! String )
         }
+        sampImgs.sort()
+        print (sampImgs)
     }
     
     @IBAction func plusButtonAction(_ sender: Any) {
@@ -121,7 +103,8 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImgCell", for: indexPath) as! ImgAlbumCell
-        cell.ARImage.image = UIImage( data:FileManager.default.contents( atPath:sampImgs[ indexPath.row ] )! )
+        cell.ARImage.image = UIImage( data:FileManager.default.contents(
+            atPath:documentPath + ( files[sampImgs[ indexPath.row ]]?[0] as! String ) )! )
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1
         
@@ -134,21 +117,11 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
             selectedImgs.append(indexPath.row)
             selectedTrack(count: selectedImgs.count)
         }else{
-            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-            let documentPath:String = path[0]
-            
             let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
             
-            do{
-                var fileContents = try String(contentsOf: NSURL(fileURLWithPath:  projectPointerFiles[indexPath.row], isDirectory: false) as URL, encoding: .utf8)
-                var boxImageSet : [String] = [String]()
-                for filePath in fileContents.split(separator: "\n"){
-                    boxImageSet.append(String(filePath))
-                }
-                arRoomViewController.setImgSet(paramsImgSet: boxImageSet )
-            } catch {
-                print( "error reading from file" )
-            }
+            arRoomViewController.setImgSet( path:documentPath, paramsImgSet: files[sampImgs[indexPath.row]]! )
+            arRoomViewController.setSpaceId(pid: sampImgs[indexPath.row])
+            arRoomViewController.browseObjStats()
             self.navigationController?.pushViewController(arRoomViewController, animated: true)
         }
     }
@@ -170,7 +143,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         let fileManager = FileManager.default
         do{
             for i in selectedImgs.reversed(){
-                try removeImagesAndPointer(i: i, fileManager: fileManager)
+                try removeImages(i: i, fileManager: fileManager)
             }
         }catch{
             print("error")
@@ -180,18 +153,12 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         reloadImgs()
     }
     
-    func removeImagesAndPointer(i : Int, fileManager : FileManager) throws {
-        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentPath:String = path[0]
-        
-        var fileContents = try String(contentsOf: NSURL(fileURLWithPath:  projectPointerFiles[i], isDirectory: false) as URL, encoding: .utf8)
-        for file in fileContents.split(separator: "\n"){
-            try fileManager.removeItem(atPath: documentPath + file)
+    func removeImages(i : Int, fileManager : FileManager) throws {
+        sqlCommand.removeArSpace(picId:i)
+        for file in (files[i]?.values)!{
+            try fileManager.removeItem(atPath: documentPath + ( file as! String ))
         }
-        try fileManager.removeItem(at: NSURL(fileURLWithPath:  projectPointerFiles[i], isDirectory: false) as URL)
         sampImgs.remove(at: i)
-        projectPointerFiles.remove(at: i)
-        
-        
+        files.removeValue(forKey: i)
     }
 }

@@ -22,7 +22,7 @@ class SqlCommand{
     }
     func createTable(){
         // DROP TABLE Picture; DROP TABLE Object; DROP TABLE ObjectSpec; DROP TABLE ARSpace;
-        let createTableQuery = "DROP TABLE ObjectSpec;CREATE TABLE IF NOT EXISTS Picture(pId INTEGER,surface INTEGER,fileName TEXT,PRIMARY KEY(pId,surface));CREATE TABLE IF NOT EXISTS Object (objId INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,fileName TEXT);CREATE TABLE IF NOT EXISTS ObjectSpec(specId INTEGER,objId INTEGER,x_Coor REAL,y_Coor REAL,z_Coor REAL,x_rotate REAL,y_rotate REAL,z_rotate REAL,x_scale REAL,y_scale REAL,z_scale REAL, PRIMARY KEY(specId, objId)); CREATE TABLE IF NOT EXISTS ARSpace(spaceId INTEGER PRIMARY KEY AUTOINCREMENT,pId INTEGER,specId INTEGER,FOREIGN KEY (pId) REFERENCES Picture(pId),FOREIGN KEY (specId) REFERENCES ObjectSpec(specId)); "
+        let createTableQuery = "CREATE TABLE IF NOT EXISTS Picture(pId INTEGER,surface INTEGER,fileName TEXT,PRIMARY KEY(pId,surface));CREATE TABLE IF NOT EXISTS Object (objId INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,fileName TEXT);CREATE TABLE IF NOT EXISTS ObjectSpec(specId INTEGER,objId INTEGER,x_Coor REAL,y_Coor REAL,z_Coor REAL,x_rotate REAL,y_rotate REAL,z_rotate REAL,x_scale REAL,y_scale REAL,z_scale REAL, PRIMARY KEY(specId, objId)); CREATE TABLE IF NOT EXISTS ARSpace(spaceId INTEGER PRIMARY KEY AUTOINCREMENT,pId INTEGER,specId INTEGER,FOREIGN KEY (pId) REFERENCES Picture(pId),FOREIGN KEY (specId) REFERENCES ObjectSpec(specId)); "
         if sqlite3_exec(db, createTableQuery, nil, nil, nil) != SQLITE_OK{
             print("ERROR while creating table")
             return
@@ -31,14 +31,14 @@ class SqlCommand{
     }
     func insertInitData(){
         let initInsertQuery = "INSERT INTO Object (name, fileName) VALUES ('table','table.dae'), ('chair','chair.dae'), ('plant1','plant1.dae'), ('toilet','toilet.dae');"
-        insertingData(insertQuery: initInsertQuery, tableName:"Object")
+        proceedData(query: initInsertQuery, tableName:"Object", proceeding:"insert")
     }
-    func insertingData(insertQuery:String, tableName:String){
-        if sqlite3_exec(db, insertQuery, nil, nil, nil) != SQLITE_OK{
-            print("Error while inserting data into \(tableName)")
+    func proceedData(query:String, tableName:String, proceeding:String){
+        if sqlite3_exec(db, query, nil, nil, nil) != SQLITE_OK{
+            print("Error while \(proceeding) data in \(tableName)")
             return
         }
-        print("Insert successful")
+        print("\(proceeding) successful")
     }
     func selectObject(){
         var selectStatement: OpaquePointer?
@@ -53,7 +53,7 @@ class SqlCommand{
         }
         sqlite3_finalize(selectStatement)
     }
-    func insertImage( names:[String] ){
+    func insertImage( names:[String] ) -> Int{
         var i = 0
         var insertingVars = ""
         let maxId = getMaxid(idName:"pid",tableName:"Picture") + 1
@@ -61,27 +61,34 @@ class SqlCommand{
             insertingVars += "(\(maxId),\(i),'\(name)')" + (i == 5 ? ";" : ", ")
             i += 1
         }
-        let insertQuery = "INSERT INTO Picture VALUES "
-        + insertingVars
+        let insertQuery = "INSERT INTO Picture VALUES " + insertingVars
         print(insertQuery)
-        insertingData(insertQuery: insertQuery, tableName:"Picture")
+        proceedData(query: insertQuery, tableName:"Picture", proceeding:"insert")
+        return maxId
     }
-    func selectPicture(){
+    func selectAllPicture()->[Int:[Int:String]]{
         var selectStatement: OpaquePointer?
         let selectQuery = "SELECT * FROM Picture;"
+        var fileList = [Int:[Int:String]]()
         if sqlite3_prepare(db, selectQuery, -1, &selectStatement, nil) == SQLITE_OK{
+            var subDictionary : [Int : String] = [Int: String]()
             while sqlite3_step(selectStatement) == SQLITE_ROW{
                 let pid = sqlite3_column_int(selectStatement, 0)
                 let surface = sqlite3_column_int(selectStatement, 1)
                 let fileName = String( cString:sqlite3_column_text(selectStatement, 2) )
+                subDictionary[Int(surface)] = fileName
+                fileList[Int(pid)] = subDictionary
                 print( "pid:\(pid) , surface : , \(surface), Filename : \(fileName)" )
             }
         }
         sqlite3_finalize(selectStatement)
+        print( "File list : ")
+        print(fileList)
+        return fileList
     }
     func getMaxid(idName:String, tableName:String) -> Int{
         var selectStatement: OpaquePointer?
-        let selectQuery = "SELECT COALESCE(MAX(\(idName),-1)) FROM \(tableName);"
+        let selectQuery = "SELECT COALESCE(MAX(\(idName)),-1) FROM \(tableName);"
         print( selectQuery )
         var id = 0
         if sqlite3_prepare(db, selectQuery, -1, &selectStatement, nil) == SQLITE_OK{
@@ -93,13 +100,13 @@ class SqlCommand{
         sqlite3_finalize(selectStatement)
         return id
     }
-    func insertObjectSpec(dataList:[String:[String:Any]]?){
-        var insertQuery = "INSERT INTO ObjectSpec (objId,x_Coor,y_Coor,z_Coor,x_rotate,y_rotate,z_rotate,x_scale,y_scale,z_scale) VALUES "
+    func insertObjectSpec(dataList:[String:[String:Any]]?) -> Int{
+        var insertQuery = "INSERT INTO ObjectSpec VALUES "
         var insertingVars = ""
         let maxId = getMaxid(idName:"specId",tableName:"ObjectSpec") + 1
         var i = 0;
         for objectName in (dataList?.keys)!{
-            insertingVars += ( i == 0 ? "" : ", " ) + "( \(maxId), \(objects[objectName] as! Int), "
+            insertingVars += ( i == 0 ? "" : ", " ) + "( \(maxId), \(objects[objectName]), "
             insertingVars += "\(dataList![objectName]?["xpos"] as! Float), "
             insertingVars += "\(dataList![objectName]?["ypos"] as! Float), "
             insertingVars += "\(dataList![objectName]?["zpos"] as! Float), "
@@ -113,6 +120,112 @@ class SqlCommand{
         }
         insertQuery += insertingVars
         print(insertQuery)
-        //TODO : insert
+        proceedData(query: insertQuery, tableName:"ObjectSpec", proceeding:"insert")
+        return maxId
+    }
+    func selectObjectSpec(spaceId:Int)->[String:[String:Any]]?{
+        print("here0")
+        var selectStatement: OpaquePointer?
+        var selectQuery = "SELECT specId FROM ARSpace WHERE spaceId=\(spaceId);"
+        var specId:Int? = nil
+        if sqlite3_prepare(db, selectQuery, -1, &selectStatement, nil) == SQLITE_OK{
+            while sqlite3_step(selectStatement) == SQLITE_ROW{
+                if sqlite3_column_type(selectStatement, 0) != SQLITE_NULL{
+                    specId = Int(sqlite3_column_int(selectStatement, 0))
+                }else{
+                    sqlite3_finalize(selectStatement)
+                    return [:]
+                }
+            }
+        }
+        print("here1")
+        sqlite3_finalize(selectStatement)
+        var selectStatements: OpaquePointer?
+        selectQuery = """
+        SELECT objSp.objId,obj.objId,obj.name,objSp.x_Coor,objSp.y_Coor,objSp.z_Coor,
+        objSp.x_rotate,objSp.y_rotate,objSp.z_rotate,objSp.x_scale,objSp.y_scale,objSp.z_scale
+        FROM ObjectSpec objSp, Object obj
+        WHERE specId=\(specId!) AND objSp.objId=obj.objId;
+        """
+        print("here2")
+        var specList = [String:[String:Any]]()
+        if sqlite3_prepare(db, selectQuery, -1, &selectStatements, nil) == SQLITE_OK{
+            print("here")
+            while sqlite3_step(selectStatements) == SQLITE_ROW{
+                var subDictionary : [String : Any] = [String: Any]()
+                let name = String( cString:sqlite3_column_text(selectStatements, 2) )
+                subDictionary[ "name" ] = name + " (UnityEngine.GameObject)"
+                subDictionary[ "xpos" ] = Float(sqlite3_column_double(selectStatements, 3))
+                subDictionary[ "ypos" ] = Float(sqlite3_column_double(selectStatements, 4))
+                subDictionary[ "zpos" ] = Float(sqlite3_column_double(selectStatements, 5))
+                subDictionary[ "xrot" ] = Float(sqlite3_column_double(selectStatements, 6))
+                subDictionary[ "yrot" ] = Float(sqlite3_column_double(selectStatements, 7))
+                subDictionary[ "zrot" ] = Float(sqlite3_column_double(selectStatements, 8))
+                subDictionary[ "xsca" ] = Float(sqlite3_column_double(selectStatements, 9))
+                subDictionary[ "ysca" ] = Float(sqlite3_column_double(selectStatements, 10))
+                subDictionary[ "zsca" ] = Float(sqlite3_column_double(selectStatements, 11))
+                specList[ name ] = subDictionary
+                print("here2")
+                print( specList )
+            }
+        }
+        print( specList )
+        sqlite3_finalize(selectStatements)
+        return specList
+    }
+    func insertArSpaceElement(pId:Int, specId:Any?){
+        print (specId)
+        let spId = specId == nil ? "null" : String(specId as! Int)
+        print(spId)
+        var insertQuery = "INSERT INTO ARSpace (pId,specId ) VALUES (\(pId),\(spId));"
+        proceedData(query: insertQuery, tableName:"ARSpace", proceeding:"insert")
+    }
+    func selectArSpace(){
+        var selectStatement: OpaquePointer?
+        let selectQuery = "SELECT * FROM ARSpace;"
+        if sqlite3_prepare(db, selectQuery, -1, &selectStatement, nil) == SQLITE_OK{
+            while sqlite3_step(selectStatement) == SQLITE_ROW{
+                let spaceId = sqlite3_column_int(selectStatement, 0)
+                let pid = sqlite3_column_int(selectStatement, 1)
+                var specId:Int? = nil
+                if sqlite3_column_type(selectStatement, 2) != SQLITE_NULL{
+                    specId = Int(sqlite3_column_int(selectStatement, 2))
+                }
+                print( "spaceId:\(spaceId) , pid : , \(pid), specId : \(specId)" )
+            }
+        }
+        sqlite3_finalize(selectStatement)
+    }
+    func getSpaceId(pId:Int)->Int{
+        var selectStatement: OpaquePointer?
+        var spaceId:Int = 0
+        let selectQuery = "SELECT spaceId FROM ARSpace WHERE pId=\(pId);"
+        if sqlite3_prepare(db, selectQuery, -1, &selectStatement, nil) == SQLITE_OK{
+            while sqlite3_step(selectStatement) == SQLITE_ROW{
+                spaceId = Int(sqlite3_column_int(selectStatement, 0))
+            }
+        }
+        sqlite3_finalize(selectStatement)
+        return spaceId
+    }
+    func removeArSpace(picId:Int){
+        var selectStatement: OpaquePointer?
+        var specId:Int? = nil
+        let selectQuery = "SELECT specId FROM ARSpace WHERE pid=\(picId);"
+        if sqlite3_prepare(db, selectQuery, -1, &selectStatement, nil) == SQLITE_OK{
+            while sqlite3_step(selectStatement) == SQLITE_ROW{
+                var specId:Int? = nil
+                if sqlite3_column_type(selectStatement, 0) != SQLITE_NULL{
+                    specId = Int(sqlite3_column_int(selectStatement, 0))
+                }
+                print( "specId : \(specId)" )
+            }
+        }
+        sqlite3_finalize(selectStatement)
+        var deleteQuery = "DELETE FROM ARSpace WHERE pid=\(picId); DELETE FROM Picture WHERE pid=\(picId);"
+        if specId != nil{
+            deleteQuery += " DELETE FROM ObjectSpec WHERE specId=\(specId);"
+        }
+        proceedData(query: deleteQuery, tableName:"ARSpace,Picture,ObjectSpec", proceeding:"deleting")
     }
 }

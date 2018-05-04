@@ -151,10 +151,16 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                 arRoomViewController.setImgSet(paramsImgSet: imgSet)
                 arRoomViewController.setARObjStats(ARObjectStats_param: arObjStatsDict)
                 sqlCommand.createTable()
-                sqlCommand.insertImage(names: imgSet)
-                sqlCommand.selectPicture()
-                sqlCommand.insertObjectSpec(dataList: arObjStatsDict)
-                
+                let pid = sqlCommand.insertImage(names: imgSet)
+                sqlCommand.selectAllPicture()
+                let haveObject = !arObjStatsDict.isEmpty
+                var specId : Int?
+                specId = nil
+                if haveObject{
+                    specId = sqlCommand.insertObjectSpec(dataList: arObjStatsDict)
+                }
+                sqlCommand.insertArSpaceElement(pId: pid, specId: specId)
+                sqlCommand.selectArSpace()
                 self.navigationController?.pushViewController(arRoomViewController, animated: true)
             }
         }

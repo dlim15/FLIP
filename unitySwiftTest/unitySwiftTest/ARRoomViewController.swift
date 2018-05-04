@@ -21,6 +21,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     var roomItems : [String:SCNNode] = [String:SCNNode]()
     var keyNum : Int = 0
     var keys : [String] = [String]()
+    var spaceId:Int? = nil
     @IBOutlet weak var selectedItemTitle: UIButton!
     @IBOutlet weak var toggleSelectedItem: UIButton!
     
@@ -82,7 +83,9 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
                 if (touchCount == 0){
                     initRoom(hitResult: hitResult)
                 } else {
-                    moveItem(key: keys[keyNum], hitResult: hitResult)
+                    if !keys.isEmpty{
+                        moveItem(key: keys[keyNum], hitResult: hitResult)
+                    }
                 }
             }
         }
@@ -99,7 +102,9 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
             
             // check if we got some result using hitTest.
             if let hitResult = results.first{
-                moveItem(key: keys[keyNum], hitResult: hitResult)
+                if !keys.isEmpty{
+                    moveItem(key: keys[keyNum], hitResult: hitResult)
+                }
             }
         }
     }
@@ -152,7 +157,11 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
             keyNum = 0
             selectedItemTitle.isHidden = false
             toggleSelectedItem.isHidden = false
-            selectedItemTitle.setTitle("Selected Item: \(keys[keyNum])", for: UIControlState.normal)
+            if !keys.isEmpty{
+                selectedItemTitle.setTitle("Selected Item: \(keys[keyNum])", for: UIControlState.normal)
+            }else{
+                toggleSelectedItem.isHidden = true
+            }
             touchCount += 1
         }
     }
@@ -230,7 +239,22 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
             node.addChildNode(planeNode)
         }
     }
-    
+    public func setSpaceId( pid:Int ){
+        spaceId = sqlCommand.getSpaceId(pId:pid)
+    }
+    public func browseObjStats(){
+        ARObjectStats = sqlCommand.selectObjectSpec(spaceId:spaceId!)
+        print ("AR OBJECT ")
+        print(ARObjectStats)
+    }
+    public func setImgSet( path:String, paramsImgSet : [Int:String] ){
+        imgSet.removeAll()
+        for i in 0...paramsImgSet.count - 1{
+            imgSet.append(path + paramsImgSet[i]!)
+        }
+        print(paramsImgSet)
+        print (imgSet)
+    }
     public func setImgSet( paramsImgSet : [String] ){
         imgSet.removeAll()
         for i in 0...paramsImgSet.count - 1{
