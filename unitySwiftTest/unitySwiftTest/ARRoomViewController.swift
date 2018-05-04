@@ -248,7 +248,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
             ]
         }
         print(result)
-        sqlCommand.updateObjectSpec(dataList: result, specId: spaceId!)
+        sqlCommand.updateObjectSpec(dataList: result, spaceId: spaceId!)
     }
     
     //when horizontal plane is detected.

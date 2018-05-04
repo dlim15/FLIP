@@ -26,7 +26,7 @@ class SqlCommand{
             "CREATE TABLE IF NOT EXISTS Picture(pId INTEGER,surface INTEGER,fileName TEXT,PRIMARY KEY(pId,surface));" +
             "CREATE TABLE IF NOT EXISTS Object (objId INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,fileName TEXT);" +
             "CREATE TABLE IF NOT EXISTS ObjectSpec(specId INTEGER,objId INTEGER,x_Coor REAL,y_Coor REAL,z_Coor REAL,x_rotate REAL,y_rotate REAL,z_rotate REAL,x_scale REAL,y_scale REAL,z_scale REAL, PRIMARY KEY(specId, objId));" +
-            "CREATE TABLE IF NOT EXISTS ARSpace(spaceId INTEGER PRIMARY KEY AUTOINCREMENT,pId INTEGER,specId INTEGER,FOREIGN KEY (pId) REFERENCES Picture(pId),FOREIGN KEY (specId) REFERENCES ObjectSpec(specId)); "
+            "CREATE TABLE IF NOT EXISTS ARSpace(spaceId INTEGER PRIMARY KEY AUTOINCREMENT,pId INTEGER,specId INTEGER, city TEXT, postal TEXT, state TEXT, country TEXT, FOREIGN KEY (pId) REFERENCES Picture(pId),FOREIGN KEY (specId) REFERENCES ObjectSpec(specId)); "
         if sqlite3_exec(db, createTableQuery, nil, nil, nil) != SQLITE_OK{
             print("ERROR while creating table")
             return
@@ -69,6 +69,23 @@ class SqlCommand{
         print(insertQuery)
         proceedData(query: insertQuery, tableName:"Picture", proceeding:"insert")
         return maxId
+    }
+    func selectAllLocation()->[Int:String]{
+        var selectStatement: OpaquePointer?
+        let selectQuery = "SELECT DISTINCT a.pid, (a.city || \",\" || a.state) AS location FROM ARSpace a, Picture p WHERE a.pId=p.pId;"
+        var fileList = [Int:String]()
+        if sqlite3_prepare(db, selectQuery, -1, &selectStatement, nil) == SQLITE_OK{
+            while sqlite3_step(selectStatement) == SQLITE_ROW{
+                let pid = Int(sqlite3_column_int(selectStatement, 0))
+                let location = String( cString:sqlite3_column_text(selectStatement, 1) )
+                fileList[pid] = location
+                print( "pid:\(pid) , Location : \(location)" )
+            }
+        }
+        sqlite3_finalize(selectStatement)
+        print( "File list : ")
+        print(fileList)
+        return fileList
     }
     func selectAllPicture()->[Int:[Int:String]]{
         var selectStatement: OpaquePointer?
@@ -129,7 +146,7 @@ class SqlCommand{
         proceedData(query: insertQuery, tableName:"ObjectSpec", proceeding:"insert")
         return maxId
     }
-    func updateObjectSpec(dataList:[String:[String:Any?]], specId : Int){
+    func updateObjectSpec(dataList:[String:[String:Any?]], spaceId : Int){
         
         let dictConvertKeys : [String:String] = ["xpos" : "x_Coor",
                                                  "ypos" : "y_Coor",
@@ -145,7 +162,8 @@ class SqlCommand{
             var updatingVars = ""
             var updatingWhere = ""
             if let ok = objects[key]{
-                updatingWhere = "WHERE objId = \(ok) AND specId = \(specId);"
+                updatingWhere = "WHERE objId = \(ok) AND specId IN (" +
+                "SELECT specId FROM ARSpace WHERE spaceId=\(spaceId));"
             }
             var j = 0;
             for convertKey in dictConvertKeys.keys{
@@ -159,20 +177,6 @@ class SqlCommand{
             proceedData(query: resultQuery, tableName:"ObjectSpec", proceeding:"update")
         }
     }
-    /*
-     "CREATE TABLE IF NOT EXISTS ObjectSpec(specId INTEGER,
-                                            objId INTEGER,
-                                            x_Coor REAL,
-                                            y_Coor REAL,
-                                            z_Coor REAL,
-                                            x_rotate REAL,
-                                            y_rotate REAL,
-                                            z_rotate REAL,
-                                            x_scale REAL,
-                                            y_scale REAL,
-                                            z_scale REAL,
-                                            PRIMARY KEY(specId, objId));
-     */
     
     
     func selectObjectSpec(spaceId:Int, isDictionary : Bool)->Any?{
@@ -242,11 +246,11 @@ class SqlCommand{
         }
     }
     
-    func insertArSpaceElement(pId:Int, specId:Any?){
+    func insertArSpaceElement(pId:Int, specId:Any?, city:String, postal:String, state:String, country:String ){
         print (specId)
         let spId = specId == nil ? "null" : String(specId as! Int)
         print(spId)
-        var insertQuery = "INSERT INTO ARSpace (pId,specId ) VALUES (\(pId),\(spId));"
+        var insertQuery = "INSERT INTO ARSpace (pId,specId,city,postal,state,country ) VALUES (\(pId),\(spId),'\(city)','\(postal)','\(state)','\(pId)');"
         proceedData(query: insertQuery, tableName:"ARSpace", proceeding:"insert")
     }
     func selectArSpace(){

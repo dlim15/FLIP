@@ -11,4 +11,5 @@ import UIKit
 class ImgAlbumCell: UICollectionViewCell {
     
     @IBOutlet weak var ARImage: UIImageView!
+    @IBOutlet weak var Location: UILabel!
 }

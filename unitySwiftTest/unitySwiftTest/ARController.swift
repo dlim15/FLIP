@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 public extension UIWindow{
     func captureScreen() -> UIImage?{
         UIGraphicsBeginImageContextWithOptions(self.frame.size, self.isOpaque, UIScreen.main.scale)
@@ -17,7 +18,7 @@ public extension UIWindow{
     }
 }
 
-class ARController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ARController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CLLocationManagerDelegate {
 
     let MAX_PICTURES = 6
     var picturesTaken : Int = 0
@@ -32,6 +33,11 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     @IBOutlet weak var lblInstruction: UILabel!
     @IBOutlet weak var btnUndo: UIButton!
     var pid = -1
+    let locationManager = CLLocationManager()
+    var locality:String? = ""
+    var postal:String? = ""
+    var admin:String? = ""
+    var country:String? = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +47,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         loadingSpinner.stopAnimating()
         picturesTaken = 0
         imgSet.removeAll()
+        initLocation()
         // Do any additional setup after loading the view.
     }
     
@@ -48,7 +55,16 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         btnBack.isHidden = false
         showUnitySubView()
     }
-    
+    func initLocation(){
+        locationManager.delegate = self
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+    }
+    func findLocation(){
+        locationManager.startUpdatingLocation()
+        findLocation(manager: locationManager)
+    }
     @IBAction func ARViewBackAction(_ sender: UIButton) {
         appDelegate?.stopUnity()
         
@@ -83,6 +99,34 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         picturesTaken = 0
         self.lblInstruction.isHidden = false
         surfaceSideGuide(i:0)
+        findLocation()
+    }
+    func findLocation(manager: CLLocationManager!){
+        print("HERE2")
+        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error)->Void in
+            
+            if (error != nil) {
+                print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
+                return
+            }
+            
+            if (placemarks?.count)! > 0 {
+                let pm = placemarks?[0]
+                self.displayLocationInfo(pm)
+            } else {
+                print("Problem with the data received from geocoder")
+            }
+        })
+    }
+    func displayLocationInfo(_ placemark: CLPlacemark?){
+        if let containsPlacemark = placemark{
+            locationManager.stopUpdatingLocation()
+            locality = (containsPlacemark.locality != nil) ? containsPlacemark.locality : ""
+            postal = (containsPlacemark.postalCode != nil) ? containsPlacemark.postalCode : ""
+            admin = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
+            country = (containsPlacemark.country != nil) ? containsPlacemark.country : ""
+            print("Got local info")
+        }
     }
     func surfaceSideGuide(i: Int) {
         self.lblInstruction.text = "Take " + imgSurface[ i ] + " side."
@@ -160,7 +204,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                     specId = sqlCommand.insertObjectSpec(dataList: arObjStatsDict)
                     
                 }
-                sqlCommand.insertArSpaceElement(pId: pid, specId: specId)
+                sqlCommand.insertArSpaceElement(pId: pid, specId: specId, city: self.locality!, postal: self.postal!, state: self.admin!, country: self.country!)
                 sqlCommand.selectArSpace()
                 arRoomViewController.setSpaceId(pid: pid)
                 

@@ -20,10 +20,11 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     var sqlCommand = SqlCommand()
     let dialog = DialogActions()
     var files:[Int:[Int:String]] = [:]
+    var location:[Int:String] = [:]
     override func viewDidLoad() {
         super.viewDidLoad()
         sqlCommand.createTable()
-        sqlCommand.insertInitData()
+        //sqlCommand.insertInitData()
         loadImg()
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -88,6 +89,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
             sampImgs.append(file)
             //documentPath + ( files![file]![0] as! String )
         }
+        location = sqlCommand.selectAllLocation()
         sampImgs.sort()
         print (sampImgs)
     }
@@ -105,6 +107,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImgCell", for: indexPath) as! ImgAlbumCell
         cell.ARImage.image = UIImage( data:FileManager.default.contents(
             atPath:documentPath + ( files[sampImgs[ indexPath.row ]]?[0] as! String ) )! )
+        cell.Location.text = location[ indexPath.row ]
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1
         
@@ -149,6 +152,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
             print("error")
         }
         selectedImgs.removeAll()
+        location.removeAll()
         selectAction()
         reloadImgs()
     }
@@ -160,5 +164,6 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         sampImgs.remove(at: i)
         files.removeValue(forKey: i)
+        location.removeValue(forKey: i)
     }
 }
