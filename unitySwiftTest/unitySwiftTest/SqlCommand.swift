@@ -11,7 +11,7 @@ import SQLite3
 
 class SqlCommand{
     var db : OpaquePointer?
-    var objects : [String: Int] = ["table":1, "chair":2, "plant1":3, "toilet":4]
+    var objects : [String: Int] = ["table":1, "chair":2, "plant1":3, "toliet":4]
     init(){
         let fileUrl = try!
             FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("ARDatabase.sqlite")
@@ -34,7 +34,7 @@ class SqlCommand{
         print("create successful")
     }
     func insertInitData(){
-        let initInsertQuery = "INSERT INTO Object (name, fileName) VALUES ('table','table.dae'), ('chair','chair.dae'), ('plant1','plant1.dae'), ('toilet','toilet.dae');"
+        let initInsertQuery = "INSERT INTO Object (name, fileName) VALUES ('table','table.dae'), ('chair','chair.dae'), ('plant1','plant1.dae'), ('toliet','toliet.dae');"
         proceedData(query: initInsertQuery, tableName:"Object", proceeding:"insert")
     }
     func proceedData(query:String, tableName:String, proceeding:String){

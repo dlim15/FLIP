@@ -129,6 +129,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     
     func initRoom(hitResult : ARHitTestResult){
         let boxScene = SCNScene(named: "art.scnassets/portal.scn")!
+        
         ARObjectStats = sqlCommand.selectObjectSpec(spaceId:spaceId!)
         if let boxNode = boxScene.rootNode.childNode(withName: "portal", recursively: true){
             boxNode.position = SCNVector3(x:hitResult.worldTransform.columns.3.x,
@@ -244,6 +245,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     public func setSpaceId( pid:Int ){
+        print("PID: \(pid)" )
         spaceId = sqlCommand.getSpaceId(pId:pid)
     }
     public func browseObjStats(){

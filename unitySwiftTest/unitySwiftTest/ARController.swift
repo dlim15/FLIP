@@ -31,6 +31,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var lblInstruction: UILabel!
     @IBOutlet weak var btnUndo: UIButton!
+    var pid = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,7 +151,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                 let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
                 arRoomViewController.setImgSet(paramsImgSet: imgSet)
                 sqlCommand.createTable()
-                let pid = sqlCommand.insertImage(names: imgSet)
+                pid = sqlCommand.insertImage(names: imgSet)
                 sqlCommand.selectAllPicture()
                 let haveObject = !arObjStatsDict.isEmpty
                 var specId : Int?
@@ -258,8 +259,11 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     }
     
     @IBAction func loadButtonPressed(_ sender: Any) {
-        let dict = "{\"plant1\": [{\"name\": [plant1 (UnityEngine.GameObject)],\"xpos\": [0.063404],\"ypos\": [-0.15625],\"zpos\": [0.15053],\"xrot\": [0],\"yrot\": [0],\"zrot\": [0],\"xsca\": [0.005],\"ysca\": [0.005],\"zsca\": [0.005]}],\"table\": [{\"name\": [table (UnityEngine.GameObject)],\"xpos\": [-0.127293],\"ypos\": [-3.798],\"zpos\": [0.129175],\"xrot\": [0],\"yrot\": [0],\"zrot\": [0],\"xsca\": [0.06],\"ysca\": [0.06],\"zsca\": [0.06]}]}"
-        UnityPostMessage("NATIVE_BRIDGE", "loadFromDict", dict)
+        print("PID: \(pid)" )
+        let spaceID = sqlCommand.getSpaceId(pId: pid)
+        let dict = sqlCommand.selectObjectSpec(spaceId: spaceID)
+        print(dict)
+
     }
     
     
