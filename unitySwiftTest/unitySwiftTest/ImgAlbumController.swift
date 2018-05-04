@@ -6,7 +6,8 @@
 //  Copyright © 2018 Jeremy Ronquillo. All rights reserved.
 //
 
-class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+import CoreLocation
+class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CLLocationManagerDelegate {
 
     @IBOutlet weak var btnselect: UIButton!
     @IBOutlet weak var btnRemove: UIButton!
@@ -21,6 +22,9 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     let dialog = DialogActions()
     var files:[Int:[Int:String]] = [:]
     var location:[Int:String] = [:]
+    let locationManager = CLLocationManager()
+    var latitude:Float = 0
+    var longitude:Float = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         sqlCommand.createTable()
@@ -47,6 +51,30 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
             selectedImgs.removeAll()
             
         }
+    }
+    func initLocation(){
+        
+        if  CLLocationManager.authorizationStatus() != .authorizedWhenInUse{
+            locationManager.requestWhenInUseAuthorization()
+        }
+        locationManager.delegate = self
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        if  CLLocationManager.authorizationStatus() != .authorizedWhenInUse{
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    func findLocation(){
+        if  CLLocationManager.authorizationStatus() == .authorizedWhenInUse{
+            locationManager.startUpdatingLocation()
+            findLocation(manager: locationManager)
+        }
+    }
+    func findLocation(manager: CLLocationManager!){
+        print("HERE2")
+        latitude = Float((manager.location?.coordinate.latitude)!)
+        longitude = Float((manager.location?.coordinate.longitude)!)
+        
     }
     @IBAction func ARRoomTestClicked(_ sender: Any) {
         let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController

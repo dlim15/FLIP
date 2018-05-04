@@ -26,7 +26,7 @@ class SqlCommand{
             "CREATE TABLE IF NOT EXISTS Picture(pId INTEGER,surface INTEGER,fileName TEXT,PRIMARY KEY(pId,surface));" +
             "CREATE TABLE IF NOT EXISTS Object (objId INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,fileName TEXT);" +
             "CREATE TABLE IF NOT EXISTS ObjectSpec(specId INTEGER,objId INTEGER,x_Coor REAL,y_Coor REAL,z_Coor REAL,x_rotate REAL,y_rotate REAL,z_rotate REAL,x_scale REAL,y_scale REAL,z_scale REAL, PRIMARY KEY(specId, objId));" +
-            "CREATE TABLE IF NOT EXISTS ARSpace(spaceId INTEGER PRIMARY KEY AUTOINCREMENT,pId INTEGER,specId INTEGER, city TEXT, postal TEXT, state TEXT, country TEXT, FOREIGN KEY (pId) REFERENCES Picture(pId),FOREIGN KEY (specId) REFERENCES ObjectSpec(specId)); "
+            "CREATE TABLE IF NOT EXISTS ARSpace(spaceId INTEGER PRIMARY KEY AUTOINCREMENT,pId INTEGER,specId INTEGER, city TEXT, postal TEXT, state TEXT, country TEXT, longitude REAL, latitude REAL, FOREIGN KEY (pId) REFERENCES Picture(pId),FOREIGN KEY (specId) REFERENCES ObjectSpec(specId)); "
         if sqlite3_exec(db, createTableQuery, nil, nil, nil) != SQLITE_OK{
             print("ERROR while creating table")
             return
@@ -246,11 +246,11 @@ class SqlCommand{
         }
     }
     
-    func insertArSpaceElement(pId:Int, specId:Any?, city:String, postal:String, state:String, country:String ){
+    func insertArSpaceElement(pId:Int, specId:Any?, city:String, postal:String, state:String, country:String, longitude:Float, latitude:Float ){
         print (specId)
         let spId = specId == nil ? "null" : String(specId as! Int)
         print(spId)
-        var insertQuery = "INSERT INTO ARSpace (pId,specId,city,postal,state,country ) VALUES (\(pId),\(spId),'\(city)','\(postal)','\(state)','\(pId)');"
+        var insertQuery = "INSERT INTO ARSpace (pId,specId,city,postal,state,country,longitude,latitude ) VALUES (\(pId),\(spId),'\(city)','\(postal)','\(state)','\(pId)',\(longitude),\(latitude));"
         proceedData(query: insertQuery, tableName:"ARSpace", proceeding:"insert")
     }
     func selectArSpace(){

@@ -38,6 +38,8 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     var postal:String? = ""
     var admin:String? = ""
     var country:String? = ""
+    var latitude:Float = 0
+    var longitude:Float = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,14 +58,19 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         showUnitySubView()
     }
     func initLocation(){
+       
         locationManager.delegate = self
         locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
+        if  CLLocationManager.authorizationStatus() != .authorizedWhenInUse{
+            locationManager.requestWhenInUseAuthorization()
+        }
     }
     func findLocation(){
-        locationManager.startUpdatingLocation()
-        findLocation(manager: locationManager)
+        if  CLLocationManager.authorizationStatus() == .authorizedWhenInUse{
+            locationManager.startUpdatingLocation()
+            findLocation(manager: locationManager)
+        }
     }
     @IBAction func ARViewBackAction(_ sender: UIButton) {
         appDelegate?.stopUnity()
@@ -103,6 +110,8 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     }
     func findLocation(manager: CLLocationManager!){
         print("HERE2")
+        latitude = Float((manager.location?.coordinate.latitude)!)
+        longitude = Float((manager.location?.coordinate.longitude)!)
         CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error)->Void in
             
             if (error != nil) {
@@ -204,7 +213,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                     specId = sqlCommand.insertObjectSpec(dataList: arObjStatsDict)
                     
                 }
-                sqlCommand.insertArSpaceElement(pId: pid, specId: specId, city: self.locality!, postal: self.postal!, state: self.admin!, country: self.country!)
+                sqlCommand.insertArSpaceElement(pId: pid, specId: specId, city: self.locality!, postal: self.postal!, state: self.admin!, country: self.country!, longitude:longitude, latitude:latitude)
                 sqlCommand.selectArSpace()
                 arRoomViewController.setSpaceId(pid: pid)
                 
