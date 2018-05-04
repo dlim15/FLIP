@@ -25,6 +25,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     var imagePicker: UIImagePickerController!
     var imgSet : [String] = [String()]
     var imgSurface :[String] = ["front","left","back","right","ceiling","floor",""]
+    let sqlCommand = SqlCommand()
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     @IBOutlet weak var cameraButton: UIButton!
@@ -149,6 +150,10 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                 let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
                 arRoomViewController.setImgSet(paramsImgSet: imgSet)
                 arRoomViewController.setARObjStats(ARObjectStats_param: arObjStatsDict)
+                sqlCommand.createTable()
+                sqlCommand.insertImage(names: imgSet)
+                sqlCommand.selectPicture()
+                sqlCommand.insertObjectSpec(dataList: arObjStatsDict)
                 
                 self.navigationController?.pushViewController(arRoomViewController, animated: true)
             }

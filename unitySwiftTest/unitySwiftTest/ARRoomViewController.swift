@@ -39,7 +39,6 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         self.navigationController?.isNavigationBarHidden = false
         // Set the view's delegate
         sceneView.delegate = self
-        sqlCommand.createTable()
         sqlCommand.selectObject()
     }
     
