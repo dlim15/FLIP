@@ -26,8 +26,10 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var toggleSelectedItem: UIButton!
     
     @IBAction func ToggleSelectedItemButtonPressed(_ sender: Any) {
-        keyNum = (keyNum + 1) % (ARObjectStats?.keys.count)!
-        selectedItemTitle.setTitle("Selected Item: \(keys[keyNum])", for: UIControlState.normal)
+        if keys.count > 0{
+            keyNum = (keyNum + 1) % (ARObjectStats?.keys.count)!
+            selectedItemTitle.setTitle("Selected Item: \(keys[keyNum])", for: UIControlState.normal)
+        }
     }
     
     //var planes = [ARPlaneAnchor: PlaneNode]()
@@ -92,7 +94,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if touchCount > 0, let touch = touches.first{
+        if touchCount > 0 && keys.count > 0, let touch = touches.first{
             //location of where we touch on 2d screen
             let touchLocation = touch.location(in: sceneView)
             
@@ -110,9 +112,9 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if touchCount > 0, let touch = touches.first{
-            print( convertToUnityDataDict() )
-        }
+//        if touchCount > 0, let touch = touches.first{
+//            browseObjStats()
+//        }
     }
     
     func moveItem( key : String, hitResult : ARHitTestResult ){
@@ -127,6 +129,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     
     func initRoom(hitResult : ARHitTestResult){
         let boxScene = SCNScene(named: "art.scnassets/portal.scn")!
+        ARObjectStats = sqlCommand.selectObjectSpec(spaceId:spaceId!)
         if let boxNode = boxScene.rootNode.childNode(withName: "portal", recursively: true){
             boxNode.position = SCNVector3(x:hitResult.worldTransform.columns.3.x,
                                           y:hitResult.worldTransform.columns.3.y + 0.05,
@@ -155,12 +158,13 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
             }
             sceneView.scene.rootNode.addChildNode(boxNode)
             keyNum = 0
-            selectedItemTitle.isHidden = false
-            toggleSelectedItem.isHidden = false
             if !keys.isEmpty{
                 selectedItemTitle.setTitle("Selected Item: \(keys[keyNum])", for: UIControlState.normal)
+                selectedItemTitle.isHidden = false
+                toggleSelectedItem.isHidden = false
             }else{
                 toggleSelectedItem.isHidden = true
+                selectedItemTitle.isHidden = true
             }
             touchCount += 1
         }
@@ -236,7 +240,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
             plane.materials = [gridMaterial]
             planeNode.geometry = plane
             //self.planes[planeAnchor] = planeNode
-            node.addChildNode(planeNode)
+//            node.addChildNode(planeNode)
         }
     }
     public func setSpaceId( pid:Int ){
@@ -260,9 +264,5 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         for i in 0...paramsImgSet.count - 1{
             imgSet.append(((NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString) as String).appending(paramsImgSet[i]) )
         }
-    }
-    
-    public func setARObjStats( ARObjectStats_param : [String:[String:Any]] ){
-        ARObjectStats = ARObjectStats_param
     }
 }

@@ -11,7 +11,7 @@ import SQLite3
 
 class SqlCommand{
     var db : OpaquePointer?
-    var objects = ["table":1, "chair":2, "plant1":3, "toilet":4]
+    var objects : [String: Int] = ["table":1, "chair":2, "plant1":3, "toilet":4]
     init(){
         let fileUrl = try!
             FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("ARDatabase.sqlite")
@@ -22,7 +22,11 @@ class SqlCommand{
     }
     func createTable(){
         // DROP TABLE Picture; DROP TABLE Object; DROP TABLE ObjectSpec; DROP TABLE ARSpace;
-        let createTableQuery = "CREATE TABLE IF NOT EXISTS Picture(pId INTEGER,surface INTEGER,fileName TEXT,PRIMARY KEY(pId,surface));CREATE TABLE IF NOT EXISTS Object (objId INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,fileName TEXT);CREATE TABLE IF NOT EXISTS ObjectSpec(specId INTEGER,objId INTEGER,x_Coor REAL,y_Coor REAL,z_Coor REAL,x_rotate REAL,y_rotate REAL,z_rotate REAL,x_scale REAL,y_scale REAL,z_scale REAL, PRIMARY KEY(specId, objId)); CREATE TABLE IF NOT EXISTS ARSpace(spaceId INTEGER PRIMARY KEY AUTOINCREMENT,pId INTEGER,specId INTEGER,FOREIGN KEY (pId) REFERENCES Picture(pId),FOREIGN KEY (specId) REFERENCES ObjectSpec(specId)); "
+        let createTableQuery =
+            "CREATE TABLE IF NOT EXISTS Picture(pId INTEGER,surface INTEGER,fileName TEXT,PRIMARY KEY(pId,surface));" +
+            "CREATE TABLE IF NOT EXISTS Object (objId INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,fileName TEXT);" +
+            "CREATE TABLE IF NOT EXISTS ObjectSpec(specId INTEGER,objId INTEGER,x_Coor REAL,y_Coor REAL,z_Coor REAL,x_rotate REAL,y_rotate REAL,z_rotate REAL,x_scale REAL,y_scale REAL,z_scale REAL, PRIMARY KEY(specId, objId));" +
+            "CREATE TABLE IF NOT EXISTS ARSpace(spaceId INTEGER PRIMARY KEY AUTOINCREMENT,pId INTEGER,specId INTEGER,FOREIGN KEY (pId) REFERENCES Picture(pId),FOREIGN KEY (specId) REFERENCES ObjectSpec(specId)); "
         if sqlite3_exec(db, createTableQuery, nil, nil, nil) != SQLITE_OK{
             print("ERROR while creating table")
             return
@@ -106,7 +110,9 @@ class SqlCommand{
         let maxId = getMaxid(idName:"specId",tableName:"ObjectSpec") + 1
         var i = 0;
         for objectName in (dataList?.keys)!{
-            insertingVars += ( i == 0 ? "" : ", " ) + "( \(maxId), \(objects[objectName]), "
+            if let objIDtoInsert : Int = objects[objectName]{
+                insertingVars += ( i == 0 ? "" : ", " ) + "( \(maxId), \(objIDtoInsert), "
+            }
             insertingVars += "\(dataList![objectName]?["xpos"] as! Float), "
             insertingVars += "\(dataList![objectName]?["ypos"] as! Float), "
             insertingVars += "\(dataList![objectName]?["zpos"] as! Float), "
@@ -142,11 +148,27 @@ class SqlCommand{
         sqlite3_finalize(selectStatement)
         var selectStatements: OpaquePointer?
         selectQuery = """
-        SELECT objSp.objId,obj.objId,obj.name,objSp.x_Coor,objSp.y_Coor,objSp.z_Coor,
-        objSp.x_rotate,objSp.y_rotate,objSp.z_rotate,objSp.x_scale,objSp.y_scale,objSp.z_scale
+        SELECT objSp.objId, obj.objId, obj.name, objSp.x_Coor, objSp.y_Coor, objSp.z_Coor,
+        objSp.x_rotate, objSp.y_rotate, objSp.z_rotate, objSp.x_scale, objSp.y_scale, objSp.z_scale
         FROM ObjectSpec objSp, Object obj
         WHERE specId=\(specId!) AND objSp.objId=obj.objId;
         """
+//        selectQuery = """
+//        SELECT
+//        objSp.objId,
+//        objSp.x_Coor,
+//        objSp.y_Coor,
+//        objSp.z_Coor,
+//        objSp.x_rotate,
+//        objSp.y_rotate,
+//        objSp.z_rotate,
+//        objSp.x_scale,
+//        objSp.y_scale,
+//        objSp.z_scale
+//        FROM ObjectSpec objSp
+//        WHERE specId=\(specId!);
+//        """
+        
         print("here2")
         var specList = [String:[String:Any]]()
         if sqlite3_prepare(db, selectQuery, -1, &selectStatements, nil) == SQLITE_OK{

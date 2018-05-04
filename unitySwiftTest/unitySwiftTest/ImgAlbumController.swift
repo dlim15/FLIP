@@ -23,7 +23,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         sqlCommand.createTable()
-        //sqlCommand.insertInitData()
+        sqlCommand.insertInitData()
         loadImg()
         collectionView.delegate = self
         collectionView.dataSource = self

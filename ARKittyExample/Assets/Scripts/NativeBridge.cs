@@ -106,7 +106,7 @@ public unsafe class NativeBridge : MonoBehaviour
 
 	private Dictionary<string, string> createObjectStatDictionary( GameObject obj ){
 		Dictionary<string, string> result = new Dictionary<string, string> ();
-		result.Add ("name", obj.ToString ());
+//		result.Add ("name", obj.ToString ());
 		result.Add ("xpos", string.Format( "{0:0.######}", obj.transform.position.x ));
 		result.Add ("ypos", string.Format( "{0:0.######}", obj.transform.position.y ));
 		result.Add ("zpos", string.Format( "{0:0.######}", obj.transform.position.z ));
