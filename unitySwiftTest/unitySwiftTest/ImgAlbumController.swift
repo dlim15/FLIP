@@ -9,6 +9,7 @@
 import CoreLocation
 class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CLLocationManagerDelegate {
 
+    @IBOutlet weak var toggleARViewButton: UIButton!
     @IBOutlet weak var btnselect: UIButton!
     @IBOutlet weak var btnRemove: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -25,10 +26,11 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     let locationManager = CLLocationManager()
     var latitude:Float = 0
     var longitude:Float = 0
+    var isOpeningInARView = true
     override func viewDidLoad() {
         super.viewDidLoad()
         sqlCommand.createTable()
-        //sqlCommand.insertInitData()
+        //sqlCommand.insertInitData( )
         loadImg()
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -76,10 +78,13 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         longitude = Float((manager.location?.coordinate.longitude)!)
         
     }
-    @IBAction func ARRoomTestClicked(_ sender: Any) {
-        let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
-        self.navigationController?.pushViewController(arRoomViewController, animated: true)
-        
+    @IBAction func toggleARViewAndARRoom(_ sender: Any) {
+        isOpeningInARView = !isOpeningInARView
+        if isOpeningInARView{
+            toggleARViewButton.setTitle("Open Project in AR View", for: UIControlState.normal)
+        } else {
+            toggleARViewButton.setTitle("Open Project in AR Room", for: UIControlState.normal)
+        }
     }
     @IBAction func btnRemovePress(_ sender: UIButton) {
         dialog.alertMsg(controller:self) {
@@ -111,19 +116,21 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         
     }
     func loadImg(){
+        location.removeAll()
         sampImgs.removeAll()
-        files = sqlCommand.selectAllPicture()
+        location = sqlCommand.selectAllLocation(isUnityMode:isOpeningInARView, longitude:longitude, latitude:latitude)
+        files = sqlCommand.selectAllPicture(isUnityMode:isOpeningInARView, longitude:longitude, latitude:latitude)
         for file in (files.keys){
             sampImgs.append(file)
             //documentPath + ( files![file]![0] as! String )
         }
-        location = sqlCommand.selectAllLocation()
         sampImgs.sort()
         print (sampImgs)
     }
     
     @IBAction func plusButtonAction(_ sender: Any) {
         let arViewController:ARController = self.storyboard?.instantiateViewController(withIdentifier: "ARController") as! ARController
+        arViewController.setIsNewProject(isNewProject: true)
         self.navigationController?.pushViewController(arViewController, animated: true)
     }
     
@@ -148,12 +155,18 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
             selectedImgs.append(indexPath.row)
             selectedTrack(count: selectedImgs.count)
         }else{
-            let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
-            
-            arRoomViewController.setImgSet( path:documentPath, paramsImgSet: files[sampImgs[indexPath.row]]! )
-            arRoomViewController.setSpaceId(pid: sampImgs[indexPath.row])
-            arRoomViewController.browseObjStats()
-            self.navigationController?.pushViewController(arRoomViewController, animated: true)
+            if isOpeningInARView{
+                let arViewController:ARController = self.storyboard?.instantiateViewController(withIdentifier: "ARController") as! ARController
+                arViewController.setPid(pid: sampImgs[indexPath.row])
+                arViewController.setIsNewProject(isNewProject: false)
+                self.navigationController?.pushViewController(arViewController, animated: true)
+            } else {
+                let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
+                arRoomViewController.setImgSet( path:documentPath, paramsImgSet: files[sampImgs[indexPath.row]]! )
+                arRoomViewController.setSpaceId(pid: sampImgs[indexPath.row])
+                arRoomViewController.browseObjStats()
+                self.navigationController?.pushViewController(arRoomViewController, animated: true)
+            }
         }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

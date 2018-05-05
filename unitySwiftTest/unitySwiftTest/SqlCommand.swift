@@ -70,9 +70,23 @@ class SqlCommand{
         proceedData(query: insertQuery, tableName:"Picture", proceeding:"insert")
         return maxId
     }
-    func selectAllLocation()->[Int:String]{
+    func updateImage( names : [String], pid : Int ){
+        var i = 0
+        for name in names{
+            let updateQuery = "UPDATE Picture SET "
+            let updatingVars = "fileName = '\(name)' "
+            let wherePart = "WHERE pId = \(pid) AND surface = \(i)"
+            let resultQuery = updateQuery + updatingVars + wherePart
+            print(resultQuery)
+            proceedData(query: resultQuery, tableName:"Picture", proceeding:"update")
+            i += 1
+        }
+    }
+    
+    func selectAllLocation(isUnityMode:Bool, longitude:Float, latitude:Float)->[Int:String]{
         var selectStatement: OpaquePointer?
-        let selectQuery = "SELECT DISTINCT a.pid, (a.city || \",\" || a.state) AS location FROM ARSpace a, Picture p WHERE a.pId=p.pId;"
+        let selectQuery = "SELECT DISTINCT a.pid, (a.city || \",\" || a.state) AS location FROM ARSpace a, Picture p WHERE a.pId=p.pId" +
+            getCoordinateConditionStatement(isUnityMode:isUnityMode, longitude:longitude, latitude:latitude)
         var fileList = [Int:String]()
         if sqlite3_prepare(db, selectQuery, -1, &selectStatement, nil) == SQLITE_OK{
             while sqlite3_step(selectStatement) == SQLITE_ROW{
@@ -87,9 +101,10 @@ class SqlCommand{
         print(fileList)
         return fileList
     }
-    func selectAllPicture()->[Int:[Int:String]]{
+    func selectAllPicture(isUnityMode:Bool, longitude:Float, latitude:Float)->[Int:[Int:String]]{
         var selectStatement: OpaquePointer?
-        let selectQuery = "SELECT * FROM Picture;"
+        let selectQuery = "SELECT p.pId,p.surface,p.fileName FROM Picture p, ARSpace a WHERE p.pId=a.aId" +
+            getCoordinateConditionStatement(isUnityMode:isUnityMode, longitude:longitude, latitude:latitude)
         var fileList = [Int:[Int:String]]()
         if sqlite3_prepare(db, selectQuery, -1, &selectStatement, nil) == SQLITE_OK{
             var subDictionary : [Int : String] = [Int: String]()
@@ -106,6 +121,9 @@ class SqlCommand{
         print( "File list : ")
         print(fileList)
         return fileList
+    }
+    func getCoordinateConditionStatement(isUnityMode:Bool, longitude:Float, latitude:Float) -> String{
+        return ( isUnityMode ? "AND (ABS(a.longitude-\(longitude))+ABS(a.latitude-\(latitude)))<0.0007);" : ";" )
     }
     func getMaxid(idName:String, tableName:String) -> Int{
         var selectStatement: OpaquePointer?
@@ -246,8 +264,7 @@ class SqlCommand{
         }
     }
     
-    func insertArSpaceElement(pId:Int, specId:Any?, city:String, postal:String, state:String, country:String, longitude:Float, latitude:Float ){
-        print (specId)
+    func insertSomeARSpaceElement(pId:Int, specId:Any?, city:String, postal:String, state:String, country:String, longitude:Float, latitude:Float ){
         let spId = specId == nil ? "null" : String(specId as! Int)
         print(spId)
         var insertQuery = "INSERT INTO ARSpace (pId,specId,city,postal,state,country,longitude,latitude ) VALUES (\(pId),\(spId),'\(city)','\(postal)','\(state)','\(pId)',\(longitude),\(latitude));"

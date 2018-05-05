@@ -105,7 +105,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Hgt-g9-t6n">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="370"/>
+                                <rect key="frame" x="0.0" y="0.0" width="736" height="370"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="2WM-5V-Glr"/>
@@ -169,13 +169,13 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="FiW-dN-seg">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5Pv-zs-EAq">
-                                            <rect key="frame" x="112" y="7" width="141" height="30"/>
+                                            <rect key="frame" x="112" y="7" width="223" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Example">
+                                            <state key="normal" title="Open Project in AR View">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
                                             <connections>
-                                                <action selector="ARRoomTestClicked:" destination="nTI-P0-nm6" eventType="touchUpInside" id="auh-3w-o0f"/>
+                                                <action selector="toggleARViewAndARRoom:" destination="nTI-P0-nm6" eventType="touchUpInside" id="wVO-HK-wbA"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -255,6 +255,7 @@
                         <outlet property="btnRemove" destination="ui3-iA-NCK" id="XnL-rz-MYo"/>
                         <outlet property="btnselect" destination="W4V-MD-biZ" id="IRZ-EK-zA7"/>
                         <outlet property="collectionView" destination="Hgt-g9-t6n" id="ZJ3-Qf-UXh"/>
+                        <outlet property="toggleARViewButton" destination="5Pv-zs-EAq" id="ZUj-d4-BSI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZXU-9V-aRq" userLabel="First Responder" sceneMemberID="firstResponder"/>
