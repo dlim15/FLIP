@@ -29,11 +29,15 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     var isOpeningInARView = true
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Jeremy, after reseting table by adding delete statement in createTable(), you should run sqlCommand.insertInitData( ) just once and restart the app with the original condition.
         sqlCommand.createTable()
         //sqlCommand.insertInitData( )
         loadImg()
         collectionView.delegate = self
         collectionView.dataSource = self
+        initLocation()
+        findLocation()
     }
     @IBAction func btnselectPress(_ sender: UIButton) {
         selectAction()
@@ -118,8 +122,8 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     func loadImg(){
         location.removeAll()
         sampImgs.removeAll()
-        location = sqlCommand.selectAllLocation(isUnityMode:isOpeningInARView, longitude:longitude, latitude:latitude)
-        files = sqlCommand.selectAllPicture(isUnityMode:isOpeningInARView, longitude:longitude, latitude:latitude)
+        location = sqlCommand.selectAllLocation()
+        files = sqlCommand.selectAllPicture()
         for file in (files.keys){
             sampImgs.append(file)
             //documentPath + ( files![file]![0] as! String )

@@ -206,7 +206,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                     isNewProject = false
                     sqlCommand.createTable()
                     pid = sqlCommand.insertImage(names: imgSet)
-                    sqlCommand.selectAllPicture(isUnityMode:false, longitude:0, latitude:0)
+                    sqlCommand.selectAllPicture()
                     let haveObject = !arObjStatsDict.isEmpty
                     var specId : Int?
                     specId = nil

@@ -83,10 +83,9 @@ class SqlCommand{
         }
     }
     
-    func selectAllLocation(isUnityMode:Bool, longitude:Float, latitude:Float)->[Int:String]{
+    func selectAllLocation()->[Int:String]{
         var selectStatement: OpaquePointer?
-        let selectQuery = "SELECT DISTINCT a.pid, (a.city || \",\" || a.state) AS location FROM ARSpace a, Picture p WHERE a.pId=p.pId" +
-            getCoordinateConditionStatement(isUnityMode:isUnityMode, longitude:longitude, latitude:latitude)
+        let selectQuery = "SELECT DISTINCT a.pid, (a.city || \",\" || a.state) AS location FROM ARSpace a, Picture p WHERE a.pId=p.pId"
         var fileList = [Int:String]()
         if sqlite3_prepare(db, selectQuery, -1, &selectStatement, nil) == SQLITE_OK{
             while sqlite3_step(selectStatement) == SQLITE_ROW{
@@ -101,10 +100,9 @@ class SqlCommand{
         print(fileList)
         return fileList
     }
-    func selectAllPicture(isUnityMode:Bool, longitude:Float, latitude:Float)->[Int:[Int:String]]{
+    func selectAllPicture()->[Int:[Int:String]]{
         var selectStatement: OpaquePointer?
-        let selectQuery = "SELECT p.pId,p.surface,p.fileName FROM Picture p, ARSpace a WHERE p.pId=a.aId" +
-            getCoordinateConditionStatement(isUnityMode:isUnityMode, longitude:longitude, latitude:latitude)
+        let selectQuery = "SELECT * FROM Picture"
         var fileList = [Int:[Int:String]]()
         if sqlite3_prepare(db, selectQuery, -1, &selectStatement, nil) == SQLITE_OK{
             var subDictionary : [Int : String] = [Int: String]()
