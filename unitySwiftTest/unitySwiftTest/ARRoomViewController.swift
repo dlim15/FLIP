@@ -120,7 +120,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     func moveItem( key : String, hitResult : ARHitTestResult ){
         let floorYValues : [String:Float] = ["table" : -0.213,
                                              "toliet" : -0.063,
-                                             "plant1" : -0.263,
+                                             "plant1" : -0.263 + -0.78,
                                              "chair" : -0.262]
         roomItems[key]?.worldPosition = SCNVector3(x:hitResult.worldTransform.columns.3.x,
                                                    y:floorYValues[key]!,
@@ -174,7 +174,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     func setObjectPositionFromDictInSwift( objectKey : String ) -> SCNVector3 {
         let floorYValues : [String:Float] = ["table" : -0.213,
                                              "toliet" : -0.063,
-                                             "plant1" : -0.263,
+                                             "plant1" : -0.263 + -0.78,
                                              "chair" : -0.262]
         
         let result : SCNVector3 = SCNVector3(x: ( (ARObjectStats![objectKey]!["xpos"] as! Float) / 3.5 ) * -0.9,
@@ -236,7 +236,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         for key in roomItems.keys {
             result[key] = [
                 "name" : key,
-                "xpos" : ((roomItems[key]?.worldPosition.x)! * -0.868478325),
+                "xpos" : ((roomItems[key]?.worldPosition.x)! * 0.868478325),
                 "ypos" : ARObjectStats![key]!["ypos"]!,
                 "zpos" : ((roomItems[key]?.worldPosition.z)! * -0.868478325),
                 "xsca" : (roomItems[key]?.scale.x)! / baseScaleValues[key]!,
