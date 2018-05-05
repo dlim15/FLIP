@@ -70,6 +70,19 @@ class SqlCommand{
         proceedData(query: insertQuery, tableName:"Picture", proceeding:"insert")
         return maxId
     }
+    func updateImage( names : [String], pid : Int ){
+        var i = 0
+        for name in names{
+            let updateQuery = "UPDATE Picture SET "
+            let updatingVars = "fileName = '\(name)' "
+            let wherePart = "WHERE pId = \(pid) AND surface = \(i)"
+            let resultQuery = updateQuery + updatingVars + wherePart
+            print(resultQuery)
+            proceedData(query: resultQuery, tableName:"Picture", proceeding:"update")
+            i += 1
+        }
+    }
+    
     func selectAllLocation()->[Int:String]{
         var selectStatement: OpaquePointer?
         let selectQuery = "SELECT DISTINCT a.pid, (a.city || \",\" || a.state) AS location FROM ARSpace a, Picture p WHERE a.pId=p.pId;"

@@ -8,6 +8,7 @@
 
 class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    @IBOutlet weak var toggleARViewButton: UIButton!
     @IBOutlet weak var btnselect: UIButton!
     @IBOutlet weak var btnRemove: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -21,10 +22,12 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     let dialog = DialogActions()
     var files:[Int:[Int:String]] = [:]
     var location:[Int:String] = [:]
+    var isOpeningInARView = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         sqlCommand.createTable()
-        //sqlCommand.insertInitData()
+//        sqlCommand.insertInitData( )
         loadImg()
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -48,10 +51,13 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
             
         }
     }
-    @IBAction func ARRoomTestClicked(_ sender: Any) {
-        let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
-        self.navigationController?.pushViewController(arRoomViewController, animated: true)
-        
+    @IBAction func toggleARViewAndARRoom(_ sender: Any) {
+        isOpeningInARView = !isOpeningInARView
+        if isOpeningInARView{
+            toggleARViewButton.setTitle("Open Project in AR View", for: UIControlState.normal)
+        } else {
+            toggleARViewButton.setTitle("Open Project in AR Room", for: UIControlState.normal)
+        }
     }
     @IBAction func btnRemovePress(_ sender: UIButton) {
         dialog.alertMsg(controller:self) {
@@ -96,6 +102,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBAction func plusButtonAction(_ sender: Any) {
         let arViewController:ARController = self.storyboard?.instantiateViewController(withIdentifier: "ARController") as! ARController
+        arViewController.setIsNewProject(isNewProject: true)
         self.navigationController?.pushViewController(arViewController, animated: true)
     }
     
@@ -120,12 +127,18 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
             selectedImgs.append(indexPath.row)
             selectedTrack(count: selectedImgs.count)
         }else{
-            let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
-            
-            arRoomViewController.setImgSet( path:documentPath, paramsImgSet: files[sampImgs[indexPath.row]]! )
-            arRoomViewController.setSpaceId(pid: sampImgs[indexPath.row])
-            arRoomViewController.browseObjStats()
-            self.navigationController?.pushViewController(arRoomViewController, animated: true)
+            if isOpeningInARView{
+                let arViewController:ARController = self.storyboard?.instantiateViewController(withIdentifier: "ARController") as! ARController
+                arViewController.setPid(pid: sampImgs[indexPath.row])
+                arViewController.setIsNewProject(isNewProject: false)
+                self.navigationController?.pushViewController(arViewController, animated: true)
+            } else {
+                let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
+                arRoomViewController.setImgSet( path:documentPath, paramsImgSet: files[sampImgs[indexPath.row]]! )
+                arRoomViewController.setSpaceId(pid: sampImgs[indexPath.row])
+                arRoomViewController.browseObjStats()
+                self.navigationController?.pushViewController(arRoomViewController, animated: true)
+            }
         }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

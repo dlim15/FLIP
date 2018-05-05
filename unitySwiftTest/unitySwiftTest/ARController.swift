@@ -33,6 +33,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     @IBOutlet weak var lblInstruction: UILabel!
     @IBOutlet weak var btnUndo: UIButton!
     var pid = -1
+    var isNewProject : Bool = true
     let locationManager = CLLocationManager()
     var locality:String? = ""
     var postal:String? = ""
@@ -104,7 +105,6 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     func findLocation(manager: CLLocationManager!){
         print("HERE2")
         CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error)->Void in
-            
             if (error != nil) {
                 print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
                 return
@@ -194,20 +194,24 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                 appDelegate?.stopUnity()
                 let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
                 arRoomViewController.setImgSet(paramsImgSet: imgSet)
-                sqlCommand.createTable()
-                pid = sqlCommand.insertImage(names: imgSet)
-                sqlCommand.selectAllPicture()
-                let haveObject = !arObjStatsDict.isEmpty
-                var specId : Int?
-                specId = nil
-                if haveObject{
-                    specId = sqlCommand.insertObjectSpec(dataList: arObjStatsDict)
-                    
+                if isNewProject{
+                    sqlCommand.createTable()
+                    pid = sqlCommand.insertImage(names: imgSet)
+                    sqlCommand.selectAllPicture()
+                    let haveObject = !arObjStatsDict.isEmpty
+                    var specId : Int?
+                    specId = nil
+                    if haveObject{
+                        specId = sqlCommand.insertObjectSpec(dataList: arObjStatsDict)
+                    }
+                    sqlCommand.insertArSpaceElement(pId: pid, specId: specId, city: self.locality!, postal: self.postal!, state: self.admin!, country: self.country!)
+                    sqlCommand.selectArSpace()
+                } else {
+                    sqlCommand.updateObjectSpec(dataList: arObjStatsDict, spaceId: sqlCommand.getSpaceId(pId: pid))
+                    sqlCommand.updateImage(names: imgSet, pid: pid)
                 }
-                sqlCommand.insertArSpaceElement(pId: pid, specId: specId, city: self.locality!, postal: self.postal!, state: self.admin!, country: self.country!)
-                sqlCommand.selectArSpace()
                 arRoomViewController.setSpaceId(pid: pid)
-                
+                imgSet.removeAll()
                 self.navigationController?.pushViewController(arRoomViewController, animated: true)
             }
         }
@@ -286,8 +290,6 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         imagePicker.dismiss(animated: false, completion: nil)
-
-        
         let fileManager = FileManager.default
         let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("test.jpg")
         let image = UIImage(named: "test.jpg")
@@ -303,13 +305,18 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     }
     
     @IBAction func loadButtonPressed(_ sender: Any) {
-        print("PID: \(pid)" )
         let spaceID = sqlCommand.getSpaceId(pId: pid)
         let info : String = sqlCommand.selectObjectSpec(spaceId: spaceID, isDictionary: false) as! String
         UnityPostMessage("NATIVE_BRIDGE", "loadFromDict", "-\(info)")
     }
     
+    func setIsNewProject( isNewProject : Bool ){
+        self.isNewProject = isNewProject
+    }
     
+    func setPid( pid : Int ){
+        self.pid = pid
+    }
 
     /*
     // MARK: - Navigation
