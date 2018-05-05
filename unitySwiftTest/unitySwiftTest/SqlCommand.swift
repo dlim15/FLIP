@@ -279,7 +279,11 @@ class SqlCommand{
                 if sqlite3_column_type(selectStatement, 2) != SQLITE_NULL{
                     specId = Int(sqlite3_column_int(selectStatement, 2))
                 }
-                print( "spaceId:\(spaceId) , pid : , \(pid), specId : \(specId)" )
+                let city = String( cString:sqlite3_column_text(selectStatement, 3) )
+                let state = String( cString:sqlite3_column_text(selectStatement, 5) )
+                let long =  sqlite3_column_int(selectStatement, 7)
+                let lat =  sqlite3_column_int(selectStatement, 8)
+                print( "spaceId:\(spaceId) , pid : , \(pid), specId : \(specId), city : \(city), state : \(state), long : \(long),lat : \(lat)" )
             }
         }
         sqlite3_finalize(selectStatement)

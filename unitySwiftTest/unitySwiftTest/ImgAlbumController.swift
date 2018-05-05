@@ -30,9 +30,8 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Jeremy, after reseting table by adding delete statement in createTable(), you should run sqlCommand.insertInitData( ) just once and restart the app with the original condition.
         sqlCommand.createTable()
-        sqlCommand.insertInitData( )
+        //sqlCommand.insertInitData( )
         loadImg()
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -120,8 +119,10 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         
     }
     func loadImg(){
+        sqlCommand.selectArSpace()
         location.removeAll()
         sampImgs.removeAll()
+        files.removeAll()
         location = sqlCommand.selectAllLocation()
         files = sqlCommand.selectAllPicture()
         for file in (files.keys){
@@ -130,6 +131,8 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         sampImgs.sort()
         print (sampImgs)
+        print(files)
+        print(location)
     }
     
     @IBAction func plusButtonAction(_ sender: Any) {
@@ -146,7 +149,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImgCell", for: indexPath) as! ImgAlbumCell
         cell.ARImage.image = UIImage( data:FileManager.default.contents(
             atPath:documentPath + ( files[sampImgs[ indexPath.row ]]?[0] as! String ) )! )
-        cell.Location.text = location[ indexPath.row ]
+        cell.Location.text = location[ sampImgs[indexPath.row] ]
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1
         
@@ -156,7 +159,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         if selectOn{
             let cell = collectionView.cellForItem(at: indexPath)
             cell?.layer.borderColor = UIColor.cyan.cgColor
-            selectedImgs.append(indexPath.row)
+            selectedImgs.append(sampImgs[indexPath.row])
             selectedTrack(count: selectedImgs.count)
         }else{
             if isOpeningInARView{
@@ -178,7 +181,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
             let cell = collectionView.cellForItem(at: indexPath)
             cell?.layer.borderColor = UIColor.black.cgColor
             for i in 0...selectedImgs.count-1{
-                if(selectedImgs[i] == indexPath.row){
+                if(selectedImgs[i] == sampImgs[indexPath.row]){
                     selectedImgs.remove(at: i)
                     break
                 }
@@ -187,6 +190,8 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     func removeAction(){
+        print("selected image")
+        print(selectedImgs)
         selectedImgs.sort()
         let fileManager = FileManager.default
         do{
@@ -203,6 +208,9 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func removeImages(i : Int, fileManager : FileManager) throws {
+        print(sampImgs)
+        print(files)
+        print(location)
         sqlCommand.removeArSpace(picId:i)
         for file in (files[i]?.values)!{
             try fileManager.removeItem(atPath: documentPath + ( file as! String ))
