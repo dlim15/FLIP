@@ -197,7 +197,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     
     func setObjectScaleFromDictInSwift( objectKey : String ) -> SCNVector3 {
         let baseScaleValues : [String:Float] = ["table" : 0.016666667,
-                                                "toliet" : 0.06,
+                                                "toliet" : 0.04,
                                                 "plant1" : 0.04,
                                                 "chair" : 0.033333333]
         
@@ -233,7 +233,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
         var result : [String:[String:Any?]] = [String:[String:Any?]]()
         
         let baseScaleValues : [String:Float] = ["table" : 0.016666667,
-                                                "toliet" : 0.06,
+                                                "toliet" : 0.04,
                                                 "plant1" : 0.04,
                                                 "chair" : 0.033333333]
         for key in roomItems.keys {

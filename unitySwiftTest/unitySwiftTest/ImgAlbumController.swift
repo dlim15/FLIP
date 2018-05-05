@@ -32,7 +32,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         
         // Jeremy, after reseting table by adding delete statement in createTable(), you should run sqlCommand.insertInitData( ) just once and restart the app with the original condition.
         sqlCommand.createTable()
-        //sqlCommand.insertInitData( )
+        sqlCommand.insertInitData( )
         loadImg()
         collectionView.delegate = self
         collectionView.dataSource = self
