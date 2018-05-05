@@ -32,6 +32,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var lblInstruction: UILabel!
     @IBOutlet weak var btnUndo: UIButton!
+    @IBOutlet weak var loadButton: UIButton!
     var pid = -1
     var isNewProject : Bool = true
     let locationManager = CLLocationManager()
@@ -51,6 +52,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
         picturesTaken = 0
         imgSet.removeAll()
         initLocation()
+        loadButton.isHidden = isNewProject
         // Do any additional setup after loading the view.
     }
     
@@ -210,6 +212,9 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                     let haveObject = !arObjStatsDict.isEmpty
                     var specId : Int?
                     specId = nil
+                    if !arObjStatsDict.isEmpty{
+                        loadButton.isHidden = false
+                    }
                     if haveObject{
                         specId = sqlCommand.insertObjectSpec(dataList: arObjStatsDict)
                     }
@@ -315,6 +320,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
     }
     
     @IBAction func loadButtonPressed(_ sender: Any) {
+        
         let spaceID = sqlCommand.getSpaceId(pId: pid)
         let info : String = sqlCommand.selectObjectSpec(spaceId: spaceID, isDictionary: false) as! String
         UnityPostMessage("NATIVE_BRIDGE", "loadFromDict", "-\(info)")

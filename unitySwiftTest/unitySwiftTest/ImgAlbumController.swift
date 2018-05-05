@@ -31,7 +31,7 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
         
         sqlCommand.createTable()
-        //sqlCommand.insertInitData( )
+//        sqlCommand.insertInitData( )
         loadImg()
         collectionView.delegate = self
         collectionView.dataSource = self

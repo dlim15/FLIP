@@ -105,7 +105,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Hgt-g9-t6n">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="343"/>
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="343"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="375" id="2WM-5V-Glr"/>
@@ -187,7 +187,7 @@
                                         </switch>
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="FiW-dN-seg">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5Pv-zs-EAq">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5Pv-zs-EAq">
                                             <rect key="frame" x="326" y="7" width="167" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Open Project in AR View">
@@ -197,8 +197,8 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="xB8-d9-CFd"/>
                                     <barButtonItem style="plain" id="4OF-Vr-3oH">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ui3-iA-NCK">
-                                            <rect key="frame" x="602" y="7" width="45" height="30"/>
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ui3-iA-NCK">
+                                            <rect key="frame" x="584" y="7" width="63" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Delete">
                                                 <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -276,7 +276,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZXU-9V-aRq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1379.3478260869567" y="-630.43478260869574"/>
+            <point key="canvasLocation" x="1378.56071964018" y="-631.20000000000005"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="iHg-EV-Ysg">
@@ -385,6 +385,7 @@
                         <outlet property="btnUndo" destination="cLO-KR-111" id="SnF-of-21C"/>
                         <outlet property="cameraButton" destination="f4z-cf-Mma" id="d7b-Q4-CjF"/>
                         <outlet property="lblInstruction" destination="9nh-0O-hbG" id="Orh-e5-v7d"/>
+                        <outlet property="loadButton" destination="MqQ-aJ-3n0" id="5EZ-Mr-zah"/>
                         <outlet property="loadingSpinner" destination="NFi-Ky-5gT" id="bhE-Dd-czk"/>
                     </connections>
                 </viewController>
