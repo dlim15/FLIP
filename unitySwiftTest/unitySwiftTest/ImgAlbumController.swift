@@ -215,8 +215,5 @@ class ImgAlbumController: UIViewController, UICollectionViewDelegate, UICollecti
         for file in (files[i]?.values)!{
             try fileManager.removeItem(atPath: documentPath + ( file as! String ))
         }
-        sampImgs.remove(at: i)
-        files.removeValue(forKey: i)
-        location.removeValue(forKey: i)
     }
 }
