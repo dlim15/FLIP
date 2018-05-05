@@ -175,7 +175,6 @@ public unsafe class NativeBridge : MonoBehaviour
 		if (isSavingScreenshot && System.IO.File.Exists(Application.persistentDataPath + filename )) {
 			isSavingScreenshot = false;
 			Debug.Log ( ARObjStats );
-			UnityFinishedTakingScreenshot( filename, ARObjStats );
 			ARObjects = GameObject.FindGameObjectsWithTag("ARObject");
 			foreach (GameObject ARObject in ARObjects)
 			{
@@ -191,7 +190,7 @@ public unsafe class NativeBridge : MonoBehaviour
 					ARObject.transform.position.y - 99999,
 					ARObject.transform.position.z);
 			}
-
+			UnityFinishedTakingScreenshot( filename, ARObjStats );
 		}
 	}
 

@@ -78,13 +78,16 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
             let touchLocation = touch.location(in: sceneView)
             // to perform to get the 3D coordinate corresponding to the 2D coord.
             // 3d coord will only be considered when it is on the existing plane we detected.
-            let results = sceneView.hitTest(touchLocation, types: .estimatedHorizontalPlane)
-            
-            // check if we got some result using hitTest.
-            if let hitResult = results.first{
-                if (touchCount == 0){
+            if touchCount == 0{
+                let results = sceneView.hitTest(touchLocation, types: .estimatedHorizontalPlane)
+                
+                // check if we got some result using hitTest.
+                if let hitResult = results.first{
                     initRoom(hitResult: hitResult)
-                } else {
+                }
+            } else {
+                let results = sceneView.hitTest(touchLocation, types: .existingPlane)
+                if let hitResult = results.first{
                     if !keys.isEmpty{
                         moveItem(key: keys[keyNum], hitResult: hitResult)
                     }
@@ -100,7 +103,7 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
             
             // to perform to get the 3D coordinate corresponding to the 2D coord.
             // 3d coord will only be considered when it is on the existing plane we detected.
-            let results = sceneView.hitTest(touchLocation, types: .estimatedHorizontalPlane)
+            let results = sceneView.hitTest(touchLocation, types: .existingPlane)
             
             // check if we got some result using hitTest.
             if let hitResult = results.first{
@@ -118,10 +121,10 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func moveItem( key : String, hitResult : ARHitTestResult ){
-        let floorYValues : [String:Float] = ["table" : -0.213,
-                                             "toliet" : -0.063,
-                                             "plant1" : -0.263 + -0.78,
-                                             "chair" : -0.262]
+        let floorYValues : [String:Float] = ["table" : -0.0639,
+                                             "toliet" : -0.189,
+                                             "plant1" : -1.05,
+                                             "chair" : -0.786]
         roomItems[key]?.worldPosition = SCNVector3(x:hitResult.worldTransform.columns.3.x,
                                                    y:floorYValues[key]!,
                                                    z:hitResult.worldTransform.columns.3.z)
@@ -172,14 +175,14 @@ class ARRoomViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func setObjectPositionFromDictInSwift( objectKey : String ) -> SCNVector3 {
-        let floorYValues : [String:Float] = ["table" : -0.213,
+        let floorYValues : [String:Float] = ["table" : -0.0639,
                                              "toliet" : -0.063,
-                                             "plant1" : -0.263 + -0.78,
+                                             "plant1" : -0.263,
                                              "chair" : -0.262]
         
-        let result : SCNVector3 = SCNVector3(x: ( (ARObjectStats![objectKey]!["xpos"] as! Float) / 3.5 ) * -0.9,
+        let result : SCNVector3 = SCNVector3(x: ( (ARObjectStats![objectKey]!["zpos"] as! Float) ) * -0.3,
                                              y: (floorYValues[objectKey])!,
-                                             z: ( (ARObjectStats![objectKey]!["zpos"] as! Float) / 3.5 ) * 0.9 )
+                                             z: ( (ARObjectStats![objectKey]!["xpos"] as! Float) ) * -0.3 )
         print("***** \(objectKey) POSITION: \(result)")
         return result
     }
