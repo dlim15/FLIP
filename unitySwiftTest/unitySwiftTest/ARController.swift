@@ -195,6 +195,7 @@ class ARController: UIViewController, UINavigationControllerDelegate, UIImagePic
                 let arRoomViewController:ARRoomViewController = self.storyboard?.instantiateViewController(withIdentifier: "ARRoomViewController") as! ARRoomViewController
                 arRoomViewController.setImgSet(paramsImgSet: imgSet)
                 if isNewProject{
+                    isNewProject = false
                     sqlCommand.createTable()
                     pid = sqlCommand.insertImage(names: imgSet)
                     sqlCommand.selectAllPicture()
